@@ -43,6 +43,9 @@
             // guna2BorderlessForm1
             // 
             this.guna2BorderlessForm1.AnimateWindow = true;
+            this.guna2BorderlessForm1.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_BLEND;
+            this.guna2BorderlessForm1.DragMode = Guna.UI2.WinForms.Enums.DragMode.Form;
+            this.guna2BorderlessForm1.DragOrientation = Guna.UI2.WinForms.Enums.DragOrientation.Both;
             this.guna2BorderlessForm1.ShadowColor = System.Drawing.Color.DarkViolet;
             // 
             // guna2DataGridView1
@@ -81,7 +84,7 @@
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 30;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(913, 261);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(913, 270);
             this.guna2DataGridView1.TabIndex = 1;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
