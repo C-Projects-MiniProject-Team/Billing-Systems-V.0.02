@@ -344,6 +344,7 @@
             this.btnSupplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSupplier.TextOffset = new System.Drawing.Point(10, 0);
             this.btnSupplier.UseTransparentBackground = true;
+            this.btnSupplier.Click += new System.EventHandler(this.btnSupplier_Click);
             // 
             // btnCustomer
             // 
@@ -376,6 +377,7 @@
             this.btnCustomer.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnCustomer.TextOffset = new System.Drawing.Point(10, 0);
             this.btnCustomer.UseTransparentBackground = true;
+            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
             // btnProduct
             // 
