@@ -682,6 +682,17 @@ namespace MainClass
                     idColumn = "proID";
                 }
 
+                else if (tableName == "tblCustomer")  // Added for tblCustomer
+                {
+                    idColumn = "cusID";
+                }
+
+                
+                else if (tableName == "tblSupplier")
+                {
+                    idColumn = "supID";
+                }
+
                 // Ensure the ID column is defined
                 if (string.IsNullOrEmpty(idColumn))
                 {
@@ -790,6 +801,45 @@ namespace MainClass
                             ht.Add("@userID", editID);
                         }
                         break;
+
+
+                    case "tblCustomer":
+                        if (type == enmType.Insert)
+                        {
+                            qry = $"INSERT INTO {tableName} (cName, cPhone, cEmail, cAddress) VALUES (@cName, @cPhone, @cEmail, @cAddress)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            qry = $"UPDATE {tableName} SET cName = @cName, cPhone = @cPhone, cEmail = @cEmail, cAddress = @cAddress WHERE cusID = @cusID";
+                            ht.Add("@cusID", editID);
+                        }
+                        else if (type == enmType.Delete && editID > 0)
+                        {
+                            qry = $"DELETE FROM {tableName} WHERE cusID = @cusID";
+                            ht.Add("@cusID", editID);
+                        }
+                        break;
+
+
+                    case "tblSupplier":
+                        if (type == enmType.Insert)
+                        {
+                            qry = $"INSERT INTO {tableName} (sName, sPhone, sEmail, sAddress) VALUES (@sName, @sPhone, @sEmail, @sAddress)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            qry = $"UPDATE {tableName} SET sName = @sName, sPhone = @sPhone, sEmail = @sEmail, sAddress = @sAddress WHERE supID = @supID";
+                            ht.Add("@supID", editID);
+                        }
+                        else if (type == enmType.Delete && editID > 0)
+                        {
+                            qry = $"DELETE FROM {tableName} WHERE supID = @supID";
+                            ht.Add("@supID", editID);
+                        }
+                        break;
+
+
+
 
                     default:
                         MessageBox.Show("Invalid table name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
