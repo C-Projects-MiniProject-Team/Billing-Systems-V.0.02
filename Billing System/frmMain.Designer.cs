@@ -312,6 +312,7 @@
             this.btnPurchase.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPurchase.TextOffset = new System.Drawing.Point(10, 0);
             this.btnPurchase.UseTransparentBackground = true;
+            this.btnPurchase.Click += new System.EventHandler(this.btnPurchase_Click);
             // 
             // btnSupplier
             // 
