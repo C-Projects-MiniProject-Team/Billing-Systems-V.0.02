@@ -131,6 +131,12 @@
     <Compile Include="Model\frmProductAdd.Designer.cs">
       <DependentUpon>frmProductAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\frmPurchaseAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\frmPurchaseAdd.Designer.cs">
+      <DependentUpon>frmPurchaseAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\frmSupAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,12 @@
     <Compile Include="View\frmProduct.Designer.cs">
       <DependentUpon>frmProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmPurchase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmPurchase.Designer.cs">
+      <DependentUpon>frmPurchase.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmSupplier.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +220,9 @@
     <EmbeddedResource Include="Model\frmProductAdd.resx">
       <DependentUpon>frmProductAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Model\frmPurchaseAdd.resx">
+      <DependentUpon>frmPurchaseAdd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\frmSupAdd.resx">
       <DependentUpon>frmSupAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmProduct.resx">
       <DependentUpon>frmProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmPurchase.resx">
+      <DependentUpon>frmPurchase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmSupplier.resx">
       <DependentUpon>frmSupplier.cs</DependentUpon>
