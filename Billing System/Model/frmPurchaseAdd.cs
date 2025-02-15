@@ -110,7 +110,7 @@ namespace Billing_System.Model
         private void guna2DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             // When clicking on a cell, make the search GridView visible
-            guna2DataGridView2.Visible = true;
+            guna2DataGridView2.Visible = false;
 
             if (guna2DataGridView1.CurrentCell.ColumnIndex == 3)
             {
@@ -172,6 +172,17 @@ namespace Billing_System.Model
         private void guna2DataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             MainClass.Functions.SrNo(guna2DataGridView1);
+        }
+
+        private void Discount_TextChanged(object sender, EventArgs e)
+        {
+            double amt = 0;
+            double dis = 0;
+
+            double.TryParse(mTotal.Text, out amt);
+            double.TryParse(Discount.Text, out dis);
+
+            NetAmount.Text = (amt - dis).ToString("N0");
         }
     }
 }

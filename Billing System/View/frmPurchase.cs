@@ -20,20 +20,17 @@ namespace Billing_System.View
 
         private void frmPurchase_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private async void LoadData()
         {
-            string qry = @"
-                        SELECT 0 AS 'Sr', mainID, mdate AS 'Date', mDueDate AS 'Due Date', 
-                               s.sName AS 'Supplier Name', mTotal AS 'Gross Amount', 
-                               Discount, NetAmount AS 'Net Amount'
-                        FROM tblInvMain m
-                        INNER JOIN tblSupplier s ON m.PersonID = s.supID
-                        WHERE mType = 'Purchase' 
-                        AND sName LIKE '%' + txtSearch.Text + '%' 
-                        ORDER BY mainID";
+            string qry = @"Select 0 'Sr', mainID , mdate 'Date' , mDueDate 'Due Date', s.sName 'Supplier Name',
+                    mTotal 'Gross Amount' , Discount , NetAmount 'Net Amount'
+                    from tblInvMain   m
+                    inner join tblSupplier s on m.PersonID = s.supID
+                    where mType = 'Purchase' and
+                    sName like '%" + txtSearch.Text + "%' order by mainID";
 
 
             DataTable dt = null;
@@ -61,16 +58,18 @@ namespace Billing_System.View
             }
         }
 
+
+
         // Method to adjust the "Sr" column width
         private void SetSrColumnWidth()
         {
             if (guna2DataGridView1.Columns["Sr#"] != null)
             {
-                guna2DataGridView1.Columns["Sr#"].Width = 80; // Adjust the width
+                guna2DataGridView1.Columns["Sr#"].Width = 1; // Adjust the width
             }
-            if (guna2DataGridView1.Columns["proID"] != null)
+            if (guna2DataGridView1.Columns["sName"] != null)
             {
-                guna2DataGridView1.Columns["proID"].Width = 80; // Adjust the width of "proID"
+                guna2DataGridView1.Columns["sName"].Width = 180; // Adjust the width of "proID"
             }
         }
 
