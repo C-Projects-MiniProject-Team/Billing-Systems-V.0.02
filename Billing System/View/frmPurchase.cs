@@ -25,18 +25,16 @@ namespace Billing_System.View
 
         private async void LoadData()
         {
-            string qry = @"Select ROW_NUMBER() OVER(ORDER BY mainID) AS 'Sr#', 
-                            mainID, 
-                            mdate AS 'Date', 
-                            mDueDate AS 'Due Date', 
-                            s.sName AS 'Supplier Name', 
-                            mTotal AS 'Gross Amount', 
-                            Discount, 
-                            NetAmount AS 'Net Amount'
+            string qry = @"
+                        SELECT 0 AS 'Sr', mainID, mdate AS 'Date', mDueDate AS 'Due Date', 
+                               s.sName AS 'Supplier Name', mTotal AS 'Gross Amount', 
+                               Discount, NetAmount AS 'Net Amount'
                         FROM tblInvMain m
                         INNER JOIN tblSupplier s ON m.PersonID = s.supID
-                        WHERE mType = 'Purchase' and
-                        where sName like '%" + txtSearch.Text + "%' order by mainID";
+                        WHERE mType = 'Purchase' 
+                        AND sName LIKE '%' + txtSearch.Text + '%' 
+                        ORDER BY mainID";
+
 
             DataTable dt = null;
 

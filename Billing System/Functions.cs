@@ -53,6 +53,35 @@ namespace MainClass
         }
 
 
+        public static DataTable GetTable(string query)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                try
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching table data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+
+            return dt;
+        }
+
+
         public static object GetFieldValue(string query)
         {
             object value = null;
@@ -348,6 +377,83 @@ namespace MainClass
                 row.Cells[0].Value = count;
             }
         }
+
+
+        public static void LoadForEdit2(Form form, string tableName, string qry, DataGridView gv, int editID)
+        {
+            try
+            {
+                // Load data for DataGridView
+                DataTable dt = GetData(qry);
+                gv.DataSource = dt;
+
+                // ID column hide කරන්නේ නම්
+                if (gv.Columns.Count > 0 && gv.Columns[0].Name == "detailID")
+                {
+                    gv.Columns[0].Visible = false;
+                }
+
+                // Load form fields from main table
+                string idColumn = "";
+
+                if (tableName == "tblInvMain")
+                {
+                    idColumn = "mainID";
+                }
+
+                if (string.IsNullOrEmpty(idColumn))
+                {
+                    MessageBox.Show("Invalid table name provided.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string mainQuery = $"SELECT * FROM {tableName} WHERE {idColumn} = @id";
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    SqlCommand cmd = new SqlCommand(mainQuery, con);
+                    cmd.Parameters.AddWithValue("@id", editID);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable mainTable = new DataTable();
+                    da.Fill(mainTable);
+
+                    if (mainTable.Rows.Count > 0)
+                    {
+                        DataRow row = mainTable.Rows[0];
+
+                        foreach (Control c in form.Controls)
+                        {
+                            if (c is Guna.UI2.WinForms.Guna2TextBox txt)
+                            {
+                                string colName = txt.Name.Replace("txt", "");
+                                if (row.Table.Columns.Contains(colName))
+                                {
+                                    txt.Text = row[colName].ToString();
+                                }
+                            }
+                            else if (c is Guna.UI2.WinForms.Guna2ComboBox cb)
+                            {
+                                string colName = cb.Name.Replace("cmb", "");
+                                if (row.Table.Columns.Contains(colName))
+                                {
+                                    cb.SelectedValue = row[colName].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data for editing: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+
+
+
 
 
         //Clear...............................
