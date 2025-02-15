@@ -43,9 +43,6 @@
             // guna2BorderlessForm1
             // 
             this.guna2BorderlessForm1.AnimateWindow = true;
-            this.guna2BorderlessForm1.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_BLEND;
-            this.guna2BorderlessForm1.DragMode = Guna.UI2.WinForms.Enums.DragMode.Form;
-            this.guna2BorderlessForm1.DragOrientation = Guna.UI2.WinForms.Enums.DragOrientation.Both;
             this.guna2BorderlessForm1.ShadowColor = System.Drawing.Color.DarkViolet;
             // 
             // guna2DataGridView1
@@ -84,7 +81,7 @@
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 30;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(913, 270);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(1073, 363);
             this.guna2DataGridView1.TabIndex = 1;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -123,7 +120,7 @@
             this.guna2CustomGradientPanel2.FillColor4 = System.Drawing.Color.Transparent;
             this.guna2CustomGradientPanel2.Location = new System.Drawing.Point(0, 0);
             this.guna2CustomGradientPanel2.Name = "guna2CustomGradientPanel2";
-            this.guna2CustomGradientPanel2.Size = new System.Drawing.Size(964, 164);
+            this.guna2CustomGradientPanel2.Size = new System.Drawing.Size(1139, 164);
             this.guna2CustomGradientPanel2.TabIndex = 2;
             // 
             // label1
@@ -158,7 +155,7 @@
             this.btnAdd.Image = global::Billing_System.Properties.Resources.add;
             this.btnAdd.ImageOffset = new System.Drawing.Point(-1, 1);
             this.btnAdd.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnAdd.Location = new System.Drawing.Point(777, 82);
+            this.btnAdd.Location = new System.Drawing.Point(952, 82);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(138, 47);
             this.btnAdd.TabIndex = 0;
@@ -201,7 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 501);
+            this.ClientSize = new System.Drawing.Size(1139, 585);
             this.Controls.Add(this.guna2CustomGradientPanel2);
             this.Controls.Add(this.guna2DataGridView1);
             this.Name = "SampleView";
