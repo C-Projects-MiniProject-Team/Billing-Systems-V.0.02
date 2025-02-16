@@ -184,5 +184,64 @@ namespace Billing_System.Model
 
             NetAmount.Text = (amt - dis).ToString("N0");
         }
+
+
+
+
+        public override void btnSave_Click(object sender, EventArgs e)
+        {
+            if (editID == 0) 
+            {
+                MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Insert);
+            }
+            else
+            {
+                MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
+            }
+
+            guna2DataGridView1.Rows.Clear();
+            editID = 0;
+            MainClass.Functions.Reset_All(this);
+        }
+
+
+        public override void btnDelete_Click(object sender, EventArgs e)
+        {
+            MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Delete);
+            guna2DataGridView1.Rows.Clear();
+            editID = 0;
+            MainClass.Functions.Reset_All(this);
+
+        }
+
+
+
+        public override void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        private void mdate_TextChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mdate);
+        }
+
+
+        private void mDueDate_TextChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mDueDate);
+        }
+
+
+
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     }
 }

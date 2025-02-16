@@ -43,11 +43,9 @@
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InvlidN = new System.Windows.Forms.Label();
-            this.mdate = new Guna.UI2.WinForms.Guna2TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.PersonID = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.mDueDate = new Guna.UI2.WinForms.Guna2TextBox();
             this.pType = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -57,6 +55,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.NetAmount = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2DataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.mType = new System.Windows.Forms.Label();
+            this.mdate = new Guna.UI2.WinForms.Guna2TextBox();
+            this.mDueDate = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -99,13 +100,14 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            this.guna2DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
             this.guna2DataGridView1.Location = new System.Drawing.Point(44, 237);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 30;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(845, 356);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(829, 356);
             this.guna2DataGridView1.TabIndex = 3;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -198,39 +200,11 @@
             this.InvlidN.TabIndex = 11;
             this.InvlidN.Text = "Supplier Name";
             // 
-            // mdate
-            // 
-            this.mdate.BorderColor = System.Drawing.Color.DarkViolet;
-            this.mdate.BorderRadius = 9;
-            this.mdate.BorderThickness = 2;
-            this.mdate.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.mdate.DefaultText = "";
-            this.mdate.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.mdate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.mdate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.mdate.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.mdate.FillColor = System.Drawing.Color.Transparent;
-            this.mdate.FocusedState.BorderColor = System.Drawing.Color.Fuchsia;
-            this.mdate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.mdate.ForeColor = System.Drawing.Color.DarkViolet;
-            this.mdate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.mdate.Location = new System.Drawing.Point(324, 160);
-            this.mdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.mdate.Name = "mdate";
-            this.mdate.PasswordChar = '\0';
-            this.mdate.PlaceholderForeColor = System.Drawing.Color.DimGray;
-            this.mdate.PlaceholderText = "Date";
-            this.mdate.SelectedText = "";
-            this.mdate.Size = new System.Drawing.Size(195, 53);
-            this.mdate.TabIndex = 12;
-            this.mdate.TabStop = false;
-            this.mdate.Tag = "v";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(327, 129);
+            this.label2.Location = new System.Drawing.Point(316, 129);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 20);
             this.label2.TabIndex = 13;
@@ -259,39 +233,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(544, 129);
+            this.label3.Location = new System.Drawing.Point(528, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
             this.label3.TabIndex = 16;
             this.label3.Text = "Due Date";
-            // 
-            // mDueDate
-            // 
-            this.mDueDate.BorderColor = System.Drawing.Color.DarkViolet;
-            this.mDueDate.BorderRadius = 9;
-            this.mDueDate.BorderThickness = 2;
-            this.mDueDate.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.mDueDate.DefaultText = "";
-            this.mDueDate.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.mDueDate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.mDueDate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.mDueDate.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.mDueDate.FillColor = System.Drawing.Color.Transparent;
-            this.mDueDate.FocusedState.BorderColor = System.Drawing.Color.Fuchsia;
-            this.mDueDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.mDueDate.ForeColor = System.Drawing.Color.DarkViolet;
-            this.mDueDate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.mDueDate.Location = new System.Drawing.Point(535, 160);
-            this.mDueDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.mDueDate.Name = "mDueDate";
-            this.mDueDate.PasswordChar = '\0';
-            this.mDueDate.PlaceholderForeColor = System.Drawing.Color.DimGray;
-            this.mDueDate.PlaceholderText = "Due Date";
-            this.mDueDate.SelectedText = "";
-            this.mDueDate.Size = new System.Drawing.Size(195, 53);
-            this.mDueDate.TabIndex = 17;
-            this.mDueDate.TabStop = false;
-            this.mDueDate.Tag = "v";
             // 
             // pType
             // 
@@ -310,7 +256,7 @@
             this.pType.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.pType.Location = new System.Drawing.Point(747, 160);
+            this.pType.Location = new System.Drawing.Point(754, 160);
             this.pType.Name = "pType";
             this.pType.Size = new System.Drawing.Size(119, 45);
             this.pType.TabIndex = 18;
@@ -319,7 +265,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(752, 129);
+            this.label4.Location = new System.Drawing.Point(759, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 20);
             this.label4.TabIndex = 19;
@@ -329,7 +275,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(908, 360);
+            this.label5.Location = new System.Drawing.Point(908, 419);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(102, 20);
             this.label5.TabIndex = 21;
@@ -351,7 +297,7 @@
             this.mTotal.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.mTotal.ForeColor = System.Drawing.Color.DarkViolet;
             this.mTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.mTotal.Location = new System.Drawing.Point(1016, 345);
+            this.mTotal.Location = new System.Drawing.Point(1016, 404);
             this.mTotal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.mTotal.Name = "mTotal";
             this.mTotal.PasswordChar = '\0';
@@ -367,7 +313,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(908, 443);
+            this.label6.Location = new System.Drawing.Point(908, 480);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 20);
             this.label6.TabIndex = 23;
@@ -389,7 +335,7 @@
             this.Discount.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.Discount.ForeColor = System.Drawing.Color.DarkViolet;
             this.Discount.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Discount.Location = new System.Drawing.Point(1016, 428);
+            this.Discount.Location = new System.Drawing.Point(1016, 465);
             this.Discount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Discount.Name = "Discount";
             this.Discount.PasswordChar = '\0';
@@ -406,7 +352,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(908, 521);
+            this.label7.Location = new System.Drawing.Point(908, 539);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 20);
             this.label7.TabIndex = 25;
@@ -428,7 +374,7 @@
             this.NetAmount.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.NetAmount.ForeColor = System.Drawing.Color.DarkViolet;
             this.NetAmount.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.NetAmount.Location = new System.Drawing.Point(1016, 506);
+            this.NetAmount.Location = new System.Drawing.Point(1016, 524);
             this.NetAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.NetAmount.Name = "NetAmount";
             this.NetAmount.PasswordChar = '\0';
@@ -500,11 +446,84 @@
             this.guna2DataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView2_CellClick);
             this.guna2DataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.guna2DataGridView2_CellFormatting);
             // 
+            // mType
+            // 
+            this.mType.AutoSize = true;
+            this.mType.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mType.Location = new System.Drawing.Point(969, 185);
+            this.mType.Name = "mType";
+            this.mType.Size = new System.Drawing.Size(67, 20);
+            this.mType.TabIndex = 27;
+            this.mType.Text = "Purchase";
+            this.mType.Visible = false;
+            this.mType.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // mdate
+            // 
+            this.mdate.BorderColor = System.Drawing.Color.DarkViolet;
+            this.mdate.BorderRadius = 9;
+            this.mdate.BorderThickness = 2;
+            this.mdate.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.mdate.DefaultText = "";
+            this.mdate.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.mdate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.mdate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.mdate.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.mdate.FillColor = System.Drawing.Color.Transparent;
+            this.mdate.FocusedState.BorderColor = System.Drawing.Color.Fuchsia;
+            this.mdate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.mdate.ForeColor = System.Drawing.Color.DarkViolet;
+            this.mdate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.mdate.Location = new System.Drawing.Point(320, 160);
+            this.mdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mdate.Name = "mdate";
+            this.mdate.PasswordChar = '\0';
+            this.mdate.PlaceholderForeColor = System.Drawing.Color.DimGray;
+            this.mdate.PlaceholderText = "01/12/2024";
+            this.mdate.SelectedText = "";
+            this.mdate.Size = new System.Drawing.Size(195, 53);
+            this.mdate.TabIndex = 28;
+            this.mdate.TabStop = false;
+            this.mdate.Tag = "v";
+            this.mdate.TextChanged += new System.EventHandler(this.mdate_TextChanged);
+            // 
+            // mDueDate
+            // 
+            this.mDueDate.BorderColor = System.Drawing.Color.DarkViolet;
+            this.mDueDate.BorderRadius = 9;
+            this.mDueDate.BorderThickness = 2;
+            this.mDueDate.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.mDueDate.DefaultText = "";
+            this.mDueDate.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.mDueDate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.mDueDate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.mDueDate.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.mDueDate.FillColor = System.Drawing.Color.Transparent;
+            this.mDueDate.FocusedState.BorderColor = System.Drawing.Color.Fuchsia;
+            this.mDueDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.mDueDate.ForeColor = System.Drawing.Color.DarkViolet;
+            this.mDueDate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.mDueDate.Location = new System.Drawing.Point(532, 160);
+            this.mDueDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mDueDate.Name = "mDueDate";
+            this.mDueDate.PasswordChar = '\0';
+            this.mDueDate.PlaceholderForeColor = System.Drawing.Color.DimGray;
+            this.mDueDate.PlaceholderText = "10/12/2024";
+            this.mDueDate.SelectedText = "";
+            this.mDueDate.Size = new System.Drawing.Size(195, 53);
+            this.mDueDate.TabIndex = 29;
+            this.mDueDate.TabStop = false;
+            this.mDueDate.Tag = "v";
+            this.mDueDate.TextChanged += new System.EventHandler(this.mDueDate_TextChanged);
+            // 
             // frmPurchaseAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 725);
+            this.Controls.Add(this.mDueDate);
+            this.Controls.Add(this.mdate);
+            this.Controls.Add(this.mType);
             this.Controls.Add(this.guna2DataGridView2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.NetAmount);
@@ -514,15 +533,13 @@
             this.Controls.Add(this.mTotal);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.pType);
-            this.Controls.Add(this.mDueDate);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PersonID);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.InvlidN);
-            this.Controls.Add(this.mdate);
             this.Controls.Add(this.guna2DataGridView1);
             this.Name = "frmPurchaseAdd";
-            this.Text = "frmPurchaseAdd";
+            this.Text = "ෂ්";
             this.Load += new System.EventHandler(this.frmPurchaseAdd_Load);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).EndInit();
@@ -535,11 +552,9 @@
 
         public Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private System.Windows.Forms.Label InvlidN;
-        private Guna.UI2.WinForms.Guna2TextBox mdate;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2ComboBox PersonID;
         private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2TextBox mDueDate;
         private Guna.UI2.WinForms.Guna2ComboBox pType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -556,5 +571,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         public Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView2;
+        private System.Windows.Forms.Label mType;
+        private Guna.UI2.WinForms.Guna2TextBox mdate;
+        private Guna.UI2.WinForms.Guna2TextBox mDueDate;
     }
 }

@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
+using static System.Windows.Forms.AxHost;
 
 
 namespace MainClass
@@ -1021,6 +1024,263 @@ namespace MainClass
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }
+
+
+
+
+
+        public static void SQlAuto2(Form form, string mainTable, string detailTable, DataGridView dgv, int editID, enmType type)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
+
+                    try
+                    {
+                        if (type == enmType.Insert || type == enmType.Update)
+                        {
+                            // **INSERT OR UPDATE MAIN TABLE**
+                            string mainQuery;
+                            if (type == enmType.Insert)
+                            {
+                                
+
+                                mainQuery = $"INSERT INTO {mainTable} (PersonID, mdate, mDueDate, mTotal, Discount, NetAmount, mType, pType) " +
+                                            "VALUES (@PersonID, @mdate, @mDueDate, @mTotal, @Discount, @NetAmount, 'Purchase', 'Product'); SELECT SCOPE_IDENTITY();";
+                            }
+                            else
+                            {
+                                mainQuery = $"UPDATE {mainTable} SET PersonID=@PersonID, mdate=@mdate, mDueDate=@mDueDate, " +
+                                            "mTotal=@mTotal, Discount=@Discount, NetAmount=@NetAmount WHERE mainID=@mainID";
+                            }
+
+
+                            int mainID;
+                            using (SqlCommand cmd = new SqlCommand(mainQuery, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@PersonID", ((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
+                                Console.WriteLine(((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
+
+
+                                cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = DateTime.ParseExact(((Guna2TextBox)form.Controls["mdate"]).Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                Console.WriteLine(((Guna2TextBox)form.Controls["mdate"]).Text);
+
+                                cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = DateTime.ParseExact(((Guna2TextBox)form.Controls["mDueDate"]).Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                Console.WriteLine(((Guna2TextBox)form.Controls["mDueDate"]).Text);
+                                double totalAmount, discount, netAmount;
+
+                                // Validate Inputs
+                                if (!double.TryParse(((Guna2TextBox)form.Controls["mTotal"]).Text.Replace(",", ""), out totalAmount))
+                                {
+                                    MessageBox.Show("Invalid Gross Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (!double.TryParse(((Guna2TextBox)form.Controls["Discount"]).Text.Replace(",", ""), out discount))
+                                {
+                                    MessageBox.Show("Invalid Discount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (!double.TryParse(((Guna2TextBox)form.Controls["NetAmount"]).Text.Replace(",", ""), out netAmount))
+                                {
+                                    MessageBox.Show("Invalid Net Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                // Set Parameters Correctly
+                                cmd.Parameters.Add("@mTotal", SqlDbType.Float).Value = totalAmount;
+                                cmd.Parameters.Add("@Discount", SqlDbType.Float).Value = discount;
+                                cmd.Parameters.Add("@NetAmount", SqlDbType.Float).Value = netAmount;
+
+
+
+
+                                if (type == enmType.Insert)
+                                {
+                                    mainID = Convert.ToInt32(cmd.ExecuteScalar()); // Get new inserted mainID
+                                }
+                                else
+                                {
+                                    cmd.Parameters.AddWithValue("@mainID", editID);
+                                    cmd.ExecuteNonQuery();
+                                    mainID = editID;
+                                }
+                            }
+
+                            // **DELETE EXISTING DETAILS IF UPDATING**
+                            if (type == enmType.Update)
+                            {
+                                string deleteDetailQuery = $"DELETE FROM {detailTable} WHERE mainID=@mainID";
+                                using (SqlCommand cmd = new SqlCommand(deleteDetailQuery, con, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+
+                            // **INSERT INTO DETAIL TABLE**
+                            foreach (DataGridViewRow row in dgv.Rows)
+                            {
+                                if (row.IsNewRow) continue;
+
+                                double price, amount;
+                                int quantity;
+
+                                // Validate and Convert DataGridView Row Values
+                                if (!int.TryParse(row.Cells["qty"].Value.ToString(), out quantity))
+                                {
+                                    MessageBox.Show("Invalid Quantity!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (!double.TryParse(row.Cells["Price"].Value.ToString().Replace(",", ""), out price))
+                                {
+                                    MessageBox.Show("Invalid Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (!double.TryParse(row.Cells["Amount"].Value.ToString().Replace(",", ""), out amount))
+                                {
+                                    MessageBox.Show("Invalid Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                // Insert into Detail Table
+                                string detailQuery = $"INSERT INTO {detailTable} (mainID, proID, qty, Price, Amount) VALUES (@mainID, @proID, @qty, @Price, @Amount)";
+                                using (SqlCommand cmd = new SqlCommand(detailQuery, con, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                                    cmd.Parameters.AddWithValue("@proID", row.Cells["proID"].Value);
+                                    cmd.Parameters.Add("@qty", SqlDbType.Int).Value = quantity;
+                                    cmd.Parameters.Add("@Price", SqlDbType.Float).Value = price;
+                                    cmd.Parameters.Add("@Amount", SqlDbType.Float).Value = amount;
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+
+
+                            transaction.Commit();
+                            MessageBox.Show(type == enmType.Insert ? "Record inserted successfully!" : "Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (type == enmType.Delete && editID > 0)
+                        {
+                            // **DELETE OPERATION**
+                            DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (result == DialogResult.No)
+                            {
+                                return;
+                            }
+
+                            // **Delete from Detail Table First**
+                            string deleteDetailQuery = $"DELETE FROM {detailTable} WHERE mainID=@mainID";
+                            using (SqlCommand cmd = new SqlCommand(deleteDetailQuery, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@mainID", editID);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // **Delete from Main Table**
+                            string deleteMainQuery = $"DELETE FROM {mainTable} WHERE mainID=@mainID";
+                            using (SqlCommand cmd = new SqlCommand(deleteMainQuery, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@mainID", editID);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                            MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        public static void Reset_All(Form form)
+        {
+            try
+            {
+                foreach (Control c in form.Controls)
+                {
+                    if (c is Guna.UI2.WinForms.Guna2TextBox txt)
+                    {
+                        txt.Text = "";
+                    }
+                    else if (c is Guna.UI2.WinForms.Guna2ComboBox cmb)
+                    {
+                        cmb.SelectedIndex = -1;
+                    }
+                    else if (c is Guna.UI2.WinForms.Guna2CheckBox chk)
+                    {
+                        chk.Checked = false;
+                    }
+                    else if (c is Guna.UI2.WinForms.Guna2RadioButton rb)
+                    {
+                        rb.Checked = false;
+                    }
+                    else if (c is Guna.UI2.WinForms.Guna2DateTimePicker dtp)
+                    {
+                        dtp.Value = DateTime.Today;
+                    }
+                    else if (c is ListBox listBox)
+                    {
+                        listBox.ClearSelected();
+                    }
+                    else if (c is NumericUpDown num)
+                    {
+                        num.Value = 0;
+                    }
+                    else if (c is MaskedTextBox mtxt)
+                    {
+                        mtxt.Text = "";
+                    }
+                    else if (c is PictureBox pb)
+                    {
+                        pb.Image = null; // Clear PictureBox image
+                    }
+                }
+
+                MessageBox.Show("Form Reset Successfully!", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error resetting form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        public static void MaskD(Guna2TextBox guna2TextBox)
+        {
+            DateTime tempDate;
+            if (DateTime.TryParse(guna2TextBox.Text, out tempDate))
+            {
+                guna2TextBox.Text = tempDate.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                guna2TextBox.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+        }
+
+
+
 
 
 
