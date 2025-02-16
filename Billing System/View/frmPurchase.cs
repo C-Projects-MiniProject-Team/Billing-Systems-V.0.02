@@ -20,7 +20,7 @@ namespace Billing_System.View
 
         private void frmPurchase_Load(object sender, EventArgs e)
         {
-            
+            LoadData();
         }
 
         private async void LoadData()
