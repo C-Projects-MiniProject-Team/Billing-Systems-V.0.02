@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath;
 
 namespace Billing_System.View
 {
@@ -25,12 +26,20 @@ namespace Billing_System.View
 
         private async void LoadData()
         {
-            string qry = @"Select 0 'Sr', mainID , mdate 'Date' , mDueDate 'Due Date', s.sName 'Supplier Name',
-                    mTotal 'Gross Amount' , Discount , NetAmount 'Net Amount'
-                    from tblInvMain   m
-                    inner join tblSupplier s on m.PersonID = s.supID
-                    where mType = 'Purchase' and
-                    sName like '%" + txtSearch.Text + "%' order by mainID";
+                    string qry = @"
+            Select ROW_NUMBER() OVER (ORDER BY mainID) 'Sr', 
+                   mainID, 
+                   mdate 'Date', 
+                   mDueDate 'Due Date', 
+                   s.sName 'Supplier Name',
+                   mTotal 'Gross Amount', 
+                   Discount, 
+                   NetAmount 'Net Amount'
+            from tblInvMain m
+            inner join tblSupplier s on m.PersonID = s.supID
+            where mType = 'Purchase' 
+            and sName like '%" + txtSearch.Text + "%' order by mainID";
+
 
 
             DataTable dt = null;
@@ -48,30 +57,17 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
-                    SetSrColumnWidth(); // Call this after data is loaded
+                   
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
-                SetSrColumnWidth(); // Call this after data is loaded
+                
             }
         }
 
 
-
-        // Method to adjust the "Sr" column width
-        private void SetSrColumnWidth()
-        {
-            if (guna2DataGridView1.Columns["Sr#"] != null)
-            {
-                guna2DataGridView1.Columns["Sr#"].Width = 1; // Adjust the width
-            }
-            if (guna2DataGridView1.Columns["sName"] != null)
-            {
-                guna2DataGridView1.Columns["sName"].Width = 180; // Adjust the width of "proID"
-            }
-        }
 
         public override void txtSearch_TextChanged(object sender, EventArgs e)
         {
