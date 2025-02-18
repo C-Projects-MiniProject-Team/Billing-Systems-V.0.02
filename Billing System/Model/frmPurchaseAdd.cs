@@ -38,13 +38,20 @@ namespace Billing_System.Model
             guna2DataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(35, 112, 248);
 
             // For edit load Data
+            // For edit load Data
             if (editID > 0)
             {
-                string qry2 = @"select detailID, d.proID, pName, qty, Price, Amount 
-                    from tblInvDetail d inner join tblProduct p on p.proID = d.proID where d.mainID = " + editID + ";";
+                string qry2 = @"SELECT detailID, d.proID, pName, qty, Price, Amount 
+                     FROM tblInvDetail d 
+                     INNER JOIN tblProduct p ON p.proID = d.proID 
+                     WHERE d.mainID = "+editID+"";
 
-                MainClass.Functions.LoadForEdit2(this, "tblInvMain", qry2, guna2DataGridView1, editID);
+               MainClass.Functions.LoadForEdit2(this, "tblInvMain", qry2, guna2DataGridView1, editID);
             }
+
+
+
+
 
         }
 
