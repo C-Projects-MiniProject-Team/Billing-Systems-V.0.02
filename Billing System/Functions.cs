@@ -1065,33 +1065,35 @@ namespace MainClass
                                 Console.WriteLine(((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
 
 
-                                cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = DateTime.ParseExact(((Guna2TextBox)form.Controls["mdate"]).Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                Console.WriteLine(((Guna2TextBox)form.Controls["mdate"]).Text);
+                                cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;  // Use the Value property directly
+                                Console.WriteLine(((Guna2DateTimePicker)form.Controls["mdate"]).Text);
 
-                                cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = DateTime.ParseExact(((Guna2TextBox)form.Controls["mDueDate"]).Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                Console.WriteLine(((Guna2TextBox)form.Controls["mDueDate"]).Text);
+                                cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mDueDate"]).Text;
+                                Console.WriteLine(((Guna2DateTimePicker)form.Controls["mDueDate"]).Text);
+                                
                                 double totalAmount, discount, netAmount;
 
-                                // Validate Inputs
+                                // Validate and parse the Gross Amount
                                 if (!double.TryParse(((Guna2TextBox)form.Controls["mTotal"]).Text.Replace(",", ""), out totalAmount))
                                 {
                                     MessageBox.Show("Invalid Gross Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
 
+                                // Validate and parse the Discount
                                 if (!double.TryParse(((Guna2TextBox)form.Controls["Discount"]).Text.Replace(",", ""), out discount))
                                 {
                                     MessageBox.Show("Invalid Discount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
 
-                                if (!double.TryParse(((Guna2TextBox)form.Controls["NetAmount"]).Text.Replace(",", ""), out netAmount))
-                                {
-                                    MessageBox.Show("Invalid Net Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    return;
-                                }
+                                // Calculate Net Amount, ensuring precision
+                                netAmount = totalAmount - discount;
 
-                                // Set Parameters Correctly
+                                // Ensure that the Net Amount is formatted correctly
+                                netAmount = Math.Round(netAmount, 2); // Round to 2 decimal places if necessary
+
+                                // Assign the values to the parameters
                                 cmd.Parameters.Add("@mTotal", SqlDbType.Float).Value = totalAmount;
                                 cmd.Parameters.Add("@Discount", SqlDbType.Float).Value = discount;
                                 cmd.Parameters.Add("@NetAmount", SqlDbType.Float).Value = netAmount;
@@ -1102,13 +1104,18 @@ namespace MainClass
                                 if (type == enmType.Insert)
                                 {
                                     mainID = Convert.ToInt32(cmd.ExecuteScalar()); // Get new inserted mainID
+                                    MessageBox.Show("Record inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MainClass.Functions.Reset_All(form);  // Reset the form
                                 }
                                 else
                                 {
                                     cmd.Parameters.AddWithValue("@mainID", editID);
                                     cmd.ExecuteNonQuery();
                                     mainID = editID;
+                                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MainClass.Functions.Reset_All(form);  // Reset the form
                                 }
+
                             }
 
                             // **DELETE EXISTING DETAILS IF UPDATING**
@@ -1264,20 +1271,27 @@ namespace MainClass
         }
 
 
-
-
-        public static void MaskD(Guna2TextBox guna2TextBox)
+        private static void MaskD_TextChanged(object sender, EventArgs e)
         {
-            DateTime tempDate;
-            if (DateTime.TryParse(guna2TextBox.Text, out tempDate))
+            if (sender is Guna2DateTimePicker textBox)
             {
-                guna2TextBox.Text = tempDate.ToString("dd/MM/yyyy");
-            }
-            else
-            {
-                guna2TextBox.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                MaskD(textBox);
             }
         }
+
+
+
+
+
+        public static void MaskD(Guna2DateTimePicker guna2DateTimePicker)
+        {
+            DateTime tempDate = guna2DateTimePicker.Value; // Use the Value property directly
+
+            // Format the date as "dd/MM/yyyy"
+            guna2DateTimePicker.Text = tempDate.ToString("dd/MM/yyyy");
+        }
+
+
 
 
 

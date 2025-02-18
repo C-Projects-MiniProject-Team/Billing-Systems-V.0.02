@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Billing_System.Model
@@ -67,7 +68,8 @@ namespace Billing_System.Model
             double.TryParse(mTotal.Text, out amt);
             double.TryParse(Discount.Text, out dis);
 
-            NetAmount.Text = (amt - dis).ToString("N0");
+            NetAmount.Text = (amt - dis).ToString("N2"); // Keeps two decimal places
+
         }
 
         private void guna2DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -222,24 +224,23 @@ namespace Billing_System.Model
         }
 
 
-        private void mdate_TextChanged(object sender, EventArgs e)
-        {
-            MainClass.Functions.MaskD(mdate);
-        }
-
-
-        private void mDueDate_TextChanged(object sender, EventArgs e)
-        {
-            MainClass.Functions.MaskD(mDueDate);
-        }
-
-
-
-
         private void label4_Click(object sender, EventArgs e)
         {
 
         }
+
+
+        private void mdate_ValueChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mdate); // Correct method for Guna2DateTimePicker
+        }
+
+        private void mDueDate_ValueChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mDueDate); // Correct method for Guna2DateTimePicker
+        }
+
+
 
 
 
