@@ -382,83 +382,6 @@ namespace MainClass
         }
 
 
-        public static void LoadForEdit2(Form form, string tableName, string qry, DataGridView gv, int editID)
-        {
-            try
-            {
-                // Load data for DataGridView
-                DataTable dt = GetData(qry);
-                gv.DataSource = dt;
-
-                // ID column hide කරන්නේ නම්
-                if (gv.Columns.Count > 0 && gv.Columns[0].Name == "detailID")
-                {
-                    gv.Columns[0].Visible = false;
-                }
-
-                // Load form fields from main table
-                string idColumn = "";
-
-                if (tableName == "tblInvMain")
-                {
-                    idColumn = "mainID";
-                }
-
-                if (string.IsNullOrEmpty(idColumn))
-                {
-                    MessageBox.Show("Invalid table name provided.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                string mainQuery = $"SELECT * FROM {tableName} WHERE {idColumn} = @id";
-                using (SqlConnection con = new SqlConnection(conString))
-                {
-                    SqlCommand cmd = new SqlCommand(mainQuery, con);
-                    cmd.Parameters.AddWithValue("@id", editID);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable mainTable = new DataTable();
-                    da.Fill(mainTable);
-
-                    if (mainTable.Rows.Count > 0)
-                    {
-                        DataRow row = mainTable.Rows[0];
-
-                        foreach (Control c in form.Controls)
-                        {
-                            if (c is Guna.UI2.WinForms.Guna2TextBox txt)
-                            {
-                                string colName = txt.Name.Replace("txt", "");
-                                if (row.Table.Columns.Contains(colName))
-                                {
-                                    txt.Text = row[colName].ToString();
-                                }
-                            }
-                            else if (c is Guna.UI2.WinForms.Guna2ComboBox cb)
-                            {
-                                string colName = cb.Name.Replace("cmb", "");
-                                if (row.Table.Columns.Contains(colName))
-                                {
-                                    cb.SelectedValue = row[colName].ToString();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading data for editing: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-
-
-
-
-
-
-
         //Clear...............................
         public static void ClearAll(Form F)
         {
@@ -1290,6 +1213,131 @@ namespace MainClass
             // Format the date as "dd/MM/yyyy"
             guna2DateTimePicker.Text = tempDate.ToString("dd/MM/yyyy");
         }
+
+
+
+
+
+
+        public static void LoadForEdit2(Form form, string tableName, string qry, DataGridView gv, int editID)
+        {
+            try
+            {
+                // Load data into DataTable
+                DataTable dt = GetData(qry);
+
+                // Prevent auto-generation of columns
+                gv.AutoGenerateColumns = false;
+
+                // Set the data source
+                gv.DataSource = dt;
+
+                // Define only the required columns manually
+                string[] requiredColumns = { "srno", "proName", "qty", "Price", "Amount" };
+
+                // Hide unwanted columns
+                foreach (DataGridViewColumn column in gv.Columns)
+                {
+                    if (!requiredColumns.Contains(column.Name))
+                    {
+                        column.Visible = false;
+                    }
+                }
+
+                // Assign values manually for numbered rows
+                for (int i = 0; i < gv.Rows.Count; i++)
+                {
+                    if (i < dt.Rows.Count)
+                    {
+                        DataGridViewRow row = gv.Rows[i];
+
+                        int y = i + 1; // Set serial number
+
+                        row.Cells["srno"].Value = y;
+                        row.Cells["proName"].Value = dt.Rows[i]["pName"];
+                        row.Cells["qty"].Value = dt.Rows[i]["qty"];
+                        row.Cells["Price"].Value = dt.Rows[i]["Price"];
+                        row.Cells["Amount"].Value = dt.Rows[i]["Amount"];
+                    }
+                }
+
+                // Load form fields for the main table
+                string idColumn = (tableName == "tblInvMain") ? "mainID" : "";
+
+                if (string.IsNullOrEmpty(idColumn))
+                {
+                    MessageBox.Show("Invalid table name provided.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string mainQuery = $"SELECT * FROM {tableName} WHERE {idColumn} = @id";
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(mainQuery, con);
+                    cmd.Parameters.AddWithValue("@id", editID);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable mainTable = new DataTable();
+                    da.Fill(mainTable);
+
+                    if (mainTable.Rows.Count > 0)
+                    {
+                        DataRow row = mainTable.Rows[0];
+
+                        // Debugging: Print values to console
+                        Console.WriteLine("Retrieved Data:");
+                        Console.WriteLine("Supplier Name: " + row["PersonID"]);
+                        Console.WriteLine("Date: " + row["mdate"]);
+                        Console.WriteLine("Due Date: " + row["mDueDate"]);
+                        Console.WriteLine("Type: " + row["mType"]);
+
+                        foreach (Control c in form.Controls)
+                        {
+                            if (c is Guna2TextBox txt)
+                            {
+                                string colName = txt.Name.Replace("txt", "");
+                                if (row.Table.Columns.Contains(colName))
+                                {
+                                    txt.Text = row[colName].ToString();
+                                }
+                            }
+                            else if (c is Guna2ComboBox cb)
+                            {
+                                string colName = cb.Name.Replace("cmb", "");
+                                if (row.Table.Columns.Contains(colName))
+                                {
+                                    cb.SelectedValue = row[colName].ToString();
+                                }
+                            }
+                            else if (c is Guna2DateTimePicker dtp)
+                            {
+                                string colName = dtp.Name; // Ensure correct property name is used
+                                if (row.Table.Columns.Contains(colName))
+                                {
+                                    Console.WriteLine($"Setting DateTimePicker {colName} to: " + row[colName]);
+
+                                    if (!Convert.IsDBNull(row[colName]))
+                                    {
+                                        dtp.Value = Convert.ToDateTime(row[colName]);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"{colName} is NULL in database!");
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data for editing: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
 
