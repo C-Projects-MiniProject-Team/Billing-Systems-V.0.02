@@ -24,11 +24,14 @@ namespace Billing_System.Model
 
         private void frmPurchaseAdd_Load(object sender, EventArgs e)
         {
+            // Set today's date for the Date and Due Date fields
+            mdate.Value = DateTime.Now; // Set Date to today's date
+            mDueDate.Value = DateTime.Now.AddDays(7); // Set Due Date to 7 days from today (if you want)
+
             // Add Supplier to combobox
             string qry = "Select supID 'id', sName 'name' from tblSupplier";
             //CBFill
             MainClass.Functions.CBFfill(qry, PersonID);
-
 
             string qry1 = @"Select proID, pName 'Product', pCost 'Cost' from tblProduct order by pName";
             dataTable = MainClass.Functions.GetTable(qry1);
@@ -38,22 +41,17 @@ namespace Billing_System.Model
             guna2DataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(35, 112, 248);
 
             // For edit load Data
-            // For edit load Data
             if (editID > 0)
             {
                 string qry2 = @"SELECT detailID, d.proID, pName, qty, Price, Amount 
-                     FROM tblInvDetail d 
-                     INNER JOIN tblProduct p ON p.proID = d.proID 
-                     WHERE d.mainID = "+editID+"";
+                         FROM tblInvDetail d 
+                         INNER JOIN tblProduct p ON p.proID = d.proID 
+                         WHERE d.mainID = " + editID;
 
-               MainClass.Functions.LoadForEdit2(this, "tblInvMain", qry2, guna2DataGridView1, editID);
+                MainClass.Functions.LoadForEdit2(this, "tblInvMain", qry2, guna2DataGridView1, editID);
             }
-
-
-
-
-
         }
+
 
         private void GrandTotal()
         {
