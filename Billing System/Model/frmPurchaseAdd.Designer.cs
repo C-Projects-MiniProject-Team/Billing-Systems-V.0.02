@@ -481,8 +481,7 @@
             this.mdate.Name = "mdate";
             this.mdate.Size = new System.Drawing.Size(195, 53);
             this.mdate.TabIndex = 30;
-            this.mdate.Value = new System.DateTime(2025, 2, 18, 3, 9, 1, 808);
-
+            this.mdate.Value = new System.DateTime(2025, 2, 18, 0, 0, 0, 0);
             // 
             // mDueDate
             // 
@@ -506,8 +505,7 @@
             this.mDueDate.Name = "mDueDate";
             this.mDueDate.Size = new System.Drawing.Size(195, 53);
             this.mDueDate.TabIndex = 31;
-            this.mDueDate.Value = new System.DateTime(2025, 2, 18, 3, 9, 1, 808);
-
+            this.mDueDate.Value = new System.DateTime(2025, 2, 18, 0, 0, 0, 0);
             // 
             // frmPurchaseAdd
             // 

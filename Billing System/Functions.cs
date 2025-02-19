@@ -969,10 +969,11 @@ namespace MainClass
                             string mainQuery;
                             if (type == enmType.Insert)
                             {
-                                
+
 
                                 mainQuery = $"INSERT INTO {mainTable} (PersonID, mdate, mDueDate, mTotal, Discount, NetAmount, mType, pType) " +
-                                            "VALUES (@PersonID, @mdate, @mDueDate, @mTotal, @Discount, @NetAmount, 'Purchase', 'Product'); SELECT SCOPE_IDENTITY();";
+                                            "VALUES (@PersonID, @mdate, @mDueDate, @mTotal, @Discount, @NetAmount, 'Purchase', @pType); SELECT SCOPE_IDENTITY();";
+
                             }
                             else
                             {
@@ -985,15 +986,14 @@ namespace MainClass
                             using (SqlCommand cmd = new SqlCommand(mainQuery, con, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@PersonID", ((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
-                                Console.WriteLine(((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
-
-
+                               
                                 cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;  // Use the Value property directly
-                                Console.WriteLine(((Guna2DateTimePicker)form.Controls["mdate"]).Text);
-
-                                cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mDueDate"]).Text;
-                                Console.WriteLine(((Guna2DateTimePicker)form.Controls["mDueDate"]).Text);
                                 
+                                cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mDueDate"]).Text;
+                              
+                                cmd.Parameters.AddWithValue("@pType", ((Guna2ComboBox)form.Controls["pType"]).SelectedItem.ToString());
+                                
+
                                 double totalAmount, discount, netAmount;
 
                                 // Validate and parse the Gross Amount
@@ -1284,13 +1284,6 @@ namespace MainClass
                     {
                         DataRow row = mainTable.Rows[0];
 
-                        // Debugging: Print values to console
-                        Console.WriteLine("Retrieved Data:");
-                        Console.WriteLine("Supplier Name: " + row["PersonID"]);
-                        Console.WriteLine("Date: " + row["mdate"]);
-                        Console.WriteLine("Due Date: " + row["mDueDate"]);
-                        Console.WriteLine("Type: " + row["mType"]);
-
                         foreach (Control c in form.Controls)
                         {
                             if (c is Guna2TextBox txt)
@@ -1298,23 +1291,38 @@ namespace MainClass
                                 string colName = txt.Name.Replace("txt", "");
                                 if (row.Table.Columns.Contains(colName))
                                 {
+                                    
                                     txt.Text = row[colName].ToString();
+                                    
                                 }
                             }
                             else if (c is Guna2ComboBox cb)
                             {
-                                string colName = cb.Name.Replace("cmb", "");
+                                string colName = cb.Name.Replace("cmb", "");  // Column Name Match
+
                                 if (row.Table.Columns.Contains(colName))
                                 {
-                                    cb.SelectedValue = row[colName].ToString();
+                                    object value = row[colName];
+
+                                    // Handle DBNull case
+                                    if (value != DBNull.Value)
+                                    {
+                                        cb.SelectedValue = value;  // Assign Selected Value
+                                        cb.SelectedItem = value.ToString(); // Ensure Display in ComboBox
+                                    }
+                                    else
+                                    {
+                                        cb.SelectedIndex = 0; // Set default index (Optional)
+                                    }
                                 }
                             }
+
                             else if (c is Guna2DateTimePicker dtp)
                             {
                                 string colName = dtp.Name; // Ensure correct property name is used
                                 if (row.Table.Columns.Contains(colName))
                                 {
-                                    Console.WriteLine($"Setting DateTimePicker {colName} to: " + row[colName]);
+                                   
 
                                     if (!Convert.IsDBNull(row[colName]))
                                     {
@@ -1326,8 +1334,22 @@ namespace MainClass
                                     }
                                 }
                             }
+                        }
 
+                        // **FIX: Recalculate Net Amount**
+                        if (form.Controls["mTotal"] is Guna2TextBox totalTextBox &&
+                            form.Controls["Discount"] is Guna2TextBox discountTextBox &&
+                            form.Controls["NetAmount"] is Guna2TextBox netAmountTextBox)
+                        {
+                            double total = 0, discount = 0;
 
+                            double.TryParse(totalTextBox.Text, out total);
+                            double.TryParse(discountTextBox.Text, out discount);
+
+                            double netAmount = total - discount;
+                            
+
+                            netAmountTextBox.Text = netAmount.ToString("N2");
                         }
                     }
                 }
@@ -1337,12 +1359,6 @@ namespace MainClass
                 MessageBox.Show("Error loading data for editing: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-
-
-
 
 
 
