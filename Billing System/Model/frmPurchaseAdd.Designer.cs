@@ -58,6 +58,8 @@
             this.mType = new System.Windows.Forms.Label();
             this.mdate = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.mDueDate = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.mainID = new System.Windows.Forms.Label();
+            this.description = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -507,11 +509,35 @@
             this.mDueDate.TabIndex = 31;
             this.mDueDate.Value = new System.DateTime(2025, 2, 18, 0, 0, 0, 0);
             // 
+            // mainID
+            // 
+            this.mainID.AutoSize = true;
+            this.mainID.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainID.Location = new System.Drawing.Point(969, 237);
+            this.mainID.Name = "mainID";
+            this.mainID.Size = new System.Drawing.Size(67, 20);
+            this.mainID.TabIndex = 32;
+            this.mainID.Text = "Purchase";
+            this.mainID.Visible = false;
+            // 
+            // description
+            // 
+            this.description.AutoSize = true;
+            this.description.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.description.Location = new System.Drawing.Point(1124, 237);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(67, 20);
+            this.description.TabIndex = 33;
+            this.description.Text = "Purchase";
+            this.description.Visible = false;
+            // 
             // frmPurchaseAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 725);
+            this.Controls.Add(this.description);
+            this.Controls.Add(this.mainID);
             this.Controls.Add(this.mDueDate);
             this.Controls.Add(this.mdate);
             this.Controls.Add(this.mType);
@@ -565,5 +591,7 @@
         private System.Windows.Forms.Label mType;
         private Guna.UI2.WinForms.Guna2DateTimePicker mdate;
         private Guna.UI2.WinForms.Guna2DateTimePicker mDueDate;
+        private System.Windows.Forms.Label mainID;
+        private System.Windows.Forms.Label description;
     }
 }

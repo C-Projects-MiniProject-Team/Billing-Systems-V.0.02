@@ -1027,16 +1027,16 @@ namespace MainClass
                                 if (type == enmType.Insert)
                                 {
                                     mainID = Convert.ToInt32(cmd.ExecuteScalar()); // Get new inserted mainID
-                                    MessageBox.Show("Record inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    MainClass.Functions.Reset_All(form);  // Reset the form
+                                  //  MessageBox.Show("Record inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    //MainClass.Functions.Reset_All(form);  // Reset the form
                                 }
                                 else
                                 {
                                     cmd.Parameters.AddWithValue("@mainID", editID);
                                     cmd.ExecuteNonQuery();
                                     mainID = editID;
-                                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    MainClass.Functions.Reset_All(form);  // Reset the form
+                                   // MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                   // MainClass.Functions.Reset_All(form);  // Reset the form
                                 }
 
                             }
@@ -1094,7 +1094,7 @@ namespace MainClass
 
 
                             transaction.Commit();
-                            MessageBox.Show(type == enmType.Insert ? "Record inserted successfully!" : "Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show(type == enmType.Insert ? "Record inserted successfully!" : "Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (type == enmType.Delete && editID > 0)
                         {
@@ -1151,6 +1151,7 @@ namespace MainClass
                     {
                         txt.Text = "";
                     }
+
                     else if (c is Guna.UI2.WinForms.Guna2ComboBox cmb)
                     {
                         cmb.SelectedIndex = -1;
@@ -1185,13 +1186,15 @@ namespace MainClass
                     }
                 }
 
-                MessageBox.Show("Form Reset Successfully!", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // MessageBox.Show("Form Reset Successfully!", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error resetting form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
 
         private static void MaskD_TextChanged(object sender, EventArgs e)
@@ -1233,7 +1236,7 @@ namespace MainClass
                 gv.DataSource = dt;
 
                 // Define only the required columns manually
-                string[] requiredColumns = { "srno", "proName", "qty", "Price", "Amount" };
+                string[] requiredColumns = { "srno", "proName", "qty", "Price", "Amount", "proID" };  // Added proID here
 
                 // Hide unwanted columns
                 foreach (DataGridViewColumn column in gv.Columns)
@@ -1252,12 +1255,24 @@ namespace MainClass
                         DataGridViewRow row = gv.Rows[i];
 
                         int y = i + 1; // Set serial number
-
                         row.Cells["srno"].Value = y;
+                       
+
                         row.Cells["proName"].Value = dt.Rows[i]["pName"];
+                        
+
                         row.Cells["qty"].Value = dt.Rows[i]["qty"];
+                       
+
                         row.Cells["Price"].Value = dt.Rows[i]["Price"];
+                       
+
                         row.Cells["Amount"].Value = dt.Rows[i]["Amount"];
+                       
+
+                        // **Check and Print Product ID (proID)**
+                        row.Cells["proID"].Value = dt.Rows[i]["proID"];
+                        
                     }
                 }
 
@@ -1291,9 +1306,7 @@ namespace MainClass
                                 string colName = txt.Name.Replace("txt", "");
                                 if (row.Table.Columns.Contains(colName))
                                 {
-                                    
                                     txt.Text = row[colName].ToString();
-                                    
                                 }
                             }
                             else if (c is Guna2ComboBox cb)
@@ -1316,14 +1329,11 @@ namespace MainClass
                                     }
                                 }
                             }
-
                             else if (c is Guna2DateTimePicker dtp)
                             {
                                 string colName = dtp.Name; // Ensure correct property name is used
                                 if (row.Table.Columns.Contains(colName))
                                 {
-                                   
-
                                     if (!Convert.IsDBNull(row[colName]))
                                     {
                                         dtp.Value = Convert.ToDateTime(row[colName]);
@@ -1347,7 +1357,6 @@ namespace MainClass
                             double.TryParse(discountTextBox.Text, out discount);
 
                             double netAmount = total - discount;
-                            
 
                             netAmountTextBox.Text = netAmount.ToString("N2");
                         }
