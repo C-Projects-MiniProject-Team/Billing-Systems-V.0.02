@@ -190,6 +190,8 @@ namespace Billing_System.Model
             double.TryParse(Discount.Text, out dis);
 
             NetAmount.Text = (amt - dis).ToString("N0");
+            
+
         }
 
 
@@ -197,19 +199,61 @@ namespace Billing_System.Model
 
         public override void btnSave_Click(object sender, EventArgs e)
         {
-            if (editID == 0) 
+            try
             {
-                MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Insert);
-            }
-            else
-            {
-                MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
-            }
+                // Check if proID is available in the DataGridView
+                int proID = Convert.ToInt32(guna2DataGridView1.Rows[0].Cells["proID"].Value);
 
-            guna2DataGridView1.Rows.Clear();
-            editID = 0;
-            MainClass.Functions.Reset_All(this);
+                // If proID is invalid or DBNull, show an error
+                if (proID == 0)
+                {
+                    MessageBox.Show("Invalid Product ID!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;  // Exit the method if proID is invalid
+                }
+
+                // If editID is 0, it's an Insert operation, else it's an Update
+                if (editID == 0)
+                {
+                    // Insert query call if new record
+                    MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Insert);
+                    MessageBox.Show("RecordX inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    
+                    MainClass.Functions.Reset_All(this);
+                }
+                else
+                {
+                    // Update query call if existing record
+                    MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
+                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   // MainClass.Functions.Reset_All(this);
+                }
+
+                // After saving or updating, reset all fields and clear the DataGridView
+                if (guna2DataGridView1.Rows.Count > 0)
+                {
+                    guna2DataGridView1.Rows.Clear(); // Clear rows of the DataGridView
+                    editID = 0;
+                    MainClass.Functions.Reset_All(this);
+                    mTotal.Text = "00";
+                    NetAmount.Text = "00";
+                    Discount.Text = "00";
+                }
+
+                editID = 0;
+            }
+            catch (Exception ex)
+            {
+                // Handle any exception and display error message
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
+
+
+
+
 
 
         public override void btnDelete_Click(object sender, EventArgs e)
