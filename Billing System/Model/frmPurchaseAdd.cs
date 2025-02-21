@@ -216,9 +216,25 @@ namespace Billing_System.Model
                 {
                     // Insert query call if new record
                     MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Insert);
+
+                    // if cash payment made need to add entry to tblPayment
+                    Console.WriteLine(pType.Text.ToLower());
+
+                    if (pType.Text.ToLower() == "cash")
+                    {
+                        string bill = @"select max(mainID) max from tblInvMain";
+
+                        DataTable dt = MainClass.Functions.GetTable(bill);
+                        Console.WriteLine(dt.Rows[0][0].ToString());
+
+                        string bill_no = dt.Rows[0][0].ToString();
+                        mainID.Text = bill_no;
+
+                        description.Text = "Payment made against bill number" + bill_no;
+                        MainClass.Functions.AutoSQL(this, "tblPayment", MainClass.Functions.enmType.Insert, editID);
+                    }
+
                     MessageBox.Show("RecordX inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    
                     MainClass.Functions.Reset_All(this);
                 }
                 else
@@ -226,7 +242,6 @@ namespace Billing_System.Model
                     // Update query call if existing record
                     MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
                     MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                   // MainClass.Functions.Reset_All(this);
                 }
 
                 // After saving or updating, reset all fields and clear the DataGridView
@@ -248,6 +263,7 @@ namespace Billing_System.Model
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 

@@ -786,6 +786,30 @@ namespace MainClass
             }
         }
 
+        // Add the ExecuteScalar method
+        public static object ExecuteScalar(string query, params SqlParameter[] parameters)
+        {
+            object result = null;
+
+            using (SqlConnection conn = new SqlConnection(conString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddRange(parameters);
+
+                    conn.Open();
+                    result = cmd.ExecuteScalar(); // Executes the query and returns the first column of the first row
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error executing scalar query: " + ex.Message);
+                }
+            }
+
+            return result;
+        }
+
 
 
 
@@ -796,6 +820,9 @@ namespace MainClass
             {
                 string qry = string.Empty;
                 Hashtable ht = new Hashtable();
+
+                // Clear the Hashtable before adding new parameters
+                ht.Clear();
 
                 // Determine the query based on the table and the operation type
                 switch (tableName)
@@ -834,83 +861,77 @@ namespace MainClass
                         }
                         break;
 
-
-                    case "tblCustomer":
+                    case "tblPayment":
                         if (type == enmType.Insert)
                         {
-                            qry = $"INSERT INTO {tableName} (cName, cPhone, cEmail, cAddress) VALUES (@cName, @cPhone, @cEmail, @cAddress)";
-                        }
-                        else if (type == enmType.Update && editID > 0)
-                        {
-                            qry = $"UPDATE {tableName} SET cName = @cName, cPhone = @cPhone, cEmail = @cEmail, cAddress = @cAddress WHERE cusID = @cusID";
-                            ht.Add("@cusID", editID);
-                        }
-                        else if (type == enmType.Delete && editID > 0)
-                        {
-                            qry = $"DELETE FROM {tableName} WHERE cusID = @cusID";
-                            ht.Add("@cusID", editID);
+                            // PersonID SQL query
+                            string personQuery = "SELECT PersonID FROM [BillingSystem].[dbo].[tblInvMain] WHERE mainID = @mainID";
+                            var personID = Functions.ExecuteScalar(personQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
+
+                            // Add parameters if not already in the Hashtable
+                            if (!ht.ContainsKey("@mainID"))
+                                ht.Add("@mainID", form.Controls["mainID"].Text);
+
+                            if (!ht.ContainsKey("@mdate"))
+                                ht.Add("@mdate", form.Controls["mdate"].Text); // Add @mdate if not already added
+
+                            if (!ht.ContainsKey("@PersonID"))
+                                ht.Add("@PersonID", personID);
+
+                            if (!ht.ContainsKey("@description"))
+                                ht.Add("@description", form.Controls["description"].Text);
+
+                            if (!ht.ContainsKey("@NetAmount"))
+                                ht.Add("@NetAmount", form.Controls["NetAmount"].Text);
+
+                            // Optionally add pType if available
+                            if (!string.IsNullOrEmpty(form.Controls["pType"].Text) && !ht.ContainsKey("@pType"))
+                            {
+                                ht.Add("@pType", form.Controls["pType"].Text); // Add pType if not empty
+                            }
+
+
+
+                            // Now execute your SQL query
+                            qry = "INSERT INTO tblPayment (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
                         }
                         break;
-
-
-                    case "tblSupplier":
-                        if (type == enmType.Insert)
-                        {
-                            qry = $"INSERT INTO {tableName} (sName, sPhone, sEmail, sAddress) VALUES (@sName, @sPhone, @sEmail, @sAddress)";
-                        }
-                        else if (type == enmType.Update && editID > 0)
-                        {
-                            qry = $"UPDATE {tableName} SET sName = @sName, sPhone = @sPhone, sEmail = @sEmail, sAddress = @sAddress WHERE supID = @supID";
-                            ht.Add("@supID", editID);
-                        }
-                        else if (type == enmType.Delete && editID > 0)
-                        {
-                            qry = $"DELETE FROM {tableName} WHERE supID = @supID";
-                            ht.Add("@supID", editID);
-                        }
-                        break;
-
-
-
 
                     default:
                         MessageBox.Show("Invalid table name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                 }
 
-                // Loop through form controls and gather values dynamically
+                // Loop through form controls and gather values dynamically for all fields
                 foreach (Control c in form.Controls)
                 {
                     if (c is Guna2TextBox txt)
                     {
                         string colName = txt.Name.Replace("txt", "");
-
-                        // **Encrypt password field before saving to database**
-                        if (colName == "uPass")
-                        {
-                            ht.Add("@" + colName, SecurityFunctions.EncryptPassword(txt.Text));
-                        }
-                        else
+                        if (!ht.ContainsKey("@" + colName))
                         {
                             ht.Add("@" + colName, txt.Text);
                         }
                     }
-                    else if (c is Guna2ComboBox cb && cb.Name == "uRole")
+                    else if (c is Guna2ComboBox cb)
                     {
-                        if (cb.SelectedValue == null)
+                        if (!ht.ContainsKey("@" + cb.Name))
                         {
-                            return;
+                            ht.Add("@" + cb.Name, cb.SelectedValue);
                         }
-                        else
+                    }
+                    else if (c is Guna2DateTimePicker dtp)
+                    {
+                        if (!ht.ContainsKey("@" + dtp.Name))
                         {
-                            ht.Add("@uRole", cb.SelectedValue);  // Add the role to the SQL parameters
+                            ht.Add("@" + dtp.Name, dtp.Value);
                         }
                     }
                     else if (c is PictureBox pb)
                     {
                         if (pb.Name == "picuterBoxUser") // For user images
                         {
-                            if (pb.Image != null)
+                            if (pb.Image != null && !ht.ContainsKey("@uImage"))
                             {
                                 ht.Add("@uImage", ImageToByteArray(pb.Image));
                             }
@@ -921,7 +942,7 @@ namespace MainClass
                         }
                         else if (pb.Name == "pImage") // For product images
                         {
-                            if (pb.Image != null)
+                            if (pb.Image != null && !ht.ContainsKey("@pImage"))
                             {
                                 ht.Add("@pImage", ImageToByteArray(pb.Image));
                             }
@@ -947,6 +968,7 @@ namespace MainClass
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }
+
 
 
 
