@@ -890,10 +890,23 @@ namespace MainClass
                                 ht.Add("@pType", form.Controls["pType"].Text); // Add pType if not empty
                             }
 
+                            if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal netAmount))
+                            {
+                                ht["@NetAmount"] = netAmount;
+                                Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
 
+                            }
+                            else
+                            {
+                                ht["@NetAmount"] = DBNull.Value;  // Null වේනම් DBNull
+                                Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
+
+                            }
 
                             // Now execute your SQL query
                             qry = "INSERT INTO tblPayment (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
+                            Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
+
                         }
                         break;
 
@@ -968,7 +981,6 @@ namespace MainClass
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }
-
 
 
 
