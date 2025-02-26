@@ -1,6 +1,6 @@
 ﻿namespace Billing_System.View
 {
-    partial class frmCustomer
+    partial class frmSales
     {
         /// <summary>
         /// Required designer variable.
@@ -32,17 +32,17 @@
             // 
             // label1
             // 
-            this.label1.Size = new System.Drawing.Size(179, 33);
-            this.label1.Text = "Customer List";
+            this.label1.Size = new System.Drawing.Size(113, 33);
+            this.label1.Text = "Sale List";
             // 
-            // frmCustomer
+            // frmSales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1157, 582);
-            this.Name = "frmCustomer";
-            this.Text = "frmCustomer";
-            this.Load += new System.EventHandler(this.frmCustomer_Load);
+            this.Name = "frmSales";
+            this.Text = "frmSales";
+            this.Load += new System.EventHandler(this.frmSales_Load);
             this.ResumeLayout(false);
 
         }
