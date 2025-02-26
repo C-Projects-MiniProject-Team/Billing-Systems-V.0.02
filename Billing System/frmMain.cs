@@ -99,5 +99,10 @@ namespace Billing_System
         {
             AddControls(new frmPurchase());
         }
+
+        private void btnSale_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmSales());
+        }
     }
 }
