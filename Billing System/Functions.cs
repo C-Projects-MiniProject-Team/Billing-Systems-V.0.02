@@ -719,7 +719,7 @@ namespace MainClass
                     idColumn = "cusID";
                 }
 
-                
+
                 else if (tableName == "tblSupplier")
                 {
                     idColumn = "supID";
@@ -821,9 +821,6 @@ namespace MainClass
                 string qry = string.Empty;
                 Hashtable ht = new Hashtable();
 
-                // Clear the Hashtable before adding new parameters
-                ht.Clear();
-
                 // Determine the query based on the table and the operation type
                 switch (tableName)
                 {
@@ -864,50 +861,53 @@ namespace MainClass
                     case "tblPayment":
                         if (type == enmType.Insert)
                         {
-                            // PersonID SQL query
-                            string personQuery = "SELECT PersonID FROM [BillingSystem].[dbo].[tblInvMain] WHERE mainID = @mainID";
-                            var personID = Functions.ExecuteScalar(personQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
+                            string personQuery = "SELECT PersonID FROM tblInvMain WHERE mainID = @mainID";
+                            var personID = ExecuteScalar(personQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
 
-                            // Add parameters if not already in the Hashtable
-                            if (!ht.ContainsKey("@mainID"))
-                                ht.Add("@mainID", form.Controls["mainID"].Text);
-
-                            if (!ht.ContainsKey("@mdate"))
-                                ht.Add("@mdate", form.Controls["mdate"].Text); // Add @mdate if not already added
-
-                            if (!ht.ContainsKey("@PersonID"))
-                                ht.Add("@PersonID", personID);
-
-                            if (!ht.ContainsKey("@description"))
-                                ht.Add("@description", form.Controls["description"].Text);
-
-                            if (!ht.ContainsKey("@NetAmount"))
-                                ht.Add("@NetAmount", form.Controls["NetAmount"].Text);
-
-                            // Optionally add pType if available
-                            if (!string.IsNullOrEmpty(form.Controls["pType"].Text) && !ht.ContainsKey("@pType"))
-                            {
-                                ht.Add("@pType", form.Controls["pType"].Text); // Add pType if not empty
-                            }
+                            ht["@mainID"] = form.Controls["mainID"].Text;
+                            ht["@mdate"] = form.Controls["mdate"].Text;
+                            ht["@PersonID"] = personID;
+                            ht["@description"] = form.Controls["description"].Text;
 
                             if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal netAmount))
-                            {
                                 ht["@NetAmount"] = netAmount;
-                                Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
-
-                            }
                             else
-                            {
-                                ht["@NetAmount"] = DBNull.Value;  // Null වේනම් DBNull
-                                Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
+                                ht["@NetAmount"] = DBNull.Value;
 
-                            }
+                            if (form.Controls["pType"] is Guna2ComboBox pTypeControl)
+                                ht["@pType"] = string.IsNullOrWhiteSpace(pTypeControl.Text) ? "Cash" : pTypeControl.Text;
+                            else
+                                ht["@pType"] = "Cash";
 
-                            // Now execute your SQL query
                             qry = "INSERT INTO tblPayment (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
-                            Console.WriteLine("NetAmount Value: " + form.Controls["NetAmount"].Text);
-
                         }
+                        break;
+
+                    
+                    
+                    
+                    
+                    
+                    case "tblReceipt":
+                        qry = "INSERT INTO tblReceipt (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
+
+                        string receiptPersonQuery = "SELECT PersonID FROM tblInvMain WHERE mainID = @mainID";
+                        var receiptPersonID = ExecuteScalar(receiptPersonQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
+
+                        ht["@mainID"] = form.Controls["mainID"].Text;
+                        ht["@PersonID"] = receiptPersonID;
+                        ht["@description"] = form.Controls["description"].Text;
+
+                        if (form.Controls["mdate"] is Guna2DateTimePicker mdatePicker)
+                            ht["@mdate"] = mdatePicker.Value;
+                        else
+                            ht["@mdate"] = DateTime.Now;
+
+                        if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal rNetAmount))
+                            ht["@NetAmount"] = rNetAmount;
+                        else
+                            ht["@NetAmount"] = DBNull.Value;
+
                         break;
 
                     default:
@@ -915,62 +915,50 @@ namespace MainClass
                         return;
                 }
 
-                // Loop through form controls and gather values dynamically for all fields
-                foreach (Control c in form.Controls)
+                // 🛑 Only auto-add parameters for tables that need them (avoid re-adding in tblReceipt)
+                if (tableName != "tblReceipt")
                 {
-                    if (c is Guna2TextBox txt)
+                    foreach (Control c in form.Controls)
                     {
-                        string colName = txt.Name.Replace("txt", "");
-                        if (!ht.ContainsKey("@" + colName))
+                        if (c is Guna2TextBox txt)
                         {
-                            ht.Add("@" + colName, txt.Text);
-                        }
-                    }
-                    else if (c is Guna2ComboBox cb)
-                    {
-                        if (!ht.ContainsKey("@" + cb.Name))
-                        {
-                            ht.Add("@" + cb.Name, cb.SelectedValue);
-                        }
-                    }
-                    else if (c is Guna2DateTimePicker dtp)
-                    {
-                        if (!ht.ContainsKey("@" + dtp.Name))
-                        {
-                            ht.Add("@" + dtp.Name, dtp.Value);
-                        }
-                    }
-                    else if (c is PictureBox pb)
-                    {
-                        if (pb.Name == "picuterBoxUser") // For user images
-                        {
-                            if (pb.Image != null && !ht.ContainsKey("@uImage"))
+                            string colName = txt.Name.Replace("txt", "");
+                            if (!ht.ContainsKey("@" + colName))
                             {
-                                ht.Add("@uImage", ImageToByteArray(pb.Image));
+                                ht.Add("@" + colName, txt.Text);
+                            }
+                        }
+                        else if (c is Guna2ComboBox cb)
+                        {
+                            if (!ht.ContainsKey("@" + cb.Name))
+                            {
+                                ht.Add("@" + cb.Name, cb.SelectedValue);
+                            }
+                        }
+                        else if (c is Guna2DateTimePicker dtp)
+                        {
+                            if (!ht.ContainsKey("@" + dtp.Name))
+                            {
+                                ht.Add("@" + dtp.Name, dtp.Value);
+                            }
+                        }
+                        else if (c is PictureBox pb)
+                        {
+                            if (pb.Image != null)
+                            {
+                                ht["@uImage"] = ImageToByteArray(pb.Image);
                             }
                             else
                             {
-                                ht.Add("@uImage", DBNull.Value);  // If no image, add DBNull
+                                ht["@uImage"] = DBNull.Value;
                             }
-                        }
-                        else if (pb.Name == "pImage") // For product images
-                        {
-                            if (pb.Image != null && !ht.ContainsKey("@pImage"))
-                            {
-                                ht.Add("@pImage", ImageToByteArray(pb.Image));
-                            }
-                            else
-                            {
-                                ht.Add("@pImage", DBNull.Value);  // If no image, add DBNull
-                            }
+
                         }
                     }
                 }
 
-                // Execute SQL query
                 int result = SQL(qry, ht);
 
-                // Optional: Show success message if rows were affected
                 if (result > 0)
                 {
                     MessageBox.Show("Operation completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -981,6 +969,7 @@ namespace MainClass
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }
+
 
 
 
@@ -1197,7 +1186,7 @@ namespace MainClass
                     }
                 }
 
-               // MessageBox.Show("Form Reset Successfully!", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("Form Reset Successfully!", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -1267,23 +1256,23 @@ namespace MainClass
 
                         int y = i + 1; // Set serial number
                         row.Cells["srno"].Value = y;
-                       
+
 
                         row.Cells["proName"].Value = dt.Rows[i]["pName"];
-                        
+
 
                         row.Cells["qty"].Value = dt.Rows[i]["qty"];
-                       
+
 
                         row.Cells["Price"].Value = dt.Rows[i]["Price"];
-                       
+
 
                         row.Cells["Amount"].Value = dt.Rows[i]["Amount"];
-                       
+
 
                         // **Check and Print Product ID (proID)**
                         row.Cells["proID"].Value = dt.Rows[i]["proID"];
-                        
+
                     }
                 }
 
