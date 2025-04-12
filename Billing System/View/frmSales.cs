@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath;
 
 namespace Billing_System.View
 {
@@ -36,7 +37,8 @@ namespace Billing_System.View
             from tblInvMain m
             inner join tblCustomer s on m.PersonID = s.cusID
             where mType = 'Sale' 
-            and cName like '%" + txtSearch.Text + "%' order by mainID";
+            and s.cName like '%" + txtSearch.Text + "%' order by mainID";
+
 
 
 

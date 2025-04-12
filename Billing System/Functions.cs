@@ -999,15 +999,16 @@ namespace MainClass
                     {
                         if (type == enmType.Insert || type == enmType.Update)
                         {
+                            // ✅ Determine mType based on form type
+                            string mType = "Purchase";
+                            if (form.Name == "frmSaleAdd") mType = "Sale";
+
                             // **INSERT OR UPDATE MAIN TABLE**
                             string mainQuery;
                             if (type == enmType.Insert)
                             {
-
-
                                 mainQuery = $"INSERT INTO {mainTable} (PersonID, mdate, mDueDate, mTotal, Discount, NetAmount, mType, pType) " +
-                                            "VALUES (@PersonID, @mdate, @mDueDate, @mTotal, @Discount, @NetAmount, 'Purchase', @pType); SELECT SCOPE_IDENTITY();";
-
+                                            $"VALUES (@PersonID, @mdate, @mDueDate, @mTotal, @Discount, @NetAmount, '{mType}', @pType); SELECT SCOPE_IDENTITY();";
                             }
                             else
                             {
@@ -1015,67 +1016,50 @@ namespace MainClass
                                             "mTotal=@mTotal, Discount=@Discount, NetAmount=@NetAmount WHERE mainID=@mainID";
                             }
 
-
                             int mainID;
                             using (SqlCommand cmd = new SqlCommand(mainQuery, con, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@PersonID", ((Guna2ComboBox)form.Controls["PersonID"]).SelectedValue);
-                               
-                                cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;  // Use the Value property directly
-                                
+
+                                cmd.Parameters.Add("@mdate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;
+
                                 cmd.Parameters.Add("@mDueDate", SqlDbType.Date).Value = ((Guna2DateTimePicker)form.Controls["mDueDate"]).Text;
-                              
+
                                 cmd.Parameters.AddWithValue("@pType", ((Guna2ComboBox)form.Controls["pType"]).SelectedItem.ToString());
-                                
 
                                 double totalAmount, discount, netAmount;
 
-                                // Validate and parse the Gross Amount
                                 if (!double.TryParse(((Guna2TextBox)form.Controls["mTotal"]).Text.Replace(",", ""), out totalAmount))
                                 {
                                     MessageBox.Show("Invalid Gross Amount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
 
-                                // Validate and parse the Discount
                                 if (!double.TryParse(((Guna2TextBox)form.Controls["Discount"]).Text.Replace(",", ""), out discount))
                                 {
                                     MessageBox.Show("Invalid Discount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
 
-                                // Calculate Net Amount, ensuring precision
                                 netAmount = totalAmount - discount;
+                                netAmount = Math.Round(netAmount, 2);
 
-                                // Ensure that the Net Amount is formatted correctly
-                                netAmount = Math.Round(netAmount, 2); // Round to 2 decimal places if necessary
-
-                                // Assign the values to the parameters
                                 cmd.Parameters.Add("@mTotal", SqlDbType.Float).Value = totalAmount;
                                 cmd.Parameters.Add("@Discount", SqlDbType.Float).Value = discount;
                                 cmd.Parameters.Add("@NetAmount", SqlDbType.Float).Value = netAmount;
 
-
-
-
                                 if (type == enmType.Insert)
                                 {
-                                    mainID = Convert.ToInt32(cmd.ExecuteScalar()); // Get new inserted mainID
-                                  //  MessageBox.Show("Record inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    //MainClass.Functions.Reset_All(form);  // Reset the form
+                                    mainID = Convert.ToInt32(cmd.ExecuteScalar());
                                 }
                                 else
                                 {
                                     cmd.Parameters.AddWithValue("@mainID", editID);
                                     cmd.ExecuteNonQuery();
                                     mainID = editID;
-                                   // MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                   // MainClass.Functions.Reset_All(form);  // Reset the form
                                 }
-
                             }
 
-                            // **DELETE EXISTING DETAILS IF UPDATING**
                             if (type == enmType.Update)
                             {
                                 string deleteDetailQuery = $"DELETE FROM {detailTable} WHERE mainID=@mainID";
@@ -1086,7 +1070,6 @@ namespace MainClass
                                 }
                             }
 
-                            // **INSERT INTO DETAIL TABLE**
                             foreach (DataGridViewRow row in dgv.Rows)
                             {
                                 if (row.IsNewRow) continue;
@@ -1094,7 +1077,6 @@ namespace MainClass
                                 double price, amount;
                                 int quantity;
 
-                                // Validate and Convert DataGridView Row Values
                                 if (!int.TryParse(row.Cells["qty"].Value.ToString(), out quantity))
                                 {
                                     MessageBox.Show("Invalid Quantity!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1113,7 +1095,6 @@ namespace MainClass
                                     return;
                                 }
 
-                                // Insert into Detail Table
                                 string detailQuery = $"INSERT INTO {detailTable} (mainID, proID, qty, Price, Amount) VALUES (@mainID, @proID, @qty, @Price, @Amount)";
                                 using (SqlCommand cmd = new SqlCommand(detailQuery, con, transaction))
                                 {
@@ -1126,20 +1107,16 @@ namespace MainClass
                                 }
                             }
 
-
                             transaction.Commit();
-                            //MessageBox.Show(type == enmType.Insert ? "Record inserted successfully!" : "Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (type == enmType.Delete && editID > 0)
                         {
-                            // **DELETE OPERATION**
                             DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (result == DialogResult.No)
                             {
                                 return;
                             }
 
-                            // **Delete from Detail Table First**
                             string deleteDetailQuery = $"DELETE FROM {detailTable} WHERE mainID=@mainID";
                             using (SqlCommand cmd = new SqlCommand(deleteDetailQuery, con, transaction))
                             {
@@ -1147,7 +1124,6 @@ namespace MainClass
                                 cmd.ExecuteNonQuery();
                             }
 
-                            // **Delete from Main Table**
                             string deleteMainQuery = $"DELETE FROM {mainTable} WHERE mainID=@mainID";
                             using (SqlCommand cmd = new SqlCommand(deleteMainQuery, con, transaction))
                             {
@@ -1171,6 +1147,7 @@ namespace MainClass
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 

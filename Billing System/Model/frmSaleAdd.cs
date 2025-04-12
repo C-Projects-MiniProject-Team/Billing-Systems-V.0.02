@@ -32,7 +32,7 @@ namespace Billing_System.Model
             //CBFill
             MainClass.Functions.CBFfill(qry, PersonID);
 
-            string qry1 = @"Select proID, pName 'Product', pCost 'Cost' from tblProduct order by pName";
+            string qry1 = @"Select proID, pName 'Product', pPrice 'Sale Price' from tblProduct order by pName";
             dataTable = MainClass.Functions.GetTable(qry1);
             guna2DataGridView2.DataSource = dataTable;
             guna2DataGridView2.Columns[0].Visible = false; //hide id column
