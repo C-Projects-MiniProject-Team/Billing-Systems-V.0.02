@@ -201,68 +201,66 @@ namespace Billing_System.Model
         {
             try
             {
-                // Check if proID is available in the DataGridView
-                int proID = Convert.ToInt32(guna2DataGridView1.Rows[0].Cells["proID"].Value);
-
-                // If proID is invalid or DBNull, show an error
-                if (proID == 0)
+                //  Set default pType if not selected
+                if (pType.SelectedIndex == -1 || string.IsNullOrWhiteSpace(pType.Text))
                 {
-                    MessageBox.Show("Invalid Product ID!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;  // Exit the method if proID is invalid
+                    pType.SelectedItem = "Cash";
                 }
 
-                // If editID is 0, it's an Insert operation, else it's an Update
+                // Validate Product ID
+                if (!int.TryParse(Convert.ToString(guna2DataGridView1.Rows[0].Cells["proID"].Value), out int proID) || proID == 0)
+                {
+                    MessageBox.Show("Invalid Product ID!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // INSERT operation
                 if (editID == 0)
                 {
-                    // Insert query call if new record
+                    // Insert to tblInvMain and tblInvDetail
                     MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Insert);
 
-                    // if cash payment made need to add entry to tblPayment
-                    Console.WriteLine(pType.Text.ToLower());
-
+                    //  Only if payment is cash, insert into tblReceipt
                     if (pType.Text.ToLower() == "cash")
                     {
-                        string bill = @"select max(mainID) max from tblInvMain";
-
+                        string bill = @"SELECT MAX(mainID) FROM tblInvMain";
                         DataTable dt = MainClass.Functions.GetTable(bill);
-                        Console.WriteLine(dt.Rows[0][0].ToString());
 
-                        string bill_no = dt.Rows[0][0].ToString();
-                        mainID.Text = bill_no;
+                        if (dt.Rows.Count > 0)
+                        {
+                            string bill_no = dt.Rows[0][0].ToString();
+                            mainID.Text = bill_no;
 
-                        description.Text = "Payment received against bill number" + bill_no;
-                        MainClass.Functions.AutoSQL(this, "tbReceipt", MainClass.Functions.enmType.Insert, editID);
+                            description.Text = "Payment received against bill number " + bill_no;
+
+                            // Insert to tblReceipt (WITHOUT pType)
+                            MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Insert, editID);
+                        }
                     }
 
                     MessageBox.Show("RecordX inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MainClass.Functions.Reset_All(this);
                 }
                 else
                 {
-                    // Update query call if existing record
+                    // UPDATE existing record
                     MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
                     MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                // After saving or updating, reset all fields and clear the DataGridView
-                if (guna2DataGridView1.Rows.Count > 0)
-                {
-                    guna2DataGridView1.Rows.Clear(); // Clear rows of the DataGridView
-                    editID = 0;
-                    MainClass.Functions.Reset_All(this);
-                    mTotal.Text = "00";
-                    NetAmount.Text = "00";
-                    Discount.Text = "00";
-                }
-
+                // Reset & Clear
+                guna2DataGridView1.Rows.Clear();
                 editID = 0;
+                MainClass.Functions.Reset_All(this);
+                mTotal.Text = "00";
+                NetAmount.Text = "00";
+                Discount.Text = "00";
             }
             catch (Exception ex)
             {
-                // Handle any exception and display error message
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 
