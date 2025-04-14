@@ -95,7 +95,7 @@
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(253, 900);
+            this.guna2Panel1.Size = new System.Drawing.Size(225, 777);
             this.guna2Panel1.TabIndex = 0;
             this.guna2Panel1.MouseEnter += new System.EventHandler(this.addNewPanel_MouseEnter);
             // 
@@ -113,9 +113,9 @@
             this.btnCloseLogin.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseLogin.ForeColor = System.Drawing.Color.White;
             this.btnCloseLogin.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
-            this.btnCloseLogin.Location = new System.Drawing.Point(36, 835);
+            this.btnCloseLogin.Location = new System.Drawing.Point(32, 721);
             this.btnCloseLogin.Name = "btnCloseLogin";
-            this.btnCloseLogin.Size = new System.Drawing.Size(181, 53);
+            this.btnCloseLogin.Size = new System.Drawing.Size(161, 46);
             this.btnCloseLogin.TabIndex = 4;
             this.btnCloseLogin.Text = "LOGOUT";
             // 
@@ -142,9 +142,9 @@
             this.btnReport.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReport.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnReport.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnReport.Location = new System.Drawing.Point(25, 757);
+            this.btnReport.Location = new System.Drawing.Point(22, 654);
             this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(200, 53);
+            this.btnReport.Size = new System.Drawing.Size(178, 46);
             this.btnReport.TabIndex = 11;
             this.btnReport.Text = "Reports";
             this.btnReport.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -175,9 +175,9 @@
             this.btnUser.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnUser.ImageSize = new System.Drawing.Size(25, 25);
             this.btnUser.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnUser.Location = new System.Drawing.Point(25, 698);
+            this.btnUser.Location = new System.Drawing.Point(22, 603);
             this.btnUser.Name = "btnUser";
-            this.btnUser.Size = new System.Drawing.Size(200, 53);
+            this.btnUser.Size = new System.Drawing.Size(178, 46);
             this.btnUser.TabIndex = 10;
             this.btnUser.Text = "User";
             this.btnUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -208,14 +208,15 @@
             this.btnPayment.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPayment.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnPayment.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnPayment.Location = new System.Drawing.Point(25, 639);
+            this.btnPayment.Location = new System.Drawing.Point(22, 499);
             this.btnPayment.Name = "btnPayment";
-            this.btnPayment.Size = new System.Drawing.Size(200, 53);
+            this.btnPayment.Size = new System.Drawing.Size(178, 46);
             this.btnPayment.TabIndex = 9;
             this.btnPayment.Text = "Payment";
             this.btnPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPayment.TextOffset = new System.Drawing.Point(10, 0);
             this.btnPayment.UseTransparentBackground = true;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // btnRecipt
             // 
@@ -240,9 +241,9 @@
             this.btnRecipt.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRecipt.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnRecipt.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnRecipt.Location = new System.Drawing.Point(25, 580);
+            this.btnRecipt.Location = new System.Drawing.Point(22, 551);
             this.btnRecipt.Name = "btnRecipt";
-            this.btnRecipt.Size = new System.Drawing.Size(200, 53);
+            this.btnRecipt.Size = new System.Drawing.Size(178, 46);
             this.btnRecipt.TabIndex = 8;
             this.btnRecipt.Text = "Receipt";
             this.btnRecipt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -272,9 +273,9 @@
             this.btnSale.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSale.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnSale.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnSale.Location = new System.Drawing.Point(25, 521);
+            this.btnSale.Location = new System.Drawing.Point(22, 450);
             this.btnSale.Name = "btnSale";
-            this.btnSale.Size = new System.Drawing.Size(200, 53);
+            this.btnSale.Size = new System.Drawing.Size(178, 46);
             this.btnSale.TabIndex = 7;
             this.btnSale.Text = "Sale";
             this.btnSale.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -305,9 +306,9 @@
             this.btnPurchase.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPurchase.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnPurchase.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnPurchase.Location = new System.Drawing.Point(25, 462);
+            this.btnPurchase.Location = new System.Drawing.Point(22, 399);
             this.btnPurchase.Name = "btnPurchase";
-            this.btnPurchase.Size = new System.Drawing.Size(200, 53);
+            this.btnPurchase.Size = new System.Drawing.Size(178, 46);
             this.btnPurchase.TabIndex = 6;
             this.btnPurchase.Text = "Purchase";
             this.btnPurchase.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -338,9 +339,9 @@
             this.btnSupplier.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSupplier.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnSupplier.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnSupplier.Location = new System.Drawing.Point(25, 403);
+            this.btnSupplier.Location = new System.Drawing.Point(22, 348);
             this.btnSupplier.Name = "btnSupplier";
-            this.btnSupplier.Size = new System.Drawing.Size(200, 53);
+            this.btnSupplier.Size = new System.Drawing.Size(178, 46);
             this.btnSupplier.TabIndex = 5;
             this.btnSupplier.Text = "Supplier";
             this.btnSupplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -371,9 +372,9 @@
             this.btnCustomer.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnCustomer.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnCustomer.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnCustomer.Location = new System.Drawing.Point(25, 344);
+            this.btnCustomer.Location = new System.Drawing.Point(22, 297);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(200, 53);
+            this.btnCustomer.Size = new System.Drawing.Size(178, 46);
             this.btnCustomer.TabIndex = 4;
             this.btnCustomer.Text = "Customer";
             this.btnCustomer.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -404,9 +405,9 @@
             this.btnProduct.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnProduct.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnProduct.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnProduct.Location = new System.Drawing.Point(25, 285);
+            this.btnProduct.Location = new System.Drawing.Point(22, 246);
             this.btnProduct.Name = "btnProduct";
-            this.btnProduct.Size = new System.Drawing.Size(200, 53);
+            this.btnProduct.Size = new System.Drawing.Size(178, 46);
             this.btnProduct.TabIndex = 3;
             this.btnProduct.Text = "Product";
             this.btnProduct.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -438,9 +439,9 @@
             this.btnDash.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDash.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnDash.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnDash.Location = new System.Drawing.Point(25, 226);
+            this.btnDash.Location = new System.Drawing.Point(22, 195);
             this.btnDash.Name = "btnDash";
-            this.btnDash.Size = new System.Drawing.Size(200, 53);
+            this.btnDash.Size = new System.Drawing.Size(178, 46);
             this.btnDash.TabIndex = 2;
             this.btnDash.Text = "Dashboard";
             this.btnDash.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -452,7 +453,7 @@
             this.btnAdd.Animated = true;
             this.btnAdd.AutoRoundedCorners = true;
             this.btnAdd.BackColor = System.Drawing.Color.Transparent;
-            this.btnAdd.BorderRadius = 22;
+            this.btnAdd.BorderRadius = 19;
             this.btnAdd.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnAdd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnAdd.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -461,9 +462,9 @@
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAdd.Location = new System.Drawing.Point(65, 162);
+            this.btnAdd.Location = new System.Drawing.Point(58, 140);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(117, 46);
+            this.btnAdd.Size = new System.Drawing.Size(104, 40);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "ADD NEW";
             this.btnAdd.UseTransparentBackground = true;
@@ -473,9 +474,9 @@
             // 
             this.guna2PictureBox1.Image = global::Billing_System.Properties.Resources.logomain;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(44, -1);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(39, -1);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(161, 167);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(143, 144);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guna2PictureBox1.TabIndex = 0;
             this.guna2PictureBox1.TabStop = false;
@@ -492,9 +493,9 @@
             this.guna2Panel2.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
             this.guna2Panel2.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.guna2Panel2.Location = new System.Drawing.Point(253, 0);
+            this.guna2Panel2.Location = new System.Drawing.Point(225, 0);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1251, 103);
+            this.guna2Panel2.Size = new System.Drawing.Size(1112, 89);
             this.guna2Panel2.TabIndex = 1;
             // 
             // userRole
@@ -502,9 +503,9 @@
             this.userRole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.userRole.AutoSize = true;
             this.userRole.Font = new System.Drawing.Font("Segoe UI Emoji", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userRole.Location = new System.Drawing.Point(1186, 66);
+            this.userRole.Location = new System.Drawing.Point(1054, 57);
             this.userRole.Name = "userRole";
-            this.userRole.Size = new System.Drawing.Size(50, 17);
+            this.userRole.Size = new System.Drawing.Size(45, 15);
             this.userRole.TabIndex = 6;
             this.userRole.Text = "Admin";
             this.userRole.Click += new System.EventHandler(this.userRole_Click);
@@ -514,10 +515,10 @@
             this.guna2CirclePictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2CirclePictureBox1.Image = global::Billing_System.Properties.Resources.user;
             this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(1145, 58);
+            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(1018, 50);
             this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(35, 35);
+            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(31, 30);
             this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guna2CirclePictureBox1.TabIndex = 5;
             this.guna2CirclePictureBox1.TabStop = false;
@@ -527,18 +528,18 @@
             // 
             this.NameParth.AutoSize = true;
             this.NameParth.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameParth.Location = new System.Drawing.Point(75, 30);
+            this.NameParth.Location = new System.Drawing.Point(67, 26);
             this.NameParth.Name = "NameParth";
-            this.NameParth.Size = new System.Drawing.Size(74, 22);
+            this.NameParth.Size = new System.Drawing.Size(61, 19);
             this.NameParth.TabIndex = 4;
             this.NameParth.Text = "Home /";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Billing_System.Properties.Resources.homr;
-            this.pictureBox1.Location = new System.Drawing.Point(31, 24);
+            this.pictureBox1.Location = new System.Drawing.Point(28, 21);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 31);
+            this.pictureBox1.Size = new System.Drawing.Size(32, 27);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
@@ -553,9 +554,9 @@
             this.btnMim.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
             this.btnMim.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
             this.btnMim.IconColor = System.Drawing.Color.White;
-            this.btnMim.Location = new System.Drawing.Point(1095, 12);
+            this.btnMim.Location = new System.Drawing.Point(973, 10);
             this.btnMim.Name = "btnMim";
-            this.btnMim.Size = new System.Drawing.Size(44, 35);
+            this.btnMim.Size = new System.Drawing.Size(39, 30);
             this.btnMim.TabIndex = 2;
             // 
             // btnMax
@@ -568,9 +569,9 @@
             this.btnMax.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
             this.btnMax.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
             this.btnMax.IconColor = System.Drawing.Color.White;
-            this.btnMax.Location = new System.Drawing.Point(1144, 12);
+            this.btnMax.Location = new System.Drawing.Point(1017, 10);
             this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(44, 35);
+            this.btnMax.Size = new System.Drawing.Size(39, 30);
             this.btnMax.TabIndex = 1;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
@@ -584,9 +585,9 @@
             this.btnClose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
             this.btnClose.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
             this.btnClose.IconColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(1193, 12);
+            this.btnClose.Location = new System.Drawing.Point(1060, 10);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(44, 35);
+            this.btnClose.Size = new System.Drawing.Size(39, 30);
             this.btnClose.TabIndex = 0;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -595,9 +596,9 @@
             this.CentralPannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CentralPannel.Location = new System.Drawing.Point(259, 109);
+            this.CentralPannel.Location = new System.Drawing.Point(230, 94);
             this.CentralPannel.Name = "CentralPannel";
-            this.CentralPannel.Size = new System.Drawing.Size(1233, 784);
+            this.CentralPannel.Size = new System.Drawing.Size(1096, 677);
             this.CentralPannel.TabIndex = 2;
             // 
             // addNewPanel
@@ -613,9 +614,9 @@
             this.addNewPanel.Controls.Add(this.btnAddCur);
             this.addNewPanel.Controls.Add(this.btnAddPro);
             this.addNewPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            this.addNewPanel.Location = new System.Drawing.Point(95, 208);
+            this.addNewPanel.Location = new System.Drawing.Point(84, 180);
             this.addNewPanel.Name = "addNewPanel";
-            this.addNewPanel.Size = new System.Drawing.Size(511, 301);
+            this.addNewPanel.Size = new System.Drawing.Size(454, 260);
             this.addNewPanel.TabIndex = 3;
             this.addNewPanel.Visible = false;
             // 
@@ -632,9 +633,9 @@
             this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button8.ForeColor = System.Drawing.Color.White;
             this.guna2Button8.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.guna2Button8.Location = new System.Drawing.Point(256, 208);
+            this.guna2Button8.Location = new System.Drawing.Point(228, 180);
             this.guna2Button8.Name = "guna2Button8";
-            this.guna2Button8.Size = new System.Drawing.Size(213, 46);
+            this.guna2Button8.Size = new System.Drawing.Size(189, 40);
             this.guna2Button8.TabIndex = 9;
             this.guna2Button8.Text = "User";
             this.guna2Button8.UseTransparentBackground = true;
@@ -652,9 +653,9 @@
             this.btnAddPay.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddPay.ForeColor = System.Drawing.Color.White;
             this.btnAddPay.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddPay.Location = new System.Drawing.Point(35, 208);
+            this.btnAddPay.Location = new System.Drawing.Point(31, 180);
             this.btnAddPay.Name = "btnAddPay";
-            this.btnAddPay.Size = new System.Drawing.Size(213, 46);
+            this.btnAddPay.Size = new System.Drawing.Size(189, 40);
             this.btnAddPay.TabIndex = 8;
             this.btnAddPay.Text = "Payment";
             this.btnAddPay.UseTransparentBackground = true;
@@ -672,9 +673,9 @@
             this.btnAddRece.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddRece.ForeColor = System.Drawing.Color.White;
             this.btnAddRece.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddRece.Location = new System.Drawing.Point(255, 153);
+            this.btnAddRece.Location = new System.Drawing.Point(227, 132);
             this.btnAddRece.Name = "btnAddRece";
-            this.btnAddRece.Size = new System.Drawing.Size(213, 46);
+            this.btnAddRece.Size = new System.Drawing.Size(189, 40);
             this.btnAddRece.TabIndex = 7;
             this.btnAddRece.Text = "Receipt";
             this.btnAddRece.UseTransparentBackground = true;
@@ -692,9 +693,9 @@
             this.btnAddSale.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddSale.ForeColor = System.Drawing.Color.White;
             this.btnAddSale.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddSale.Location = new System.Drawing.Point(34, 153);
+            this.btnAddSale.Location = new System.Drawing.Point(30, 132);
             this.btnAddSale.Name = "btnAddSale";
-            this.btnAddSale.Size = new System.Drawing.Size(213, 46);
+            this.btnAddSale.Size = new System.Drawing.Size(189, 40);
             this.btnAddSale.TabIndex = 6;
             this.btnAddSale.Text = "Sale";
             this.btnAddSale.UseTransparentBackground = true;
@@ -712,9 +713,9 @@
             this.btnAddPur.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddPur.ForeColor = System.Drawing.Color.White;
             this.btnAddPur.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddPur.Location = new System.Drawing.Point(255, 98);
+            this.btnAddPur.Location = new System.Drawing.Point(227, 85);
             this.btnAddPur.Name = "btnAddPur";
-            this.btnAddPur.Size = new System.Drawing.Size(213, 46);
+            this.btnAddPur.Size = new System.Drawing.Size(189, 40);
             this.btnAddPur.TabIndex = 5;
             this.btnAddPur.Text = "Purchase";
             this.btnAddPur.UseTransparentBackground = true;
@@ -732,9 +733,9 @@
             this.btnAddSup.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddSup.ForeColor = System.Drawing.Color.White;
             this.btnAddSup.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddSup.Location = new System.Drawing.Point(34, 98);
+            this.btnAddSup.Location = new System.Drawing.Point(30, 85);
             this.btnAddSup.Name = "btnAddSup";
-            this.btnAddSup.Size = new System.Drawing.Size(213, 46);
+            this.btnAddSup.Size = new System.Drawing.Size(189, 40);
             this.btnAddSup.TabIndex = 4;
             this.btnAddSup.Text = "Supplier";
             this.btnAddSup.UseTransparentBackground = true;
@@ -752,9 +753,9 @@
             this.btnAddCur.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddCur.ForeColor = System.Drawing.Color.White;
             this.btnAddCur.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddCur.Location = new System.Drawing.Point(255, 43);
+            this.btnAddCur.Location = new System.Drawing.Point(227, 37);
             this.btnAddCur.Name = "btnAddCur";
-            this.btnAddCur.Size = new System.Drawing.Size(213, 46);
+            this.btnAddCur.Size = new System.Drawing.Size(189, 40);
             this.btnAddCur.TabIndex = 3;
             this.btnAddCur.Text = "Customer";
             this.btnAddCur.UseTransparentBackground = true;
@@ -772,9 +773,9 @@
             this.btnAddPro.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddPro.ForeColor = System.Drawing.Color.White;
             this.btnAddPro.Image = global::Billing_System.Properties.Resources.addWhite;
-            this.btnAddPro.Location = new System.Drawing.Point(34, 43);
+            this.btnAddPro.Location = new System.Drawing.Point(30, 37);
             this.btnAddPro.Name = "btnAddPro";
-            this.btnAddPro.Size = new System.Drawing.Size(213, 46);
+            this.btnAddPro.Size = new System.Drawing.Size(189, 40);
             this.btnAddPro.TabIndex = 2;
             this.btnAddPro.Text = "Product";
             this.btnAddPro.UseTransparentBackground = true;
@@ -796,14 +797,14 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1504, 900);
+            this.ClientSize = new System.Drawing.Size(1337, 777);
             this.Controls.Add(this.addNewPanel);
             this.Controls.Add(this.CentralPannel);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmMain";
             this.Text = "frmMain";
             this.Load += new System.EventHandler(this.frmMain_Load);

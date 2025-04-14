@@ -383,34 +383,53 @@ namespace MainClass
 
 
         //Clear...............................
-        public static void ClearAll(Form F)
+        public static void ClearAll(Control parent)
         {
-            foreach (Control c in F.Controls)
+            foreach (Control c in parent.Controls)
             {
-                Type type = c.GetType();
-
-                if (type == typeof(Guna.UI2.WinForms.Guna2TextBox))
+                // Recursively clear inner controls
+                if (c.HasChildren)
                 {
-                    Guna.UI2.WinForms.Guna2TextBox t = (Guna.UI2.WinForms.Guna2TextBox)c;
+                    ClearAll(c);
+                }
+
+                if (c.Name == "mainID") // Skip mainID field
+                    continue;
+
+                if (c is Guna.UI2.WinForms.Guna2TextBox t)
+                {
                     t.Text = "";
                 }
-                else if (type == typeof(Guna.UI2.WinForms.Guna2ComboBox))
+                else if (c is Guna.UI2.WinForms.Guna2ComboBox cb)
                 {
-                    Guna.UI2.WinForms.Guna2ComboBox cb = (Guna.UI2.WinForms.Guna2ComboBox)c;
                     cb.SelectedIndex = -1;
                 }
-                else if (type == typeof(CheckBox))
+                else if (c is Guna.UI2.WinForms.Guna2DateTimePicker dt)
                 {
-                    ((CheckBox)c).Checked = false;
+                    dt.Value = DateTime.Today;
                 }
-                else if (type == typeof(PictureBox)) // Clear PictureBox image
+                else if (c is CheckBox chk)
                 {
-                    PictureBox pb = (PictureBox)c;
-                    pb.Image = null; // Or reset to a default image
+                    chk.Checked = false;
                 }
-                // Add any other control types as needed
+                
+                else if (c is PictureBox pb)
+                {
+                    pb.Image = null;
+                }
+
+
+                else if (c is RadioButton rb)
+                {
+                    rb.Checked = false;
+                }
+                else if (c is NumericUpDown nud)
+                {
+                    nud.Value = nud.Minimum;
+                }
             }
         }
+
 
 
 
@@ -865,7 +884,7 @@ namespace MainClass
                             var personID = ExecuteScalar(personQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
 
                             ht["@mainID"] = form.Controls["mainID"].Text;
-                            ht["@mdate"] = form.Controls["mdate"].Text;
+                            ht["@mdate"] = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;
                             ht["@PersonID"] = personID;
                             ht["@description"] = form.Controls["description"].Text;
 
@@ -902,6 +921,7 @@ namespace MainClass
                             ht["@mdate"] = mdatePicker.Value;
                         else
                             ht["@mdate"] = DateTime.Now;
+
 
                         if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal rNetAmount))
                             ht["@NetAmount"] = rNetAmount;
@@ -946,14 +966,28 @@ namespace MainClass
                         {
                             if (pb.Image != null)
                             {
-                                ht["@uImage"] = ImageToByteArray(pb.Image);
+                                // Fix: Detect correct parameter based on table name
+                                string imageParam = tableName == "tblProduct" ? "@pImage" : "@uImage";
+
+                                if (!ht.ContainsKey(imageParam))
+                                {
+                                    ht[imageParam] = ImageToByteArray(pb.Image);
+                                }
                             }
                             else
                             {
-                                ht["@uImage"] = DBNull.Value;
-                            }
+                                string imageParam = tableName == "tblProduct" ? "@pImage" : "@uImage";
 
+                                if (!ht.ContainsKey(imageParam))
+                                {
+                                    ht[imageParam] = DBNull.Value;
+                                }
+                            }
                         }
+
+
+
+
                     }
                 }
 
@@ -1211,10 +1245,11 @@ namespace MainClass
 
         public static void MaskD(Guna2DateTimePicker guna2DateTimePicker)
         {
-            DateTime tempDate = guna2DateTimePicker.Value; // Use the Value property directly
+            DateTime tempDate = guna2DateTimePicker.Value;
 
             // Format the date as "dd/MM/yyyy"
-            guna2DateTimePicker.Text = tempDate.ToString("dd/MM/yyyy");
+            guna2DateTimePicker.Format = DateTimePickerFormat.Custom;
+            guna2DateTimePicker.CustomFormat = "dd/MM/yyyy";
         }
 
 
