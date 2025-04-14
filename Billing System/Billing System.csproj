@@ -125,6 +125,12 @@
     <Compile Include="Model\frmCusAdd.Designer.cs">
       <DependentUpon>frmCusAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\frmPaymentAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\frmPaymentAdd.Designer.cs">
+      <DependentUpon>frmPaymentAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\frmProductAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,12 @@
     <Compile Include="View\frmCustomer.Designer.cs">
       <DependentUpon>frmCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmPayment.Designer.cs">
+      <DependentUpon>frmPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +241,9 @@
     <EmbeddedResource Include="Model\frmCusAdd.resx">
       <DependentUpon>frmCusAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Model\frmPaymentAdd.resx">
+      <DependentUpon>frmPaymentAdd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\frmProductAdd.resx">
       <DependentUpon>frmProductAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmCustomer.resx">
       <DependentUpon>frmCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmPayment.resx">
+      <DependentUpon>frmPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmProduct.resx">
       <DependentUpon>frmProduct.cs</DependentUpon>
