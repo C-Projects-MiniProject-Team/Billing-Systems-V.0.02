@@ -249,6 +249,7 @@
             this.btnRecipt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRecipt.TextOffset = new System.Drawing.Point(10, 0);
             this.btnRecipt.UseTransparentBackground = true;
+            this.btnRecipt.Click += new System.EventHandler(this.btnRecipt_Click);
             // 
             // btnSale
             // 

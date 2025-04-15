@@ -1,35 +1,34 @@
-﻿using Guna.UI2.WinForms;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Billing_System.Model
 {
-    public partial class frmPaymentAdd : SampleAdd
+    public partial class frmReceipAdd : SampleAdd
     {
-        public frmPaymentAdd()
+        public frmReceipAdd()
         {
             InitializeComponent();
         }
 
-        private void mdate_ValueChanged(object sender, EventArgs e)
-        {
-            MainClass.Functions.MaskD(mdate);
-        }
-
-        private void frmPaymentAdd_Load(object sender, EventArgs e)
+        private void frmReceipAdd_Load(object sender, EventArgs e)
         {
             mainID.Text = "0";
 
             PersonID.SelectedIndexChanged -= PersonID_SelectedIndexChanged;
 
-            string qry = "SELECT supID 'id', sName 'name' FROM tblSupplier";
+            string qry = "SELECT cusID 'id', cName 'name' FROM tblCustomer";
             MainClass.Functions.CBFill(qry, PersonID);
 
             if (editID > 0)
             {
-                MainClass.Functions.AutoLoadForEdit(this, "tblPayment", editID);
+                MainClass.Functions.AutoLoadForEdit(this, "tblReceipt", editID);
             }
 
             PersonID.SelectedIndexChanged += PersonID_SelectedIndexChanged;
@@ -39,10 +38,13 @@ namespace Billing_System.Model
 
             // frmPaymentAdd_Load() method 
             guna2DataGridView1.SelectionChanged += guna2DataGridView1_SelectionChanged;
-
-
-
         }
+
+        private void mdate_ValueChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mdate);
+        }
+
 
 
 
@@ -71,12 +73,12 @@ namespace Billing_System.Model
                             SELECT 0 AS 'Sr#', 
                                    m.mainID, 
                                    m.NetAmount AS 'Invoice Amount',
-                                   (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Payment',
-                                   m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Balance'
+                                   (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Receipt',
+                                   m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Balance'
                             FROM tblInvMain m
-                            WHERE m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) <> 0
+                            WHERE m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) <> 0
                               AND m.mType <> 'Cash'
-                              AND m.mType = 'Purchase'
+                              AND m.mType = 'Sale'
                               AND m.PersonID = " + partyID;
 
 
@@ -119,9 +121,9 @@ namespace Billing_System.Model
                 if (!MainClass.Functions.Validatation(this)) return;
 
                 if (editID == 0)
-                    MainClass.Functions.AutoSQL(this, "tblPayment", MainClass.Functions.enmType.Insert, editID);
+                    MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Insert, editID);
                 else
-                    MainClass.Functions.AutoSQL(this, "tblPayment", MainClass.Functions.enmType.Update, editID);
+                    MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Update, editID);
             });
 
             Invoke(new Action(() =>
@@ -143,10 +145,19 @@ namespace Billing_System.Model
 
         public override void btnDelete_Click(object sender, EventArgs e)
         {
-            MainClass.Functions.AutoSQL(this, "tblPayment", MainClass.Functions.enmType.Delete, editID);
+            MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Delete, editID);
             editID = 0;
             MainClass.Functions.ClearAll(this);
         }
+
+
+
+
+
+
+
+
+
 
 
     }

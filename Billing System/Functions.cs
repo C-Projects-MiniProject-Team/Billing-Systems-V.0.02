@@ -935,7 +935,7 @@ namespace MainClass
                         return;
                 }
 
-                // 🛑 Only auto-add parameters for tables that need them (avoid re-adding in tblReceipt)
+                // Only auto-add parameters for tables that need them (avoid re-adding in tblReceipt)
                 if (tableName != "tblReceipt")
                 {
                     foreach (Control c in form.Controls)

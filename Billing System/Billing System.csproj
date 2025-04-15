@@ -143,6 +143,12 @@
     <Compile Include="Model\frmPurchaseAdd.Designer.cs">
       <DependentUpon>frmPurchaseAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\frmReceipAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\frmReceipAdd.Designer.cs">
+      <DependentUpon>frmReceipAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\frmSaleAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +217,12 @@
     <Compile Include="View\frmPurchase.Designer.cs">
       <DependentUpon>frmPurchase.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmReceipts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmReceipts.Designer.cs">
+      <DependentUpon>frmReceipts.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmSales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +262,9 @@
     <EmbeddedResource Include="Model\frmPurchaseAdd.resx">
       <DependentUpon>frmPurchaseAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Model\frmReceipAdd.resx">
+      <DependentUpon>frmReceipAdd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\frmSaleAdd.resx">
       <DependentUpon>frmSaleAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmPurchase.resx">
       <DependentUpon>frmPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmReceipts.resx">
+      <DependentUpon>frmReceipts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmSales.resx">
       <DependentUpon>frmSales.cs</DependentUpon>
