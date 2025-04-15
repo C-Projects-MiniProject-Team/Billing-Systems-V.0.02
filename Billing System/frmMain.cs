@@ -109,5 +109,10 @@ namespace Billing_System
         {
             AddControls(new frmPayment());
         }
+
+        private void btnRecipt_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmReceipts());
+        }
     }
 }
