@@ -65,13 +65,24 @@ namespace Billing_System.Model
 
             int partyID = (PersonID.SelectedIndex == -1) ? 0 : Convert.ToInt32(PersonID.SelectedValue);
 
-            string qry = @"SELECT 0 'Sr#', m.mainID, m.mTotal 'Invoice Amount',
-                            (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) 'Payment',
-                            m.mTotal - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) 'Balance'
+
+            guna2DataGridView1.DataSource = null;
+            string qry = @"
+                            SELECT 0 AS 'Sr#', 
+                                   m.mainID, 
+                                   m.NetAmount AS 'Invoice Amount',
+                                   (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Payment',
+                                   m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Balance'
                             FROM tblInvMain m
-                            WHERE m.mTotal - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) <> 0";
+                            WHERE m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) <> 0
+                              AND m.mType = 'Purchase'
+                              AND m.PersonID = " + partyID;
+
+
 
             MainClass.Functions.LoadData(qry, guna2DataGridView1);
+
+
 
             if (guna2DataGridView1.Columns.Contains("mainID"))
             {
