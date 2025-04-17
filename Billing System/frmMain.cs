@@ -114,5 +114,11 @@ namespace Billing_System
         {
             AddControls(new frmReceipts());
         }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmReport());
+
+        }
     }
 }
