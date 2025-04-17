@@ -142,7 +142,7 @@
             this.btnReport.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReport.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnReport.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnReport.Location = new System.Drawing.Point(22, 654);
+            this.btnReport.Location = new System.Drawing.Point(22, 603);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(178, 46);
             this.btnReport.TabIndex = 11;
@@ -150,6 +150,7 @@
             this.btnReport.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReport.TextOffset = new System.Drawing.Point(10, 0);
             this.btnReport.UseTransparentBackground = true;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // btnUser
             // 
@@ -175,7 +176,7 @@
             this.btnUser.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnUser.ImageSize = new System.Drawing.Size(25, 25);
             this.btnUser.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnUser.Location = new System.Drawing.Point(22, 603);
+            this.btnUser.Location = new System.Drawing.Point(22, 655);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(178, 46);
             this.btnUser.TabIndex = 10;
