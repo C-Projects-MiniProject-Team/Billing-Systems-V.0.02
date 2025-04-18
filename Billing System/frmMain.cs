@@ -1,9 +1,12 @@
 ﻿using Billing_System.View;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,16 +18,113 @@ namespace Billing_System
     {
         public static object Instance { get; internal set; }
 
+
+        void StyleSidebarButtons()
+        {
+            Guna2Button[] buttons = {
+        btnUser, btnCustomer, btnSupplier, btnPurchase,
+        btnSale, btnPayment, btnRecipt
+    };
+
+            foreach (var btn in buttons)
+            {
+                btn.FillColor = Color.Transparent;
+                btn.HoverState.FillColor = Color.FromArgb(40, 255, 255, 255); // ✅ Light glassy hover
+                btn.BorderThickness = 0;
+                btn.BorderColor = Color.Transparent;
+                btn.BackColor = Color.Transparent;
+                btn.ForeColor = Color.White;
+                btn.Cursor = Cursors.Hand;
+            }
+        }
+
+
         public frmMain()
         {
             InitializeComponent();
         }
 
+        private void RestrictUserAccess()
+        {
+            if (userRole.Text != "Admin") // Only Admin can access everything
+            {
+                // Disable all other buttons for non-admins
+                btnUser.Enabled = false;
+                btnProduct.Enabled = false;
+                btnCustomer.Enabled = false;
+                btnSupplier.Enabled = false;
+                btnPurchase.Enabled = false;
+                btnSale.Enabled = false;
+                btnPayment.Enabled = false;
+                btnRecipt.Enabled = false;
+
+                // Optionally: Show tooltips or warnings on click
+                btnUser.Click += ShowAccessDenied;
+                btnCustomer.Click += ShowAccessDenied;
+                btnSupplier.Click += ShowAccessDenied;
+                btnPurchase.Click += ShowAccessDenied;
+                btnSale.Click += ShowAccessDenied;
+                btnPayment.Click += ShowAccessDenied;
+                btnRecipt.Click += ShowAccessDenied;
+            }
+        }
+
+        private void ShowAccessDenied(object sender, EventArgs e)
+        {
+            MessageBox.Show("Access Denied: This feature is only available for Admin users.",
+                "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             AddControls(new frmDashboard());
 
+            // Profile picture
+            if (CurrentUser.ProfileImage != null)
+            {
+                using (MemoryStream ms = new MemoryStream(CurrentUser.ProfileImage))
+                {
+                    userProfilePic.Image = Image.FromStream(ms);
+                }
+            }
+
+            // Set role name and username
+            roleName.Text = CurrentUser.UserName;
+
+            string roleQuery = "SELECT RoleName FROM tblRole WHERE RoleID = @id";
+            using (SqlConnection con = new SqlConnection(MainClass.Functions.conString))
+            {
+                SqlCommand cmd = new SqlCommand(roleQuery, con);
+                cmd.Parameters.AddWithValue("@id", CurrentUser.Role);
+
+                try
+                {
+                    con.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        userRole.Text = result.ToString();
+                    }
+                    else
+                    {
+                        userRole.Text = "Unknown";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading role: " + ex.Message);
+                }
+            }
+
+            // Restrict access if not Admin
+            StyleSidebarButtons();
+            RestrictUserAccess();
         }
+
+
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -125,6 +225,27 @@ namespace Billing_System
         {
             AddControls(new frmDashboard());
 
+        }
+
+        private void btnCloseLogin_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Clear logged user data
+                CurrentUser.UserID = 0;
+                CurrentUser.UserName = null;
+                CurrentUser.Role = 0;
+                CurrentUser.ProfileImage = null;
+
+                // Show login form
+                frmLogin loginForm = new frmLogin();
+                loginForm.Show();
+
+                // Close current form (Main Form)
+                this.Close();
+            }
         }
     }
 }

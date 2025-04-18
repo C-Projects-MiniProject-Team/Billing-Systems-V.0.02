@@ -106,6 +106,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BillingSystemDataSet2.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="frmLoading.cs">
       <SubType>Form</SubType>
     </Compile>
