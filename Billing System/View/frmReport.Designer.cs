@@ -31,6 +31,7 @@
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCustomer = new Guna.UI2.WinForms.Guna2TileButton();
+            this.btnSupplier = new Guna.UI2.WinForms.Guna2TileButton();
             this.guna2CustomGradientPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,11 +80,31 @@
             this.btnCustomer.Text = "Customer Report";
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
+            // btnSupplier
+            // 
+            this.btnSupplier.BorderRadius = 16;
+            this.btnSupplier.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSupplier.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSupplier.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSupplier.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSupplier.FillColor = System.Drawing.Color.DarkViolet;
+            this.btnSupplier.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSupplier.ForeColor = System.Drawing.Color.White;
+            this.btnSupplier.Image = global::Billing_System.Properties.Resources.report;
+            this.btnSupplier.ImageSize = new System.Drawing.Size(90, 90);
+            this.btnSupplier.Location = new System.Drawing.Point(278, 190);
+            this.btnSupplier.Name = "btnSupplier";
+            this.btnSupplier.Size = new System.Drawing.Size(180, 180);
+            this.btnSupplier.TabIndex = 5;
+            this.btnSupplier.Text = "Supplier Report";
+            this.btnSupplier.Click += new System.EventHandler(this.btnSupplier_Click);
+            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSupplier);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.guna2CustomGradientPanel2);
             this.Name = "frmReport";
@@ -99,5 +120,6 @@
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel2;
         public System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2TileButton btnCustomer;
+        private Guna.UI2.WinForms.Guna2TileButton btnSupplier;
     }
 }

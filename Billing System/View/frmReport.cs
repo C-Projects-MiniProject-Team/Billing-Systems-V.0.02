@@ -22,5 +22,11 @@ namespace Billing_System.View
         {
             new frmCutomerReport().ShowDialog();
         }
+
+        private void btnSupplier_Click(object sender, EventArgs e)
+        {
+            new frmSupplierReport().ShowDialog();
+
+        }
     }
 }
