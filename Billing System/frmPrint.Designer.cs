@@ -62,16 +62,15 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI Emoji", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(408, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(255, 27);
+            this.label1.Size = new System.Drawing.Size(0, 27);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Customer Balance Report";
             // 
             // guna2PictureBox1
             // 
             this.guna2PictureBox1.Image = global::Billing_System.Properties.Resources.logomain;
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(13, 12);
-            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(92, 91);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -143,7 +142,7 @@
             this.ClientSize = new System.Drawing.Size(1021, 704);
             this.Controls.Add(this.crystalReportViewer1);
             this.Controls.Add(this.guna2Panel2);
-            this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Margin = new System.Windows.Forms.Padding(3);
             this.Name = "frmPrint";
             this.Text = "frmPrint";
             this.guna2Panel2.ResumeLayout(false);
