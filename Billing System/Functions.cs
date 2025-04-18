@@ -195,8 +195,28 @@ namespace MainClass
 
 
 
+        public static bool IsValidUser(string username, string enteredPassword)
+        {
+            string encryptedPassword = GetEncryptedPassword(username);
 
-        // Database එකෙන් username එකට අදාල encrypted password එක ලබාගැනීම
+            if (string.IsNullOrEmpty(encryptedPassword))
+                return false;
+
+            try
+            {
+                string decryptedPassword = SecurityFunctions.DecryptPassword(encryptedPassword);
+                return enteredPassword == decryptedPassword;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Login failed. Invalid or corrupted password.\n" + ex.Message);
+                return false;
+            }
+        }
+
+
+
+
         private static string GetEncryptedPassword(string username)
         {
             string encryptedPassword = null;
@@ -220,29 +240,6 @@ namespace MainClass
             return encryptedPassword;
         }
 
-
-
-
-
-
-        //GetData
-        // Username සහ Password validate කරන විධිය
-        public static bool IsValidUser(string username, string password)
-        {
-            // Database එකෙන් encrypted password එක ගන්න
-            string encryptedPassword = GetEncryptedPassword(username);
-
-            if (encryptedPassword == null)
-            {
-                return false; // Username එක database එකේ නැත්නම්
-            }
-
-            // Encrypted password එක decrypt කර password එක සසඳන්න
-            string decryptedPassword = SecurityFunctions.DecryptPassword(encryptedPassword);
-
-            // User එකෙන් ලැබුණු password එක decrypt කරගත් password එක සමඟ සසඳන්න
-            return password == decryptedPassword;
-        }
 
 
 
@@ -943,11 +940,24 @@ namespace MainClass
                         if (c is Guna2TextBox txt)
                         {
                             string colName = txt.Name.Replace("txt", "");
-                            if (!ht.ContainsKey("@" + colName))
+
+                            if (colName == "uPass")
                             {
-                                ht.Add("@" + colName, txt.Text);
+                                if (!ht.ContainsKey("@uPass"))
+                                {
+                                    // Encrypt only for password
+                                    ht.Add("@uPass", SecurityFunctions.EncryptPassword(txt.Text));
+                                }
+                            }
+                            else
+                            {
+                                if (!ht.ContainsKey("@" + colName))
+                                {
+                                    ht.Add("@" + colName, txt.Text);
+                                }
                             }
                         }
+
                         else if (c is Guna2ComboBox cb)
                         {
                             if (!ht.ContainsKey("@" + cb.Name))
@@ -962,6 +972,7 @@ namespace MainClass
                                 ht.Add("@" + dtp.Name, dtp.Value);
                             }
                         }
+
                         else if (c is PictureBox pb)
                         {
                             if (pb.Image != null)
