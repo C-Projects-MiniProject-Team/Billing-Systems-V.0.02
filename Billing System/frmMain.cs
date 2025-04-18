@@ -22,7 +22,7 @@ namespace Billing_System
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-           
+            AddControls(new frmDashboard());
 
         }
 
@@ -118,6 +118,12 @@ namespace Billing_System
         private void btnReport_Click(object sender, EventArgs e)
         {
             AddControls(new frmReport());
+
+        }
+
+        private void btnDash_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmDashboard());
 
         }
     }
