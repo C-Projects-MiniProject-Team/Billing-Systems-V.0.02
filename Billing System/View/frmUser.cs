@@ -38,6 +38,9 @@ namespace Billing_System.View
 
         private async void LoadData()
         {
+
+
+
             string qry = @"SELECT u.userID, u.uName 'Name', r.RoleName 'Role', u.uEmail 'Email', u.uPhone 'Phone', u.uPass 'Password', u.uImage
                            FROM tblUser u
                            JOIN tblRole r ON u.uRole = r.RoleID
@@ -56,6 +59,14 @@ namespace Billing_System.View
             {
                 guna2DataGridView1.Columns["uImage"].Visible = false;
             }
+
+
+            if (guna2DataGridView1.Columns["userID"] != null)
+            {
+                guna2DataGridView1.Columns["userID"].Visible = false; // Hide the userID column
+            }
+
+
 
             foreach (DataGridViewRow row in guna2DataGridView1.Rows)
             {

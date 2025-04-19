@@ -51,12 +51,22 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
+                    // Hide the payID column
+                    if (guna2DataGridView1.Columns["payID"] != null)
+                    {
+                        guna2DataGridView1.Columns["payID"].Visible = false; // Hide the payID column
+                    }
                     SetSrColumnWidth(); // Call this after data is loaded
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
+                // Hide the payID column
+                if (guna2DataGridView1.Columns["payID"] != null)
+                {
+                    guna2DataGridView1.Columns["payID"].Visible = false; // Hide the payID column
+                }
                 SetSrColumnWidth(); // Call this after data is loaded
             }
         }
@@ -87,7 +97,21 @@ namespace Billing_System.View
 
         public override void guna2DataGridView1_DoubleClick(object sender, EventArgs e)
         {
+            if (guna2DataGridView1.CurrentRow != null)
+            {
+                // Get the payID from the selected row
+                int payID = Convert.ToInt32(guna2DataGridView1.CurrentRow.Cells["payID"].Value);
 
+                // Open the frmPaymentAdd form and pass the payID
+                frmPaymentAdd paymentAddForm = new frmPaymentAdd
+                {
+                    editID = payID // Set the editID property to load the payment details
+                };
+
+                paymentAddForm.ShowDialog(); // Show the form as a dialog
+                LoadData(); // Reload the payment list after closing the form
+            }
         }
+
     }
 }

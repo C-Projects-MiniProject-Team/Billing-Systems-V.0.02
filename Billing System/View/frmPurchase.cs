@@ -57,13 +57,23 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
-                   
+                    // Hide the mainID column
+                    if (guna2DataGridView1.Columns["mainID"] != null)
+                    {
+                        guna2DataGridView1.Columns["mainID"].Visible = false; // Hide the mainID column
+                    }
+
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
-                
+                // Hide the mainID column
+                if (guna2DataGridView1.Columns["mainID"] != null)
+                {
+                    guna2DataGridView1.Columns["mainID"].Visible = false; // Hide the mainID column
+                }
+
             }
         }
 
