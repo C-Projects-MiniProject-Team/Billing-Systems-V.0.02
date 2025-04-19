@@ -38,12 +38,23 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
+                    // Hide the proID column
+                    if (guna2DataGridView1.Columns["proID"] != null)
+                    {
+                        guna2DataGridView1.Columns["proID"].Visible = false; // Hide the proID column
+                    }
                     SetSrColumnWidth(); // Call this after data is loaded
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
+                // Hide the proID column
+                if (guna2DataGridView1.Columns["proID"] != null)
+                {
+                    guna2DataGridView1.Columns["proID"].Visible = false; // Hide the proID column
+                }
+
                 SetSrColumnWidth(); // Call this after data is loaded
             }
         }

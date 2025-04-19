@@ -54,12 +54,22 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
+                    // Hide the recID column
+                    if (guna2DataGridView1.Columns["recID"] != null)
+                    {
+                        guna2DataGridView1.Columns["recID"].Visible = false; // Hide the recID column
+                    }
                     SetSrColumnWidth(); // Call this after data is loaded
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
+                // Hide the recID column
+                if (guna2DataGridView1.Columns["recID"] != null)
+                {
+                    guna2DataGridView1.Columns["recID"].Visible = false; // Hide the recID column
+                }
                 SetSrColumnWidth(); // Call this after data is loaded
             }
         }
@@ -90,8 +100,23 @@ namespace Billing_System.View
 
         public override void guna2DataGridView1_DoubleClick(object sender, EventArgs e)
         {
-           
+            if (guna2DataGridView1.CurrentRow != null)
+            {
+                // Get the recID from the selected row
+                int recID = Convert.ToInt32(guna2DataGridView1.CurrentRow.Cells["recID"].Value);
+
+                // Open the frmReceipAdd form and pass the recID
+                frmReceipAdd receipAddForm = new frmReceipAdd
+                {
+                    editID = recID // Set the editID property to load the receipt details
+                };
+
+                receipAddForm.ShowDialog(); // Show the form as a dialog
+                LoadData(); // Reload the receipt list after closing the form
+            }
         }
+
+
 
 
     }

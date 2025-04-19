@@ -729,17 +729,24 @@ namespace MainClass
                 {
                     idColumn = "proID";
                 }
-
-                else if (tableName == "tblCustomer")  // Added for tblCustomer
+                else if (tableName == "tblCustomer")
                 {
                     idColumn = "cusID";
                 }
-
-
                 else if (tableName == "tblSupplier")
                 {
                     idColumn = "supID";
                 }
+                else if (tableName == "tblPayment") // Added support for tblPayment
+                {
+                    idColumn = "payID";
+                }
+                else if (tableName == "tblReceipt")
+                {
+                    idColumn = "recID"; // ✅ FIXED: correct column name
+                }
+
+
 
                 // Ensure the ID column is defined
                 if (string.IsNullOrEmpty(idColumn))
@@ -774,16 +781,33 @@ namespace MainClass
                                 t.Text = row[colName].ToString();
                             }
                         }
-
-                        // For PictureBox controls to load the user image
+                        // For Guna2ComboBox controls
+                        else if (c is Guna.UI2.WinForms.Guna2ComboBox cb)
+                        {
+                            string colName = cb.Name.Replace("cmb", ""); // Assuming control names are cmb + column names
+                            if (row.Table.Columns.Contains(colName))
+                            {
+                                cb.SelectedValue = row[colName];
+                            }
+                        }
+                        // For Guna2DateTimePicker controls
+                        else if (c is Guna.UI2.WinForms.Guna2DateTimePicker dtp)
+                        {
+                            string colName = dtp.Name; // Assuming control names match column names
+                            if (row.Table.Columns.Contains(colName))
+                            {
+                                dtp.Value = Convert.ToDateTime(row[colName]);
+                            }
+                        }
+                        // For PictureBox controls to load images
                         else if (c is PictureBox pb)
                         {
-                            if (pb.Name == "picuterBoxUser" && tableName == "tblUser" && row["uImage"] != DBNull.Value)
+                            if (tableName == "tblUser" && pb.Name == "picuterBoxUser" && row["uImage"] != DBNull.Value)
                             {
                                 byte[] imageBytes = (byte[])row["uImage"];
                                 pb.Image = ByteArrayToImage(imageBytes); // Convert byte array back to image
                             }
-                            else if (pb.Name == "pImage" && tableName == "tblProduct" && row["pImage"] != DBNull.Value)
+                            else if (tableName == "tblProduct" && pb.Name == "pImage" && row["pImage"] != DBNull.Value)
                             {
                                 byte[] imageBytes = (byte[])row["pImage"];
                                 pb.Image = ByteArrayToImage(imageBytes); // Convert byte array back to image
@@ -801,6 +825,11 @@ namespace MainClass
                 MessageBox.Show(ex.ToString(), MsgCaption);
             }
         }
+
+
+
+
+
 
         // Add the ExecuteScalar method
         public static object ExecuteScalar(string query, params SqlParameter[] parameters)

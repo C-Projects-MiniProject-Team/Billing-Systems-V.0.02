@@ -29,6 +29,8 @@ namespace Billing_System.View
             string qry = @"Select ROW_NUMBER() OVER(ORDER BY supID) AS 'Sr#',  supID, sName 'Name', sPhone 'Phone', sEmail 'Email',  sAddress 'Address' 
                            from tblSupplier where sName like '%" + txtSearch.Text + "%' order by supID";
 
+
+
             DataTable dt = null;
 
             // Run the data-fetching task asynchronously
@@ -44,12 +46,25 @@ namespace Billing_System.View
                 guna2DataGridView1.Invoke((MethodInvoker)delegate
                 {
                     guna2DataGridView1.DataSource = dt;
+
+                    // Hide the supID column
+                    if (guna2DataGridView1.Columns["supID"] != null)
+                    {
+                        guna2DataGridView1.Columns["supID"].Visible = false;
+                    }
+
                     SetSrColumnWidth(); // Call this after data is loaded
                 });
             }
             else
             {
                 guna2DataGridView1.DataSource = dt;
+
+                // Hide the supID column
+                if (guna2DataGridView1.Columns["supID"] != null)
+                {
+                    guna2DataGridView1.Columns["supID"].Visible = false;
+                }
                 SetSrColumnWidth(); // Call this after data is loaded
             }
         }

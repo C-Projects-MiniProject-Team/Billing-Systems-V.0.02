@@ -32,20 +32,14 @@
             // 
             // label1
             // 
-            this.label1.Size = new System.Drawing.Size(163, 33);
+            this.label1.Size = new System.Drawing.Size(132, 27);
             this.label1.Text = "Supplier List";
-            // 
-            // guna2BorderlessForm1
-            // 
-            this.guna2BorderlessForm1.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_BLEND;
-            this.guna2BorderlessForm1.DragMode = Guna.UI2.WinForms.Enums.DragMode.Form;
-            this.guna2BorderlessForm1.DragOrientation = Guna.UI2.WinForms.Enums.DragOrientation.Both;
             // 
             // frmSupplier
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1124, 501);
+            this.ClientSize = new System.Drawing.Size(999, 516);
             this.Name = "frmSupplier";
             this.Text = "frmSupplier";
             this.Load += new System.EventHandler(this.frmSupplier_Load);

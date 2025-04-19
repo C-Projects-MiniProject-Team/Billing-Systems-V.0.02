@@ -1,14 +1,6 @@
 ﻿using Guna.UI2.WinForms;
-using Guna.UI2.WinForms.Suite;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Services.Description;
 using System.Windows.Forms;
 
 namespace Billing_System.Model
@@ -20,11 +12,17 @@ namespace Billing_System.Model
             InitializeComponent();
         }
 
+        private int lastRowIndex = -1;
+
+        private void mdate_ValueChanged(object sender, EventArgs e)
+        {
+            MainClass.Functions.MaskD(mdate);
+        }
+
         private void frmReceipAdd_Load(object sender, EventArgs e)
         {
-            mainID.Text = "0";
-
             PersonID.SelectedIndexChanged -= PersonID_SelectedIndexChanged;
+            mainID.Text = "0";
 
             string qry = "SELECT cusID 'id', cName 'name' FROM tblCustomer";
             MainClass.Functions.CBFill(qry, PersonID);
@@ -32,244 +30,217 @@ namespace Billing_System.Model
             if (editID > 0)
             {
                 MainClass.Functions.AutoLoadForEdit(this, "tblReceipt", editID);
+
+                if (!string.IsNullOrWhiteSpace(description.Text) && description.Text.Contains("Invoice #"))
+                {
+                    string[] parts = description.Text.Split('#');
+                    if (parts.Length == 2 && int.TryParse(parts[1], out int parsedMainID))
+                    {
+                        mainID.Text = parsedMainID.ToString();
+                    }
+                }
+
+                if (PersonID.SelectedValue != null)
+                {
+                    int customerID = Convert.ToInt32(PersonID.SelectedValue);
+                    LoadInvoicesForCustomer(customerID);
+                    SelectRowInGridByMainID(mainID.Text);
+                }
+            }
+            else
+            {
+                PersonID_SelectedIndexChanged(null, null);
             }
 
             PersonID.SelectedIndexChanged += PersonID_SelectedIndexChanged;
 
-            // Prevent duplicate events
             guna2DataGridView1.SelectionChanged -= guna2DataGridView1_SelectionChanged;
-
-            // frmPaymentAdd_Load() method 
             guna2DataGridView1.SelectionChanged += guna2DataGridView1_SelectionChanged;
         }
 
-        private void mdate_ValueChanged(object sender, EventArgs e)
+        private void SelectRowInGridByMainID(string invoiceID)
         {
-            MainClass.Functions.MaskD(mdate);
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (row.Cells["mainID"].Value != null && row.Cells["mainID"].Value.ToString() == invoiceID)
+                {
+                    guna2DataGridView1.ClearSelection();
+                    row.Selected = true;
+                    guna2DataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
+
+                    if (row.Cells["Balance"].Value != null)
+                        NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                    description.Text = $"Payment for Invoice #{mainID.Text}";
+                    break;
+                }
+            }
         }
 
+        private void LoadInvoicesForCustomer(int customerID)
+        {
+            string qry = $@"
+            SELECT 0 AS 'Sr#',
+                   m.mainID,
+                   m.NetAmount AS 'Invoice Amount',
+                   (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Payment',
+                   m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Balance'
+            FROM tblInvMain m
+            WHERE m.mType = 'Sale'
+              AND m.mType <> 'Cash'
+              AND m.PersonID = {customerID}";
 
+            MainClass.Functions.LoadData(qry, guna2DataGridView1);
 
+            if (guna2DataGridView1.Columns.Contains("mainID"))
+                guna2DataGridView1.Columns["mainID"].Visible = true;
+
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (row.Cells["mainID"].Value != null && row.Cells["mainID"].Value.ToString() == mainID.Text)
+                {
+                    row.Selected = true;
+                    if (row.Cells["Balance"].Value != null)
+                        NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                    description.Text = $"Payment for Invoice #{mainID.Text}";
+                    break;
+                }
+            }
+        }
+
+        private void PersonID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lastRowIndex = -1;
+            int partyID = (PersonID.SelectedIndex == -1) ? 0 : Convert.ToInt32(PersonID.SelectedValue);
+            guna2DataGridView1.DataSource = null;
+
+            string qry = $@"
+                SELECT 0 AS 'Sr#',
+                       m.mainID,
+                       m.NetAmount AS 'Invoice Amount',
+                       (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Payment',
+                       m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Balance'
+                FROM tblInvMain m
+                WHERE m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) <> 0
+                  AND m.mType <> 'Cash'
+                  AND m.mType = 'Sale'
+                  AND m.PersonID = {partyID}";
+
+            MainClass.Functions.LoadData(qry, guna2DataGridView1);
+
+            if (guna2DataGridView1.Columns.Contains("mainID"))
+                guna2DataGridView1.Columns["mainID"].Visible = true;
+
+            if (guna2DataGridView1.Rows.Count > 0)
+            {
+                guna2DataGridView1.ClearSelection();
+                guna2DataGridView1.Rows[0].Selected = true;
+
+                var row = guna2DataGridView1.Rows[0];
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
+
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                description.Text = $"Payment for Invoice #{mainID.Text}";
+            }
+        }
 
         private void guna2DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (guna2DataGridView1.SelectedRows.Count > 0)
             {
-                var selectedRow = guna2DataGridView1.SelectedRows[0];
+                var row = guna2DataGridView1.SelectedRows[0];
 
-                if (selectedRow.Cells["mainID"].Value != null)
-                {
-                    mainID.Text = selectedRow.Cells["mainID"].Value.ToString();
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
 
-                    // CellClick Method එකේ
-                    if (selectedRow.Cells["Balance"].Value != null)
-                    {
-                        NetAmount.Text = selectedRow.Cells["Balance"].Value.ToString();
-                    }
-
-                    // 🟡 Remove this line or change to:
-                    if (string.IsNullOrWhiteSpace(description.Text))
-                    {
-                        description.Text = "Receipt for Invoice #" + mainID.Text; // Or any default message
-                    }
-
-
-                    // ✅ Optional: Clear description for every new selection
-                    description.Text = string.Empty;
-                }
-            }
-        }
-
-        private int lastSelectedRow = -1;
-
-
-
-
-        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex != lastSelectedRow)
-            {
-                lastSelectedRow = e.RowIndex;
-
-                var selectedRow = guna2DataGridView1.Rows[e.RowIndex];
-                // After invoice row selection
-                if (selectedRow.Cells["mainID"].Value != null)
-                {
-                    mainID.Text = selectedRow.Cells["mainID"].Value.ToString();
-
-                    if (selectedRow.Cells["Balance"].Value != null)
-                        NetAmount.Text = selectedRow.Cells["Balance"].Value.ToString();
-
-                    // Auto fill description if empty
-                    if (string.IsNullOrWhiteSpace(description.Text))
-                        description.Text = $"Payment for Invoice #{mainID.Text}";
-                }
-
-            }
-        }
-
-
-
-        private void PersonID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lastSelectedRow = -1;
-
-            int partyID = (PersonID.SelectedIndex == -1) ? 0 : Convert.ToInt32(PersonID.SelectedValue);
-
-
-            guna2DataGridView1.DataSource = null;
-            string qry = @"
-                            SELECT 0 AS 'Sr#', 
-                                   m.mainID, 
-                                   m.NetAmount AS 'Invoice Amount',
-                                   (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Receipt',
-                                   m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) AS 'Balance'
-                            FROM tblInvMain m
-                            WHERE m.NetAmount - (SELECT ISNULL(SUM(r.NetAmount), 0) FROM tblReceipt r WHERE r.mainID = m.mainID) <> 0
-                              AND m.mType <> 'Cash'
-                              AND m.mType = 'Sale'
-                              AND m.PersonID = " + partyID;
-
-
-
-            MainClass.Functions.LoadData(qry, guna2DataGridView1);
-
-
-
-            if (guna2DataGridView1.Columns.Contains("mainID"))
-            {
-                guna2DataGridView1.Columns["mainID"].Visible = true;
-            }
-
-
-            // Auto-select first row and fill data if rows exist
-            if (guna2DataGridView1.Rows.Count > 0)
-            {
-                // Select first row
-                guna2DataGridView1.ClearSelection();
-                guna2DataGridView1.Rows[0].Selected = true;
-
-                var firstRow = guna2DataGridView1.Rows[0];
-
-                if (firstRow.Cells["mainID"].Value != null)
-                {
-                    mainID.Text = firstRow.Cells["mainID"].Value.ToString();
-                }
-
-                if (firstRow.Cells["Balance"].Value != null)
-                {
-                    NetAmount.Text = firstRow.Cells["Balance"].Value.ToString();
-                }
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
 
                 description.Text = $"Payment for Invoice #{mainID.Text}";
             }
-
-
-
-
-
         }
 
-
-
-
-
-
-
-        public override async void btnSave_Click(object sender, EventArgs e)
+        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex >= 0 && e.RowIndex != lastRowIndex)
+            {
+                lastRowIndex = e.RowIndex;
+                var row = guna2DataGridView1.Rows[e.RowIndex];
 
-            // Validate: 1. Customer selected?
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
+
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                description.Text = $"Payment for Invoice #{mainID.Text}";
+            }
+        }
+
+        public override void btnSave_Click(object sender, EventArgs e)
+        {
             if (PersonID.SelectedIndex == -1 || string.IsNullOrWhiteSpace(PersonID.Text))
             {
-                guna2MessageDialog1.Parent = this;
-                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
-                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
-                guna2MessageDialog1.Caption = "Billing System";
-                guna2MessageDialog1.Text = "Please select a customer!";
-                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                guna2MessageDialog1.Show();
+                ShowMsg("Please select a customer!", MessageDialogIcon.Warning);
                 return;
             }
 
-            // Validate: 2. Row selected in table?
             if (guna2DataGridView1.SelectedRows.Count == 0)
             {
-                guna2MessageDialog1.Parent = this;
-                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
-                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
-                guna2MessageDialog1.Caption = "Billing System";
-                guna2MessageDialog1.Text = "Please select an invoice from the list!";
-                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                guna2MessageDialog1.Show();
+                ShowMsg("Please select an invoice from the list!", MessageDialogIcon.Warning);
                 return;
             }
 
-            // Validate: 3. Description filled?
             if (string.IsNullOrWhiteSpace(description.Text))
             {
-                guna2MessageDialog1.Parent = this;
-                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
-                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
-                guna2MessageDialog1.Caption = "Billing System";
-                guna2MessageDialog1.Text = "Please enter a description!";
-                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                guna2MessageDialog1.Show();
+                ShowMsg("Please enter a description!", MessageDialogIcon.Warning);
                 return;
             }
 
-            // Validate: 4. NetAmount valid?
             if (string.IsNullOrWhiteSpace(NetAmount.Text) || !decimal.TryParse(NetAmount.Text, out decimal amount) || amount <= 0)
             {
-                guna2MessageDialog1.Parent = this;
-                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
-                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
-                guna2MessageDialog1.Caption = "Billing System";
-                guna2MessageDialog1.Text = "Please enter a valid amount!";
-                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                guna2MessageDialog1.Show();
+                ShowMsg("Please enter a valid amount!", MessageDialogIcon.Warning);
                 return;
             }
 
-            // Proceed if all validations are passed
-            await Task.Run(() =>
+            try
             {
                 if (mainID.Text == "0") return;
-
                 if (!MainClass.Functions.Validatation(this)) return;
 
                 if (editID == 0)
                     MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Insert, editID);
                 else
                     MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Update, editID);
-            });
-
-            // Reset form after save
-            // Reset UI
-            Invoke(new Action(() =>
+            }
+            catch (Exception ex)
             {
-                MainClass.Functions.ClearAll(this);
-                mainID.Text = "0";
-                editID = 0;
+                MessageBox.Show("Save error: " + ex.Message);
+                return;
+            }
 
-                // Clear DataGrid to stop SelectionChanged event
-                guna2DataGridView1.DataSource = null;
-                guna2DataGridView1.ClearSelection();
+            MainClass.Functions.ClearAll(this);
+            mainID.Text = "0";
+            editID = 0;
+            guna2DataGridView1.DataSource = null;
+            guna2DataGridView1.ClearSelection();
+            description.Text = "";
+            NetAmount.Text = "";
+            PersonID.SelectedIndex = -1;
 
-                // Clear manually
-                description.Text = "";
-                NetAmount.Text = "";
-
-                // Reset supplier dropdown
-                PersonID.SelectedIndex = -1;
-
-                // Show success message
-                ShowMsg("Payment saved successfully!", MessageDialogIcon.Information);
-            }));
-
-
+            ShowMsg("Receipt saved successfully!", MessageDialogIcon.Information);
         }
 
+        public override void btnDelete_Click(object sender, EventArgs e)
+        {
+            MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Delete, editID);
+            editID = 0;
+            MainClass.Functions.ClearAll(this);
+        }
 
         private void ShowMsg(string message, MessageDialogIcon icon)
         {
@@ -281,25 +252,5 @@ namespace Billing_System.Model
             guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
             guna2MessageDialog1.Show();
         }
-
-
-
-        public override void btnDelete_Click(object sender, EventArgs e)
-        {
-            MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Delete, editID);
-            editID = 0;
-            MainClass.Functions.ClearAll(this);
-        }
-
-
-
-
-
-
-
-
-
-
-
     }
 }
