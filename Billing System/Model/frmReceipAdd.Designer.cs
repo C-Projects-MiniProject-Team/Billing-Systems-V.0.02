@@ -42,6 +42,7 @@
             this.PersonID = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.InvlidN = new System.Windows.Forms.Label();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -207,12 +208,13 @@
             // 
             // mdate
             // 
-            this.mdate.BackColor = System.Drawing.Color.Black;
+            this.mdate.BackColor = System.Drawing.Color.Transparent;
             this.mdate.BorderColor = System.Drawing.Color.DarkViolet;
             this.mdate.BorderRadius = 9;
             this.mdate.BorderThickness = 2;
             this.mdate.Checked = true;
             this.mdate.CheckedState.BorderColor = System.Drawing.Color.DarkViolet;
+            this.mdate.CheckedState.FillColor = System.Drawing.Color.Black;
             this.mdate.FillColor = System.Drawing.Color.Black;
             this.mdate.FocusedColor = System.Drawing.Color.Fuchsia;
             this.mdate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -271,6 +273,15 @@
             this.InvlidN.TabIndex = 45;
             this.InvlidN.Text = "Customer Name";
             // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = null;
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog1.Parent = null;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmReceipAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -309,5 +320,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox PersonID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label InvlidN;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

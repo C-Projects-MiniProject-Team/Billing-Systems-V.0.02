@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -199,6 +200,83 @@ namespace Billing_System.Model
 
         public override void btnSave_Click(object sender, EventArgs e)
         {
+
+            // 🟣 Step 1: Validate DropDowns
+            if (PersonID.SelectedIndex == -1 || string.IsNullOrWhiteSpace(PersonID.Text))
+            {
+                guna2MessageDialog1.Parent = this;
+                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
+                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                guna2MessageDialog1.Caption = "Billing System";
+                guna2MessageDialog1.Text = "Please select a customer!";
+                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                guna2MessageDialog1.Show();
+                return;
+            }
+
+            if (pType.SelectedIndex == -1 || string.IsNullOrWhiteSpace(pType.Text))
+            {
+                guna2MessageDialog1.Parent = this;
+                guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
+                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                guna2MessageDialog1.Caption = "Billing System";
+                guna2MessageDialog1.Text = "Please select a payment type!";
+                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                guna2MessageDialog1.Show();
+                return;
+            }
+
+
+
+            // 🟣 Step 2: Validate GridView Rows (Product & Qty)
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var product = row.Cells["proName"].Value;
+                var qty = row.Cells["qty"].Value;
+
+                if (product == null || string.IsNullOrWhiteSpace(product.ToString()))
+                {
+                    guna2MessageDialog1.Parent = this;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Billing System";
+                    guna2MessageDialog1.Text = "Please select a product!";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+                    return;
+                }
+
+                if (qty == null || string.IsNullOrWhiteSpace(qty.ToString()) || qty.ToString() == "0")
+                {
+                    guna2MessageDialog1.Parent = this;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Billing System";
+                    guna2MessageDialog1.Text = "Please enter a valid quantity!";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+                    return;
+                }
+
+                if (!double.TryParse(Discount.Text.Replace(",", ""), out double discount))
+                {
+                    guna2MessageDialog1.Parent = this;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Billing System";
+                    guna2MessageDialog1.Text = "Invalid discount value! Please enter a valid number.";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+                    return;
+                }
+
+            }
+
+
+
+
             try
             {
                 //  Set default pType if not selected
@@ -210,7 +288,13 @@ namespace Billing_System.Model
                 // Validate Product ID
                 if (!int.TryParse(Convert.ToString(guna2DataGridView1.Rows[0].Cells["proID"].Value), out int proID) || proID == 0)
                 {
-                    MessageBox.Show("Invalid Product ID!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    guna2MessageDialog1.Parent = this;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Billing System";
+                    guna2MessageDialog1.Text = "Invalid Product ID!";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
                     return;
                 }
 
@@ -238,31 +322,64 @@ namespace Billing_System.Model
                         }
                     }
 
-                    MessageBox.Show("RecordX inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    guna2MessageDialog1.Parent = this;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Billing System";
+                    guna2MessageDialog1.Text = "Record inserted successfully!";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+
+
+                    MainClass.Functions.Reset_All(this);
                 }
                 else
                 {
                     // UPDATE existing record
                     MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Update);
-                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    guna2MessageDialog2.Parent = this;
+                    guna2MessageDialog2.Icon = MessageDialogIcon.Information;
+                    guna2MessageDialog2.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog2.Caption = "Billing System";
+                    guna2MessageDialog2.Text = "Record updated successfully!";
+                    guna2MessageDialog2.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog2.Show();
                 }
 
-                // Reset & Clear
-                guna2DataGridView1.Rows.Clear();
+                // After saving or updating, reset all fields and clear the DataGridView
+                if (guna2DataGridView1.Rows.Count > 0)
+                {
+                    // 🟣 FIX: Clear DataGridView properly
+                    guna2DataGridView1.DataSource = null;
+                    // Clear DataGrid to stop SelectionChanged event
+                    guna2DataGridView1.DataSource = null;
+                    guna2DataGridView1.ClearSelection();
+                    // Reset supplier dropdown
+                    PersonID.SelectedIndex = -1;
+                    guna2DataGridView1.Rows.Clear();
+
+                    // 🟣 Clear other form fields
+                    editID = 0;
+                    MainClass.Functions.Reset_All(this);
+                    mTotal.Text = "00.00";
+                    NetAmount.Text = "00.00";
+                    Discount.Text = "00.00";
+                }
                 editID = 0;
-                MainClass.Functions.Reset_All(this);
-                mTotal.Text = "00";
-                NetAmount.Text = "00";
-                Discount.Text = "00";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Handle any exception and display error message
+                guna2MessageDialog1.Parent = this;
+                guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                guna2MessageDialog1.Caption = "Billing System";
+                guna2MessageDialog1.Text = "Error: " + ex.Message;
+                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                guna2MessageDialog1.Show();
             }
         }
-
-
-
 
 
 
@@ -272,13 +389,37 @@ namespace Billing_System.Model
 
         public override void btnDelete_Click(object sender, EventArgs e)
         {
-            MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Delete);
-            guna2DataGridView1.Rows.Clear();
-            editID = 0;
-            MainClass.Functions.Reset_All(this);
+            guna2MessageDialog2.Parent = this;
+            guna2MessageDialog2.Icon = MessageDialogIcon.Question;
+            guna2MessageDialog2.Style = MessageDialogStyle.Dark;
+            guna2MessageDialog2.Caption = "Confirm Deletion";
+            guna2MessageDialog2.Text = "Are you sure you want to delete this purchase?";
+            guna2MessageDialog2.Buttons = MessageDialogButtons.YesNo;
 
+            DialogResult result = guna2MessageDialog2.Show();
+
+            if (result == DialogResult.Yes)
+            {
+                MainClass.Functions.SQlAuto2(this, "tblInvMain", "tblInvDetail", guna2DataGridView1, editID, MainClass.Functions.enmType.Delete);
+
+                //  FIX applied here
+                guna2DataGridView1.DataSource = null;
+                // Clear DataGrid to stop SelectionChanged event
+                guna2DataGridView1.DataSource = null;
+                guna2DataGridView1.ClearSelection();
+                // Reset supplier dropdown
+                PersonID.SelectedIndex = -1;
+                guna2DataGridView1.Rows.Clear();
+
+                // Clear other form fields
+                editID = 0;
+                MainClass.Functions.Reset_All(this);
+                mTotal.Text = "00.00";
+                NetAmount.Text = "00.00";
+                Discount.Text = "00.00";
+
+            }
         }
-
 
 
         public override void btnClose_Click(object sender, EventArgs e)

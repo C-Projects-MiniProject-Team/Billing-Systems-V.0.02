@@ -75,13 +75,13 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(39, 201);
+            this.guna2DataGridView1.Location = new System.Drawing.Point(35, 174);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.ReadOnly = true;
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 30;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(1073, 363);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(934, 297);
             this.guna2DataGridView1.TabIndex = 1;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -120,7 +120,7 @@
             this.guna2CustomGradientPanel2.FillColor4 = System.Drawing.Color.Transparent;
             this.guna2CustomGradientPanel2.Location = new System.Drawing.Point(0, 0);
             this.guna2CustomGradientPanel2.Name = "guna2CustomGradientPanel2";
-            this.guna2CustomGradientPanel2.Size = new System.Drawing.Size(1139, 164);
+            this.guna2CustomGradientPanel2.Size = new System.Drawing.Size(1012, 142);
             this.guna2CustomGradientPanel2.TabIndex = 2;
             // 
             // label1
@@ -128,9 +128,9 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI Emoji", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(42, 22);
+            this.label1.Location = new System.Drawing.Point(37, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 33);
+            this.label1.Size = new System.Drawing.Size(158, 27);
             this.label1.TabIndex = 2;
             this.label1.Text = "Sample Header";
             // 
@@ -155,9 +155,9 @@
             this.btnAdd.Image = global::Billing_System.Properties.Resources.add;
             this.btnAdd.ImageOffset = new System.Drawing.Point(-1, 1);
             this.btnAdd.ImageSize = new System.Drawing.Size(25, 25);
-            this.btnAdd.Location = new System.Drawing.Point(952, 82);
+            this.btnAdd.Location = new System.Drawing.Point(846, 71);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(138, 47);
+            this.btnAdd.Size = new System.Drawing.Size(123, 41);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "ADD NEW";
             this.btnAdd.UseTransparentBackground = true;
@@ -182,25 +182,25 @@
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSearch.IconRight = global::Billing_System.Properties.Resources.search;
             this.txtSearch.IconRightOffset = new System.Drawing.Point(12, 0);
-            this.txtSearch.Location = new System.Drawing.Point(39, 76);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtSearch.Location = new System.Drawing.Point(35, 66);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtSearch.PlaceholderText = "Search";
             this.txtSearch.SelectedText = "";
-            this.txtSearch.Size = new System.Drawing.Size(365, 53);
+            this.txtSearch.Size = new System.Drawing.Size(324, 46);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.Tag = "";
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // SampleView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1139, 585);
+            this.ClientSize = new System.Drawing.Size(1012, 505);
             this.Controls.Add(this.guna2CustomGradientPanel2);
             this.Controls.Add(this.guna2DataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.Name = "SampleView";
             this.Text = "SampleView";
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();

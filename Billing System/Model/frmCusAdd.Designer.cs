@@ -43,16 +43,16 @@
             // 
             // label1
             // 
-            this.label1.Size = new System.Drawing.Size(220, 33);
+            this.label1.Size = new System.Drawing.Size(176, 27);
             this.label1.Text = "Customer Details";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(376, 148);
+            this.label3.Location = new System.Drawing.Point(334, 128);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 20);
+            this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 13;
             this.label3.Text = "Phone";
             // 
@@ -72,14 +72,13 @@
             this.cPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.cPhone.ForeColor = System.Drawing.Color.DarkViolet;
             this.cPhone.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cPhone.Location = new System.Drawing.Point(369, 172);
-            this.cPhone.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cPhone.Location = new System.Drawing.Point(328, 149);
             this.cPhone.Name = "cPhone";
             this.cPhone.PasswordChar = '\0';
             this.cPhone.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.cPhone.PlaceholderText = "0771122123";
             this.cPhone.SelectedText = "";
-            this.cPhone.Size = new System.Drawing.Size(299, 59);
+            this.cPhone.Size = new System.Drawing.Size(266, 51);
             this.cPhone.TabIndex = 14;
             this.cPhone.TabStop = false;
             this.cPhone.Tag = "v";
@@ -88,9 +87,9 @@
             // 
             this.InvlidN.AutoSize = true;
             this.InvlidN.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvlidN.Location = new System.Drawing.Point(37, 148);
+            this.InvlidN.Location = new System.Drawing.Point(33, 128);
             this.InvlidN.Name = "InvlidN";
-            this.InvlidN.Size = new System.Drawing.Size(49, 20);
+            this.InvlidN.Size = new System.Drawing.Size(39, 16);
             this.InvlidN.TabIndex = 9;
             this.InvlidN.Text = "Name";
             // 
@@ -110,14 +109,13 @@
             this.cName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.cName.ForeColor = System.Drawing.Color.DarkViolet;
             this.cName.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cName.Location = new System.Drawing.Point(30, 172);
-            this.cName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cName.Location = new System.Drawing.Point(27, 149);
             this.cName.Name = "cName";
             this.cName.PasswordChar = '\0';
             this.cName.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.cName.PlaceholderText = "Customer Name";
             this.cName.SelectedText = "";
-            this.cName.Size = new System.Drawing.Size(299, 59);
+            this.cName.Size = new System.Drawing.Size(266, 51);
             this.cName.TabIndex = 10;
             this.cName.TabStop = false;
             this.cName.Tag = "v";
@@ -126,9 +124,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 256);
+            this.label2.Location = new System.Drawing.Point(33, 230);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 20);
+            this.label2.Size = new System.Drawing.Size(49, 16);
             this.label2.TabIndex = 17;
             this.label2.Text = "Address";
             // 
@@ -136,9 +134,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(714, 148);
+            this.label4.Location = new System.Drawing.Point(635, 128);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 20);
+            this.label4.Size = new System.Drawing.Size(36, 16);
             this.label4.TabIndex = 15;
             this.label4.Text = "Email";
             // 
@@ -158,14 +156,13 @@
             this.cEmail.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.cEmail.ForeColor = System.Drawing.Color.DarkViolet;
             this.cEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cEmail.Location = new System.Drawing.Point(707, 172);
-            this.cEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cEmail.Location = new System.Drawing.Point(628, 149);
             this.cEmail.Name = "cEmail";
             this.cEmail.PasswordChar = '\0';
             this.cEmail.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.cEmail.PlaceholderText = "gmail@gmail.com";
             this.cEmail.SelectedText = "";
-            this.cEmail.Size = new System.Drawing.Size(299, 59);
+            this.cEmail.Size = new System.Drawing.Size(266, 51);
             this.cEmail.TabIndex = 16;
             this.cEmail.TabStop = false;
             this.cEmail.Tag = "v";
@@ -186,14 +183,13 @@
             this.cAddress.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.cAddress.ForeColor = System.Drawing.Color.DarkViolet;
             this.cAddress.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cAddress.Location = new System.Drawing.Point(30, 280);
-            this.cAddress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAddress.Location = new System.Drawing.Point(27, 251);
             this.cAddress.Name = "cAddress";
             this.cAddress.PasswordChar = '\0';
             this.cAddress.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.cAddress.PlaceholderText = "100, 1/C, Colombo Road ";
             this.cAddress.SelectedText = "";
-            this.cAddress.Size = new System.Drawing.Size(976, 59);
+            this.cAddress.Size = new System.Drawing.Size(868, 51);
             this.cAddress.TabIndex = 18;
             this.cAddress.TabStop = false;
             this.cAddress.Tag = "v";
@@ -218,18 +214,18 @@
             // 
             // guna2MessageDialog3
             // 
-            this.guna2MessageDialog3.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
-            this.guna2MessageDialog3.Caption = "Billing System";
-            this.guna2MessageDialog3.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
+            this.guna2MessageDialog3.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog3.Caption = null;
+            this.guna2MessageDialog3.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
             this.guna2MessageDialog3.Parent = null;
-            this.guna2MessageDialog3.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
-            this.guna2MessageDialog3.Text = "Are you sure You want to Delete ?\n";
+            this.guna2MessageDialog3.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog3.Text = null;
             // 
             // frmCusAdd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1036, 505);
+            this.ClientSize = new System.Drawing.Size(921, 436);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cAddress);
             this.Controls.Add(this.label4);
@@ -258,6 +254,6 @@
         private Guna.UI2.WinForms.Guna2TextBox cAddress;
         public Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
         private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
-        public Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog3;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog3;
     }
 }
