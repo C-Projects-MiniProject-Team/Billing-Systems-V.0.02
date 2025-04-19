@@ -43,6 +43,7 @@
             this.btnCloseLogin = new Guna.UI2.WinForms.Guna2Button();
             this.guna2BorderlessForm2 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -64,16 +65,16 @@
             this.guna2Panel1.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.guna2Panel1.Location = new System.Drawing.Point(0, 2);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(424, 549);
+            this.guna2Panel1.Size = new System.Drawing.Size(377, 474);
             this.guna2Panel1.TabIndex = 0;
             // 
             // InvalidPd
             // 
             this.InvalidPd.AutoSize = true;
             this.InvalidPd.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvalidPd.Location = new System.Drawing.Point(64, 261);
+            this.InvalidPd.Location = new System.Drawing.Point(57, 225);
             this.InvalidPd.Name = "InvalidPd";
-            this.InvalidPd.Size = new System.Drawing.Size(119, 20);
+            this.InvalidPd.Size = new System.Drawing.Size(95, 16);
             this.InvalidPd.TabIndex = 12;
             this.InvalidPd.Text = "Invalid Password";
             this.InvalidPd.Visible = false;
@@ -82,9 +83,9 @@
             // 
             this.InvlidN.AutoSize = true;
             this.InvlidN.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvlidN.Location = new System.Drawing.Point(66, 158);
+            this.InvlidN.Location = new System.Drawing.Point(59, 136);
             this.InvlidN.Name = "InvlidN";
-            this.InvlidN.Size = new System.Drawing.Size(97, 20);
+            this.InvlidN.Size = new System.Drawing.Size(77, 16);
             this.InvlidN.TabIndex = 11;
             this.InvlidN.Text = "Invalid Name";
             this.InvlidN.Visible = false;
@@ -106,9 +107,9 @@
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
-            this.btnLogin.Location = new System.Drawing.Point(65, 431);
+            this.btnLogin.Location = new System.Drawing.Point(58, 372);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(284, 58);
+            this.btnLogin.Size = new System.Drawing.Size(252, 50);
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseTransparentBackground = true;
@@ -118,9 +119,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Emoji", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(250, 364);
+            this.label4.Location = new System.Drawing.Point(222, 314);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 17);
+            this.label4.Size = new System.Drawing.Size(88, 15);
             this.label4.TabIndex = 8;
             this.label4.Text = "Show Password";
             // 
@@ -131,9 +132,9 @@
             this.guna2ToggleSwitch1.CheckedState.FillColor = System.Drawing.Color.DarkViolet;
             this.guna2ToggleSwitch1.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch1.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch1.Location = new System.Drawing.Point(210, 360);
+            this.guna2ToggleSwitch1.Location = new System.Drawing.Point(187, 311);
             this.guna2ToggleSwitch1.Name = "guna2ToggleSwitch1";
-            this.guna2ToggleSwitch1.Size = new System.Drawing.Size(38, 24);
+            this.guna2ToggleSwitch1.Size = new System.Drawing.Size(34, 21);
             this.guna2ToggleSwitch1.TabIndex = 0;
             this.guna2ToggleSwitch1.TabStop = false;
             this.guna2ToggleSwitch1.UncheckedState.BorderColor = System.Drawing.Color.DarkViolet;
@@ -159,14 +160,13 @@
             this.txtPass.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.txtPass.ForeColor = System.Drawing.Color.DarkViolet;
             this.txtPass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPass.Location = new System.Drawing.Point(65, 284);
-            this.txtPass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPass.Location = new System.Drawing.Point(58, 245);
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '\0';
             this.txtPass.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtPass.PlaceholderText = "Passowrd";
             this.txtPass.SelectedText = "";
-            this.txtPass.Size = new System.Drawing.Size(286, 65);
+            this.txtPass.Size = new System.Drawing.Size(254, 56);
             this.txtPass.TabIndex = 2;
             this.txtPass.TabStop = false;
             this.txtPass.Tag = "v";
@@ -187,14 +187,13 @@
             this.txtUser.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.txtUser.ForeColor = System.Drawing.Color.DarkViolet;
             this.txtUser.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUser.Location = new System.Drawing.Point(65, 182);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUser.Location = new System.Drawing.Point(58, 157);
             this.txtUser.Name = "txtUser";
             this.txtUser.PasswordChar = '\0';
             this.txtUser.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtUser.PlaceholderText = "User Name";
             this.txtUser.SelectedText = "";
-            this.txtUser.Size = new System.Drawing.Size(286, 65);
+            this.txtUser.Size = new System.Drawing.Size(254, 56);
             this.txtUser.TabIndex = 2;
             this.txtUser.TabStop = false;
             this.txtUser.Tag = "v";
@@ -203,9 +202,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(51, 39);
+            this.label3.Location = new System.Drawing.Point(45, 34);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(381, 69);
+            this.label3.Size = new System.Drawing.Size(307, 55);
             this.label3.TabIndex = 4;
             this.label3.Text = "WELLCOME";
             // 
@@ -213,9 +212,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(153, 116);
+            this.label2.Location = new System.Drawing.Point(136, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 20);
+            this.label2.Size = new System.Drawing.Size(99, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Billing System C#";
             // 
@@ -223,9 +222,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(535, 505);
+            this.label1.Location = new System.Drawing.Point(476, 436);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(269, 20);
+            this.label1.Size = new System.Drawing.Size(215, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Powerd by LK Programmers (Group-12)";
             // 
@@ -242,9 +241,9 @@
             this.btnCloseLogin.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseLogin.ForeColor = System.Drawing.Color.White;
             this.btnCloseLogin.HoverState.BorderColor = System.Drawing.Color.Fuchsia;
-            this.btnCloseLogin.Location = new System.Drawing.Point(807, 27);
+            this.btnCloseLogin.Location = new System.Drawing.Point(717, 23);
             this.btnCloseLogin.Name = "btnCloseLogin";
-            this.btnCloseLogin.Size = new System.Drawing.Size(63, 36);
+            this.btnCloseLogin.Size = new System.Drawing.Size(56, 31);
             this.btnCloseLogin.TabIndex = 1;
             this.btnCloseLogin.TabStop = false;
             this.btnCloseLogin.Text = "Exit";
@@ -264,23 +263,32 @@
             // 
             this.guna2PictureBox1.Image = global::Billing_System.Properties.Resources.logomain;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(506, 69);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(450, 60);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(318, 363);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(283, 314);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = null;
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog1.Parent = null;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 552);
+            this.ClientSize = new System.Drawing.Size(800, 477);
             this.Controls.Add(this.btnCloseLogin);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.guna2PictureBox1);
             this.Controls.Add(this.guna2Panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmLogin";
             this.Text = "frmLogin";
             this.Load += new System.EventHandler(this.frmLogin_Load);
@@ -308,5 +316,6 @@
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm2;
         private System.Windows.Forms.Label InvalidPd;
         private System.Windows.Forms.Label InvlidN;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

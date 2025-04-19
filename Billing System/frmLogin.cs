@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Guna.UI2.WinForms;
 
 namespace Billing_System
 {
@@ -66,6 +67,18 @@ namespace Billing_System
                         CurrentUser.ProfileImage = (byte[])dt.Rows[0]["uImage"];
                     }
 
+
+
+
+                    guna2MessageDialog1.Parent = this; // Center it relative to form
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                    guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog1.Caption = "Login Successful";
+                    guna2MessageDialog1.Text = "Welcome back, " + CurrentUser.UserName + "!";
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+
+
                     // Then open main form
                     new frmMain().Show();
                     this.Hide();
@@ -84,7 +97,17 @@ namespace Billing_System
                 InvalidPd.ForeColor = Color.Red;
                 txtUser.BorderColor = Color.Red;
                 txtPass.BorderColor = Color.Red;
-                MessageBox.Show("Invalid username or password", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+
+                guna2MessageDialog1.Parent = this; // 'this' refers to the current form
+                guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+                guna2MessageDialog1.Caption = "Login Failed";
+                guna2MessageDialog1.Text = "Invalid username or password";
+                guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                guna2MessageDialog1.Show();
+
             }
         }
 
