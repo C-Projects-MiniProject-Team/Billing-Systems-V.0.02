@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             this.srno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.detailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,30 +60,33 @@
             this.mDueDate = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.mainID = new System.Windows.Forms.Label();
             this.description = new System.Windows.Forms.Label();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog3 = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Size = new System.Drawing.Size(221, 33);
+            this.label1.Size = new System.Drawing.Size(175, 27);
             this.label1.Text = "Purchase Details ";
             // 
             // guna2DataGridView1
             // 
             this.guna2DataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.guna2DataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkViolet;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.DarkViolet;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.guna2DataGridView1.ColumnHeadersHeight = 35;
             this.guna2DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -94,22 +97,22 @@
             this.qty,
             this.Price,
             this.Amount});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
             this.guna2DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(44, 237);
+            this.guna2DataGridView1.Location = new System.Drawing.Point(39, 205);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 30;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(829, 356);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(737, 307);
             this.guna2DataGridView1.TabIndex = 3;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -196,9 +199,9 @@
             // 
             this.InvlidN.AutoSize = true;
             this.InvlidN.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvlidN.Location = new System.Drawing.Point(52, 129);
+            this.InvlidN.Location = new System.Drawing.Point(46, 111);
             this.InvlidN.Name = "InvlidN";
-            this.InvlidN.Size = new System.Drawing.Size(108, 20);
+            this.InvlidN.Size = new System.Drawing.Size(85, 16);
             this.InvlidN.TabIndex = 11;
             this.InvlidN.Text = "Supplier Name";
             // 
@@ -206,9 +209,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(316, 129);
+            this.label2.Location = new System.Drawing.Point(281, 111);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 20);
+            this.label2.Size = new System.Drawing.Size(31, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Date";
             // 
@@ -227,18 +230,18 @@
             this.PersonID.ForeColor = System.Drawing.Color.DarkViolet;
             this.PersonID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.PersonID.ItemHeight = 39;
-            this.PersonID.Location = new System.Drawing.Point(44, 160);
+            this.PersonID.Location = new System.Drawing.Point(39, 138);
             this.PersonID.Name = "PersonID";
-            this.PersonID.Size = new System.Drawing.Size(261, 45);
+            this.PersonID.Size = new System.Drawing.Size(232, 45);
             this.PersonID.TabIndex = 14;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(528, 129);
+            this.label3.Location = new System.Drawing.Point(469, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 20);
+            this.label3.Size = new System.Drawing.Size(55, 16);
             this.label3.TabIndex = 16;
             this.label3.Text = "Due Date";
             // 
@@ -259,18 +262,18 @@
             this.pType.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.pType.Location = new System.Drawing.Point(754, 160);
+            this.pType.Location = new System.Drawing.Point(670, 138);
             this.pType.Name = "pType";
-            this.pType.Size = new System.Drawing.Size(119, 45);
+            this.pType.Size = new System.Drawing.Size(106, 45);
             this.pType.TabIndex = 18;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(759, 129);
+            this.label4.Location = new System.Drawing.Point(675, 111);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 20);
+            this.label4.Size = new System.Drawing.Size(33, 16);
             this.label4.TabIndex = 19;
             this.label4.Text = "Type";
             // 
@@ -278,9 +281,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(908, 419);
+            this.label5.Location = new System.Drawing.Point(807, 362);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 20);
+            this.label5.Size = new System.Drawing.Size(83, 16);
             this.label5.TabIndex = 21;
             this.label5.Text = "Gross Amount";
             // 
@@ -300,14 +303,13 @@
             this.mTotal.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.mTotal.ForeColor = System.Drawing.Color.DarkViolet;
             this.mTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.mTotal.Location = new System.Drawing.Point(1016, 404);
-            this.mTotal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mTotal.Location = new System.Drawing.Point(903, 349);
             this.mTotal.Name = "mTotal";
             this.mTotal.PasswordChar = '\0';
             this.mTotal.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.mTotal.PlaceholderText = "Gross Amount";
             this.mTotal.SelectedText = "";
-            this.mTotal.Size = new System.Drawing.Size(195, 50);
+            this.mTotal.Size = new System.Drawing.Size(173, 43);
             this.mTotal.TabIndex = 20;
             this.mTotal.TabStop = false;
             this.mTotal.Tag = "v";
@@ -316,9 +318,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(908, 480);
+            this.label6.Location = new System.Drawing.Point(807, 415);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 20);
+            this.label6.Size = new System.Drawing.Size(54, 16);
             this.label6.TabIndex = 23;
             this.label6.Text = "Discount";
             // 
@@ -338,14 +340,13 @@
             this.Discount.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.Discount.ForeColor = System.Drawing.Color.DarkViolet;
             this.Discount.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Discount.Location = new System.Drawing.Point(1016, 465);
-            this.Discount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Discount.Location = new System.Drawing.Point(903, 402);
             this.Discount.Name = "Discount";
             this.Discount.PasswordChar = '\0';
             this.Discount.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.Discount.PlaceholderText = "Discount";
             this.Discount.SelectedText = "";
-            this.Discount.Size = new System.Drawing.Size(195, 50);
+            this.Discount.Size = new System.Drawing.Size(173, 43);
             this.Discount.TabIndex = 22;
             this.Discount.TabStop = false;
             this.Discount.Tag = "v";
@@ -355,9 +356,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(908, 539);
+            this.label7.Location = new System.Drawing.Point(807, 466);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 20);
+            this.label7.Size = new System.Drawing.Size(73, 16);
             this.label7.TabIndex = 25;
             this.label7.Text = "Net Amount";
             // 
@@ -377,14 +378,13 @@
             this.NetAmount.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.NetAmount.ForeColor = System.Drawing.Color.DarkViolet;
             this.NetAmount.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.NetAmount.Location = new System.Drawing.Point(1016, 524);
-            this.NetAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.NetAmount.Location = new System.Drawing.Point(903, 453);
             this.NetAmount.Name = "NetAmount";
             this.NetAmount.PasswordChar = '\0';
             this.NetAmount.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.NetAmount.PlaceholderText = "Net Amount";
             this.NetAmount.SelectedText = "";
-            this.NetAmount.Size = new System.Drawing.Size(195, 50);
+            this.NetAmount.Size = new System.Drawing.Size(173, 43);
             this.NetAmount.TabIndex = 24;
             this.NetAmount.TabStop = false;
             this.NetAmount.Tag = "v";
@@ -393,36 +393,36 @@
             // 
             this.guna2DataGridView2.AllowUserToAddRows = false;
             this.guna2DataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             this.guna2DataGridView2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkViolet;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.DarkViolet;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.guna2DataGridView2.ColumnHeadersHeight = 35;
             this.guna2DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI Emoji", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle12;
             this.guna2DataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(43)))), ((int)(((byte)(54)))));
-            this.guna2DataGridView2.Location = new System.Drawing.Point(133, 360);
+            this.guna2DataGridView2.Location = new System.Drawing.Point(118, 311);
             this.guna2DataGridView2.Name = "guna2DataGridView2";
             this.guna2DataGridView2.ReadOnly = true;
             this.guna2DataGridView2.RowHeadersVisible = false;
             this.guna2DataGridView2.RowHeadersWidth = 51;
             this.guna2DataGridView2.RowTemplate.Height = 30;
-            this.guna2DataGridView2.Size = new System.Drawing.Size(660, 245);
+            this.guna2DataGridView2.Size = new System.Drawing.Size(587, 212);
             this.guna2DataGridView2.TabIndex = 26;
             this.guna2DataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView2.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -453,9 +453,9 @@
             // 
             this.mType.AutoSize = true;
             this.mType.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mType.Location = new System.Drawing.Point(969, 185);
+            this.mType.Location = new System.Drawing.Point(861, 160);
             this.mType.Name = "mType";
-            this.mType.Size = new System.Drawing.Size(67, 20);
+            this.mType.Size = new System.Drawing.Size(55, 16);
             this.mType.TabIndex = 27;
             this.mType.Text = "Purchase";
             this.mType.Visible = false;
@@ -463,12 +463,13 @@
             // 
             // mdate
             // 
-            this.mdate.BackColor = System.Drawing.Color.Black;
+            this.mdate.BackColor = System.Drawing.Color.Transparent;
             this.mdate.BorderColor = System.Drawing.Color.DarkViolet;
             this.mdate.BorderRadius = 9;
             this.mdate.BorderThickness = 2;
             this.mdate.Checked = true;
             this.mdate.CheckedState.BorderColor = System.Drawing.Color.DarkViolet;
+            this.mdate.CheckedState.FillColor = System.Drawing.Color.Black;
             this.mdate.FillColor = System.Drawing.Color.Black;
             this.mdate.FocusedColor = System.Drawing.Color.Fuchsia;
             this.mdate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -477,22 +478,23 @@
             this.mdate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.mdate.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.mdate.HoverState.ForeColor = System.Drawing.Color.DarkViolet;
-            this.mdate.Location = new System.Drawing.Point(320, 160);
+            this.mdate.Location = new System.Drawing.Point(284, 138);
             this.mdate.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.mdate.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.mdate.Name = "mdate";
-            this.mdate.Size = new System.Drawing.Size(195, 53);
+            this.mdate.Size = new System.Drawing.Size(173, 46);
             this.mdate.TabIndex = 30;
             this.mdate.Value = new System.DateTime(2025, 2, 18, 0, 0, 0, 0);
             // 
             // mDueDate
             // 
-            this.mDueDate.BackColor = System.Drawing.Color.Black;
+            this.mDueDate.BackColor = System.Drawing.Color.Transparent;
             this.mDueDate.BorderColor = System.Drawing.Color.DarkViolet;
             this.mDueDate.BorderRadius = 9;
             this.mDueDate.BorderThickness = 2;
             this.mDueDate.Checked = true;
             this.mDueDate.CheckedState.BorderColor = System.Drawing.Color.DarkViolet;
+            this.mDueDate.CheckedState.FillColor = System.Drawing.Color.Black;
             this.mDueDate.FillColor = System.Drawing.Color.Black;
             this.mDueDate.FocusedColor = System.Drawing.Color.Fuchsia;
             this.mDueDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -501,11 +503,11 @@
             this.mDueDate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.mDueDate.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.mDueDate.HoverState.ForeColor = System.Drawing.Color.DarkViolet;
-            this.mDueDate.Location = new System.Drawing.Point(532, 160);
+            this.mDueDate.Location = new System.Drawing.Point(473, 138);
             this.mDueDate.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.mDueDate.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.mDueDate.Name = "mDueDate";
-            this.mDueDate.Size = new System.Drawing.Size(195, 53);
+            this.mDueDate.Size = new System.Drawing.Size(173, 46);
             this.mDueDate.TabIndex = 31;
             this.mDueDate.Value = new System.DateTime(2025, 2, 18, 0, 0, 0, 0);
             // 
@@ -513,9 +515,9 @@
             // 
             this.mainID.AutoSize = true;
             this.mainID.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainID.Location = new System.Drawing.Point(969, 237);
+            this.mainID.Location = new System.Drawing.Point(861, 205);
             this.mainID.Name = "mainID";
-            this.mainID.Size = new System.Drawing.Size(67, 20);
+            this.mainID.Size = new System.Drawing.Size(55, 16);
             this.mainID.TabIndex = 32;
             this.mainID.Text = "Purchase";
             this.mainID.Visible = false;
@@ -524,18 +526,45 @@
             // 
             this.description.AutoSize = true;
             this.description.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.description.Location = new System.Drawing.Point(1124, 237);
+            this.description.Location = new System.Drawing.Point(999, 205);
             this.description.Name = "description";
-            this.description.Size = new System.Drawing.Size(67, 20);
+            this.description.Size = new System.Drawing.Size(55, 16);
             this.description.TabIndex = 33;
             this.description.Text = "Purchase";
             this.description.Visible = false;
             // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = null;
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog1.Parent = null;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog1.Text = null;
+            // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = null;
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog2.Parent = null;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog2.Text = null;
+            // 
+            // guna2MessageDialog3
+            // 
+            this.guna2MessageDialog3.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog3.Caption = null;
+            this.guna2MessageDialog3.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog3.Parent = null;
+            this.guna2MessageDialog3.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog3.Text = null;
+            // 
             // frmPurchaseAdd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1246, 725);
+            this.ClientSize = new System.Drawing.Size(1108, 626);
             this.Controls.Add(this.description);
             this.Controls.Add(this.mainID);
             this.Controls.Add(this.mDueDate);
@@ -593,5 +622,8 @@
         private Guna.UI2.WinForms.Guna2DateTimePicker mDueDate;
         private System.Windows.Forms.Label mainID;
         private System.Windows.Forms.Label description;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog3;
     }
 }

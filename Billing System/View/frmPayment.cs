@@ -87,9 +87,7 @@ namespace Billing_System.View
 
         public override void guna2DataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(guna2DataGridView1.CurrentRow.Cells[1].Value);
-            new frmPaymentAdd() { editID = id }.ShowDialog();
-            LoadData();
+
         }
     }
 }

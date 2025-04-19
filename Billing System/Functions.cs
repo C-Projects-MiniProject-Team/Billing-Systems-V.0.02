@@ -857,6 +857,43 @@ namespace MainClass
                         }
                         break;
 
+
+                    case "tblCustomer":
+                        if (type == enmType.Insert)
+                        {
+                            qry = $"INSERT INTO {tableName} (cName, cPhone, cEmail, cAddress) VALUES (@cName, @cPhone, @cEmail, @cAddress)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            qry = $"UPDATE {tableName} SET cName = @cName, cPhone = @cPhone, cEmail = @cEmail, cAddress = @cAddress WHERE cusID = @cusID";
+                            ht.Add("@cusID", editID);
+                        }
+                        else if (type == enmType.Delete && editID > 0)
+                        {
+                            qry = $"DELETE FROM {tableName} WHERE cusID = @cusID";
+                            ht.Add("@cusID", editID);
+                        }
+                        break;
+
+                   
+                    case "tblSupplier":
+                        if (type == enmType.Insert)
+                        {
+                            qry = $"INSERT INTO {tableName} (sName, sPhone, sEmail, sAddress) VALUES (@sName, @sPhone, @sEmail, @sAddress)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            qry = $"UPDATE {tableName} SET sName = @sName, sPhone = @sPhone, sEmail = @sEmail, sAddress = @sAddress WHERE supID = @supID";
+                            ht.Add("@supID", editID);
+                        }
+                        else if (type == enmType.Delete && editID > 0)
+                        {
+                            qry = $"DELETE FROM {tableName} WHERE supID = @supID";
+                            ht.Add("@supID", editID);
+                        }
+                        break;
+
+
                     case "tblUser":
                         if (type == enmType.Insert)
                         {
@@ -1006,7 +1043,7 @@ namespace MainClass
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Operation completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   
                 }
             }
             catch (Exception ex)
@@ -1074,6 +1111,8 @@ namespace MainClass
                                     MessageBox.Show("Invalid Discount!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
+
+
 
                                 netAmount = totalAmount - discount;
                                 netAmount = Math.Round(netAmount, 2);
@@ -1145,11 +1184,7 @@ namespace MainClass
                         }
                         else if (type == enmType.Delete && editID > 0)
                         {
-                            DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (result == DialogResult.No)
-                            {
-                                return;
-                            }
+
 
                             string deleteDetailQuery = $"DELETE FROM {detailTable} WHERE mainID=@mainID";
                             using (SqlCommand cmd = new SqlCommand(deleteDetailQuery, con, transaction))
@@ -1166,7 +1201,6 @@ namespace MainClass
                             }
 
                             transaction.Commit();
-                            MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     catch (Exception ex)
@@ -1470,8 +1504,7 @@ namespace MainClass
                     // Optionally, adjust the size mode to fit the image nicely
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // Adjusts the image size to fit within the PictureBox
 
-                    // Display success message for debugging
-                    MessageBox.Show("Image successfully loaded!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   
                 }
                 catch (Exception ex)
                 {

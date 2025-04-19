@@ -32,14 +32,14 @@
             // 
             // label1
             // 
-            this.label1.Size = new System.Drawing.Size(118, 33);
+            this.label1.Size = new System.Drawing.Size(94, 27);
             this.label1.Text = "User List";
             // 
             // frmUser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 610);
+            this.ClientSize = new System.Drawing.Size(977, 510);
             this.Name = "frmUser";
             this.Text = "frmUser";
             this.Load += new System.EventHandler(this.frmUser_Load);

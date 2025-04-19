@@ -1,5 +1,4 @@
 ﻿using Guna.UI2.WinForms;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +11,8 @@ namespace Billing_System.Model
         {
             InitializeComponent();
         }
+
+        private int lastRowIndex = -1;
 
         private void mdate_ValueChanged(object sender, EventArgs e)
         {
@@ -34,29 +35,8 @@ namespace Billing_System.Model
 
             PersonID.SelectedIndexChanged += PersonID_SelectedIndexChanged;
 
-            // Prevent duplicate events
             guna2DataGridView1.SelectionChanged -= guna2DataGridView1_SelectionChanged;
-
-            // frmPaymentAdd_Load() method 
             guna2DataGridView1.SelectionChanged += guna2DataGridView1_SelectionChanged;
-
-
-
-        }
-
-
-
-        private void guna2DataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            if (guna2DataGridView1.SelectedRows.Count > 0)
-            {
-                var selectedRow = guna2DataGridView1.SelectedRows[0];
-                if (selectedRow.Cells["mainID"].Value != null)
-                {
-                    mainID.Text = selectedRow.Cells["mainID"].Value.ToString();
-                    Console.WriteLine("Selected row mainID: " + mainID.Text);
-                }
-            }
         }
 
         private void PersonID_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,57 +45,111 @@ namespace Billing_System.Model
 
             int partyID = (PersonID.SelectedIndex == -1) ? 0 : Convert.ToInt32(PersonID.SelectedValue);
 
-
             guna2DataGridView1.DataSource = null;
-            string qry = @"
-                            SELECT 0 AS 'Sr#', 
-                                   m.mainID, 
-                                   m.NetAmount AS 'Invoice Amount',
-                                   (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Payment',
-                                   m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Balance'
-                            FROM tblInvMain m
-                            WHERE m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) <> 0
-                              AND m.mType <> 'Cash'
-                              AND m.mType = 'Purchase'
-                              AND m.PersonID = " + partyID;
 
-
+            string qry = $@"
+                SELECT 0 AS 'Sr#',
+                       m.mainID,
+                       m.NetAmount AS 'Invoice Amount',
+                       (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Payment',
+                       m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) AS 'Balance'
+                FROM tblInvMain m
+                WHERE m.NetAmount - (SELECT ISNULL(SUM(p.NetAmount), 0) FROM tblPayment p WHERE p.mainID = m.mainID) <> 0
+                  AND m.mType <> 'Cash'
+                  AND m.mType = 'Purchase'
+                  AND m.PersonID = {partyID}";
 
             MainClass.Functions.LoadData(qry, guna2DataGridView1);
-
-
 
             if (guna2DataGridView1.Columns.Contains("mainID"))
             {
                 guna2DataGridView1.Columns["mainID"].Visible = true;
             }
+
+            // 🔄 Auto-select first row and auto-fill fields
+            if (guna2DataGridView1.Rows.Count > 0)
+            {
+                guna2DataGridView1.ClearSelection();
+                guna2DataGridView1.Rows[0].Selected = true;
+
+                var row = guna2DataGridView1.Rows[0];
+
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
+
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                description.Text = $"Payment for Invoice #{mainID.Text}";
+            }
         }
 
-        private int lastRowIndex = -1;
+        private void guna2DataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (guna2DataGridView1.SelectedRows.Count > 0)
+            {
+                var row = guna2DataGridView1.SelectedRows[0];
 
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
 
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                if (string.IsNullOrWhiteSpace(description.Text))
+                    description.Text = $"Payment for Invoice #{mainID.Text}";
+            }
+        }
 
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.RowIndex != lastRowIndex)
             {
-                int row = guna2DataGridView1.CurrentCell.RowIndex;
-                mainID.Text = guna2DataGridView1.CurrentRow.Cells[1].Value.ToString();
+                lastRowIndex = e.RowIndex;
+                var row = guna2DataGridView1.Rows[e.RowIndex];
+
+                if (row.Cells["mainID"].Value != null)
+                    mainID.Text = row.Cells["mainID"].Value.ToString();
+
+                if (row.Cells["Balance"].Value != null)
+                    NetAmount.Text = row.Cells["Balance"].Value.ToString();
+
+                if (string.IsNullOrWhiteSpace(description.Text))
+                    description.Text = $"Payment for Invoice #{mainID.Text}";
             }
-
-
-
         }
-
 
         public override async void btnSave_Click(object sender, EventArgs e)
         {
+            // Validation
+            if (PersonID.SelectedIndex == -1 || string.IsNullOrWhiteSpace(PersonID.Text))
+            {
+                ShowMsg("Please select a supplier!", MessageDialogIcon.Warning);
+                return;
+            }
+
+            if (guna2DataGridView1.SelectedRows.Count == 0)
+            {
+                ShowMsg("Please select an invoice from the list!", MessageDialogIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(description.Text))
+            {
+                ShowMsg("Please enter a description!", MessageDialogIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(NetAmount.Text) || !decimal.TryParse(NetAmount.Text, out decimal amount) || amount <= 0)
+            {
+                ShowMsg("Please enter a valid amount!", MessageDialogIcon.Warning);
+                return;
+            }
+
+            // Save
             await Task.Run(() =>
             {
                 if (mainID.Text == "0") return;
-
                 if (!MainClass.Functions.Validatation(this)) return;
 
                 if (editID == 0)
@@ -124,22 +158,31 @@ namespace Billing_System.Model
                     MainClass.Functions.AutoSQL(this, "tblPayment", MainClass.Functions.enmType.Update, editID);
             });
 
+           
+            // Reset UI
             Invoke(new Action(() =>
             {
                 MainClass.Functions.ClearAll(this);
                 mainID.Text = "0";
                 editID = 0;
+
+                // Clear DataGrid to stop SelectionChanged event
+                guna2DataGridView1.DataSource = null;
                 guna2DataGridView1.ClearSelection();
+
+                // Clear manually
+                description.Text = "";
+                NetAmount.Text = "";
+
+                // Reset supplier dropdown
+                PersonID.SelectedIndex = -1;
+
+                // Show success message
+                ShowMsg("Payment saved successfully!", MessageDialogIcon.Information);
             }));
+
+
         }
-
-
-
-
-
-
-
-
 
         public override void btnDelete_Click(object sender, EventArgs e)
         {
@@ -148,6 +191,15 @@ namespace Billing_System.Model
             MainClass.Functions.ClearAll(this);
         }
 
-
+        private void ShowMsg(string message, MessageDialogIcon icon)
+        {
+            guna2MessageDialog1.Parent = this;
+            guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+            guna2MessageDialog1.Icon = icon;
+            guna2MessageDialog1.Caption = "Billing System";
+            guna2MessageDialog1.Text = message;
+            guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+            guna2MessageDialog1.Show();
+        }
     }
 }
