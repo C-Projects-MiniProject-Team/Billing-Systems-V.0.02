@@ -156,7 +156,7 @@ namespace Billing_System.Model
                 if (row.Cells["Balance"].Value != null)
                     NetAmount.Text = row.Cells["Balance"].Value.ToString();
 
-                // ✅ Always update description
+                //  Always update description
                 description.Text = $"Payment for Invoice #{mainID.Text}";
             }
 
@@ -175,7 +175,7 @@ namespace Billing_System.Model
                 if (row.Cells["Balance"].Value != null)
                     NetAmount.Text = row.Cells["Balance"].Value.ToString();
 
-                // ✅ Always update description
+                //  Always update description
                 description.Text = $"Payment for Invoice #{mainID.Text}";
             }
 
@@ -194,7 +194,7 @@ namespace Billing_System.Model
                 if (row.Cells["Balance"].Value != null)
                     NetAmount.Text = row.Cells["Balance"].Value.ToString();
 
-                // ✅ Always update description
+                // Always update description
                 description.Text = $"Payment for Invoice #{mainID.Text}";
             }
 
@@ -242,7 +242,7 @@ namespace Billing_System.Model
                 return;
             }
 
-            // ✅ Reset UI after save
+            //  Reset UI after save
             MainClass.Functions.ClearAll(this);
             mainID.Text = "0";
             editID = 0;
