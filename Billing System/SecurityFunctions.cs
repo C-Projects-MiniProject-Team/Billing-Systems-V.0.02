@@ -40,7 +40,7 @@ namespace Billing_System
             }
         }
 
-        /// <summary>
+        /// <summary>ෂ්
         /// Decrypts a Base64 string encrypted by EncryptPassword.
         /// Returns the original plain password.
         /// </summary>

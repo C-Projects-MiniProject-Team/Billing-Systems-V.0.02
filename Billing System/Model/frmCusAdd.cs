@@ -41,7 +41,7 @@ namespace Billing_System.Model
             {
                 MainClass.Functions.AutoSQL(this, "tblCustomer", MainClass.Functions.enmType.Insert, editID);
 
-                guna2MessageDialog1.Parent = this; // 🔥 Bind it to the current form
+                guna2MessageDialog1.Parent = this; //  Bind it to the current form
                 guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                 guna2MessageDialog1.Style = MessageDialogStyle.Dark;
                 guna2MessageDialog1.Caption = "Billing System";
@@ -57,7 +57,7 @@ namespace Billing_System.Model
             {
                 MainClass.Functions.AutoSQL(this, "tblCustomer", MainClass.Functions.enmType.Update, editID);
 
-                guna2MessageDialog2.Parent = this; // 💡 Bind dialog to this form
+                guna2MessageDialog2.Parent = this; //  Bind dialog to this form
                 guna2MessageDialog2.Icon = MessageDialogIcon.Information;
                 guna2MessageDialog2.Style = MessageDialogStyle.Dark;
                 guna2MessageDialog2.Caption = "Billing System";

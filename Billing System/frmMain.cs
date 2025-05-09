@@ -29,7 +29,7 @@ namespace Billing_System
             foreach (var btn in buttons)
             {
                 btn.FillColor = Color.Transparent;
-                btn.HoverState.FillColor = Color.FromArgb(40, 255, 255, 255); // ✅ Light glassy hover
+                btn.HoverState.FillColor = Color.FromArgb(40, 255, 255, 255); //  Light glassy hover
                 btn.BorderThickness = 0;
                 btn.BorderColor = Color.Transparent;
                 btn.BackColor = Color.Transparent;
