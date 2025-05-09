@@ -10,7 +10,9 @@ namespace Billing_System.Model
         public frmReceipAdd()
         {
             InitializeComponent();
+
         }
+
 
         private int lastRowIndex = -1;
 
@@ -214,9 +216,12 @@ namespace Billing_System.Model
 
                 if (editID == 0)
                     MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Insert, editID);
+                    
                 else
                     MainClass.Functions.AutoSQL(this, "tblReceipt", MainClass.Functions.enmType.Update, editID);
+                    
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show("Save error: " + ex.Message);
@@ -241,6 +246,8 @@ namespace Billing_System.Model
             editID = 0;
             MainClass.Functions.ClearAll(this);
         }
+
+  
 
         private void ShowMsg(string message, MessageDialogIcon icon)
         {

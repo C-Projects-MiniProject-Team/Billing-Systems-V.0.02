@@ -743,7 +743,7 @@ namespace MainClass
                 }
                 else if (tableName == "tblReceipt")
                 {
-                    idColumn = "recID"; // ✅ FIXED: correct column name
+                    idColumn = "recID"; // FIXED: correct column name
                 }
 
 
@@ -956,23 +956,34 @@ namespace MainClass
                             else
                                 ht["@NetAmount"] = DBNull.Value;
 
-                            if (form.Controls["pType"] is Guna2ComboBox pTypeControl)
-                                ht["@pType"] = string.IsNullOrWhiteSpace(pTypeControl.Text) ? "Cash" : pTypeControl.Text;
-                            else
-                                ht["@pType"] = "Cash";
-
                             qry = "INSERT INTO tblPayment (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            string personQuery = "SELECT PersonID FROM tblInvMain WHERE mainID = @mainID";
+                            var personID = ExecuteScalar(personQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
+
+                            ht["@mainID"] = form.Controls["mainID"].Text;
+                            ht["@mdate"] = ((Guna2DateTimePicker)form.Controls["mdate"]).Value;
+                            ht["@PersonID"] = personID;
+                            ht["@description"] = form.Controls["description"].Text;
+
+                            if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal netAmount))
+                                ht["@NetAmount"] = netAmount;
+                            else
+                                ht["@NetAmount"] = DBNull.Value;
+
+                            qry = "UPDATE tblPayment SET mainID = @mainID, mdate = @mdate, PersonID = @PersonID, description = @description, NetAmount = @NetAmount WHERE payID = @payID";
+                            ht["@payID"] = editID;
                         }
                         break;
 
-                    
-                    
-                    
-                    
-                    
-                    case "tblReceipt":
-                        qry = "INSERT INTO tblReceipt (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
 
+
+
+
+
+                    case "tblReceipt":
                         string receiptPersonQuery = "SELECT PersonID FROM tblInvMain WHERE mainID = @mainID";
                         var receiptPersonID = ExecuteScalar(receiptPersonQuery, new SqlParameter("@mainID", Convert.ToInt32(form.Controls["mainID"].Text)));
 
@@ -985,13 +996,22 @@ namespace MainClass
                         else
                             ht["@mdate"] = DateTime.Now;
 
-
                         if (decimal.TryParse(form.Controls["NetAmount"].Text, out decimal rNetAmount))
                             ht["@NetAmount"] = rNetAmount;
                         else
                             ht["@NetAmount"] = DBNull.Value;
 
+                        if (type == enmType.Insert)
+                        {
+                            qry = "INSERT INTO tblReceipt (mainID, mdate, PersonID, description, NetAmount) VALUES (@mainID, @mdate, @PersonID, @description, @NetAmount)";
+                        }
+                        else if (type == enmType.Update && editID > 0)
+                        {
+                            qry = "UPDATE tblReceipt SET mainID = @mainID, mdate = @mdate, PersonID = @PersonID, description = @description, NetAmount = @NetAmount WHERE recID = @recID";
+                            ht["@recID"] = editID;
+                        }
                         break;
+
 
                     default:
                         MessageBox.Show("Invalid table name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
