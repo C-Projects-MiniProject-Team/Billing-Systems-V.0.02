@@ -64,6 +64,7 @@
             this.btnAddPro = new Guna.UI2.WinForms.Guna2Button();
             this.guna2BorderlessForm2 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             this.guna2BorderlessForm3 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -812,6 +813,15 @@
             this.guna2BorderlessForm3.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm3.TransparentWhileDrag = true;
             // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = null;
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog1.Parent = null;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -873,5 +883,6 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox userProfilePic;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm3;
         private System.Windows.Forms.Label roleName;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

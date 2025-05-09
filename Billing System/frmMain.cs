@@ -229,11 +229,18 @@ namespace Billing_System
 
         private void btnCloseLogin_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            guna2MessageDialog1.Parent = this;
+            guna2MessageDialog1.Style = MessageDialogStyle.Dark;
+            guna2MessageDialog1.Icon = MessageDialogIcon.Question;
+            guna2MessageDialog1.Caption = "Confirm Logout";
+            guna2MessageDialog1.Text = "Are you sure you want to logout?";
+            guna2MessageDialog1.Buttons = MessageDialogButtons.YesNo;
+
+            DialogResult result = guna2MessageDialog1.Show();
 
             if (result == DialogResult.Yes)
             {
-                // Clear logged user data
+                // Clear user session data
                 CurrentUser.UserID = 0;
                 CurrentUser.UserName = null;
                 CurrentUser.Role = 0;
@@ -243,9 +250,10 @@ namespace Billing_System
                 frmLogin loginForm = new frmLogin();
                 loginForm.Show();
 
-                // Close current form (Main Form)
+                // Close the main form
                 this.Close();
             }
         }
+
     }
 }
