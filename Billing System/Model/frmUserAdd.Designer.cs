@@ -45,6 +45,7 @@
             this.uPass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxBTN = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2MessageDialog4 = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picuterBoxUser)).BeginInit();
             this.SuspendLayout();
             // 
@@ -329,6 +330,15 @@
             this.checkBoxBTN.UncheckedState.InnerColor = System.Drawing.Color.White;
             this.checkBoxBTN.CheckedChanged += new System.EventHandler(this.checkBoxBTN_CheckedChanged);
             // 
+            // guna2MessageDialog4
+            // 
+            this.guna2MessageDialog4.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog4.Caption = null;
+            this.guna2MessageDialog4.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog4.Parent = null;
+            this.guna2MessageDialog4.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.guna2MessageDialog4.Text = null;
+            // 
             // frmUserAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
@@ -376,5 +386,6 @@
         private Guna.UI2.WinForms.Guna2TextBox uPass;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2ToggleSwitch checkBoxBTN;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog4;
     }
 }
