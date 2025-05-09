@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -200,16 +201,41 @@ namespace Billing_System.Model
 
         public override void btnDelete_Click(object sender, EventArgs e)
         {
+            // Check if current editID is admin
+            string checkRoleQuery = $"SELECT uRole FROM tblUser WHERE userID = {editID}";
+            object roleResult = MainClass.Functions.GetFieldValue(checkRoleQuery);
+
+            if (roleResult != null && Convert.ToInt32(roleResult) == 1) // Assuming 1 = Admin
+            {
+                // Count how many admin users exist
+                string countAdminQuery = "SELECT COUNT(*) FROM tblUser WHERE uRole = 1";
+                object countResult = MainClass.Functions.GetFieldValue(countAdminQuery);
+
+                if (countResult != null && Convert.ToInt32(countResult) <= 1)
+                {
+                    guna2MessageDialog4.Parent = this;
+                    guna2MessageDialog4.Icon = MessageDialogIcon.Warning;
+                    guna2MessageDialog4.Style = MessageDialogStyle.Dark;
+                    guna2MessageDialog4.Caption = "Permission Denied";
+                    guna2MessageDialog4.Text = "Cannot delete the only Admin user!";
+                    guna2MessageDialog4.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog4.Show();
+
+                    return;
+                }
+            }
+
             // Show confirmation dialog
             DialogResult result = guna2MessageDialog2.Show();
 
-            if (result == DialogResult.Yes) // Delete user if confirmed
+            if (result == DialogResult.Yes)
             {
                 MainClass.Functions.AutoSQL(this, "tblUser", MainClass.Functions.enmType.Delete, editID);
                 editID = 0;
                 ClearFields(); // Clear fields after deletion
             }
         }
+
 
         private void PicUpload_Click(object sender, EventArgs e)
         {
